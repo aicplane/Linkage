@@ -15,4 +15,4 @@ Install.biocViews()
 Linkage()
 ```
 
-The Shiny application is additionally hosted at [[https://xulabgdpu.org.cn/linkage]{.underline}](https://xulabgdpu.org.cn/linkage)
+The Shiny application is additionally hosted at https://xulabgdpu.org.cn/linkage
