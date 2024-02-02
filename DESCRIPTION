@@ -1,0 +1,27 @@
+Package: Linkage
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 1.0.1
+Authors@R: 
+    person(given = "Zenghui",
+         family = "Liu",
+         role = c("aut", "cre"),
+         email = "2470587020@qq.com")
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
+Encoding: UTF-8
+RoxygenNote: 7.2.3
+Imports: shiny, shinyjs, shinydashboard, shinydashboardPlus,
+        shinycssloaders, shinyWidgets, shinyBS, RColorBrewer, rvest,
+        data.table, ggplot2, ggpubr, ggpmisc, DT, dplyr, Biostrings,
+        igraph, tidyverse, visNetwork, stringr, clusterProfiler,
+        enrichplot, plotly, wordcloud2, fresh
+biocViews: BiocManager, Gviz, ChIPseeker,
+        TxDb.Hsapiens.UCSC.hg38.knownGene,
+        TxDb.Mmusculus.UCSC.mm10.knownGene, org.Hs.eg.db, org.Mm.eg.db,
+        BSgenome.Hsapiens.UCSC.hg38,
+        BSgenome.Mmusculus.UCSC.mm10,BiocManager, TFBSTools,
+        motifmatchr
+Suggests: testthat
