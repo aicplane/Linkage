@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b7cfc5c296c4d5bd346ef69ebcfe08ccf6de27cb2347a578630fcf0ea5d43e60
-size 1450
+#' Launch Shiny App
+#'
+#' @param name The name of the app to run
+#' @param ... arguments to pass to shiny::runApp
+#'
+#' @export
+#'
+Linkage <- function() {
+  appDir <- system.file(paste0("apps"), package = "Linkage")
+  if (appDir == "") stop("The shiny app ", name, " does not exist")
+  shiny::runApp(appDir)
+}

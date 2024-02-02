@@ -1,3 +1,5 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:791958e28a1ea495720f49915176a9636ef2f1f8bcb8993b327ced947483e4c6
-size 258
+Linkage <- function() {
+  appDir <- system.file(paste0("apps"), package = "Linkage")
+  if (appDir == "") stop("The shiny app ", name, " does not exist")
+  shiny::runApp(appDir)
+}
