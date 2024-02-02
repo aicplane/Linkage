@@ -18,7 +18,8 @@ Imports: shiny, shinyjs, shinydashboard, shinydashboardPlus,
         data.table, ggplot2, ggpubr, ggpmisc, DT, dplyr, Biostrings,
         igraph, tidyverse, visNetwork, stringr, clusterProfiler,
         enrichplot, plotly, wordcloud2, fresh
-biocViews: BiocManager, Gviz, ChIPseeker,
+biocViews:
+imports: BiocManager, Gviz, ChIPseeker,
         TxDb.Hsapiens.UCSC.hg38.knownGene,
         TxDb.Mmusculus.UCSC.mm10.knownGene, org.Hs.eg.db, org.Mm.eg.db,
         BSgenome.Hsapiens.UCSC.hg38,
