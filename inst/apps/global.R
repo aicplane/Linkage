@@ -83,7 +83,7 @@ mouse.ATAC_matrix <- do.call(rbind, mouse.df_list)
 Homo.list.files <- list.files("../extdata/Homo.ATAC/")
 Homo.list.files <- paste0("../extdata/Homo.ATAC/",Homo.list.files)
 Homo.df_list <- lapply(Homo.list.files,function(file) fread(file,header = T))
-ATAC_matrix <- do.call(rbind, df_list)
+ATAC_matrix <- do.call(rbind, Homo.df_list)
 
 RNA_matrix <- fread("../extdata/TCGA-BRCA-RNA.txt", header = TRUE)
 # ATAC_matrix <- fread("../extdata/TCGA-BRCA-ATAC.txt", header = TRUE)
