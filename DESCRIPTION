@@ -19,10 +19,10 @@ Imports: shiny, shinyjs, shinydashboard, shinydashboardPlus,
         igraph, tidyverse, visNetwork, stringr, clusterProfiler,
         enrichplot, plotly, wordcloud2, fresh
 biocViews:
-imports: BiocManager, Gviz, ChIPseeker,
+Imports: BiocManager, Gviz, ChIPseeker,
         TxDb.Hsapiens.UCSC.hg38.knownGene,
         TxDb.Mmusculus.UCSC.mm10.knownGene, org.Hs.eg.db, org.Mm.eg.db,
         BSgenome.Hsapiens.UCSC.hg38,
-        BSgenome.Mmusculus.UCSC.mm10,BiocManager, TFBSTools,
+        BSgenome.Mmusculus.UCSC.mm10, TFBSTools,
         motifmatchr
 Suggests: testthat
