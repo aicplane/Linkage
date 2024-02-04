@@ -381,7 +381,7 @@ motif_analysis <- function(peakfile, select_peak,Species) {
 seqLogo_plot <- function(motif, select_row) {
   select_motif <- motif[select_row, ]
   #m <- getMatrixByID(JASPAR2022, select_motif$ID)
-  m <- TFBSTools::getMatrixByID('JASPAR2022.sqlite', select_motif$ID)
+  m <- TFBSTools::getMatrixByID('../extdata/JASPAR2022.sqlite', select_motif$ID)
   return(seqLogo(toICM(m)))
 }
 

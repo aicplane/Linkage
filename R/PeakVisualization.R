@@ -1,97 +1,139 @@
-# 模块二 ------------------------------------------------------------------
-# 输出peak选择数据库
-observe({
-  if (is.null(select_ATAC())) {
-    output$ATAC2 <- DT::renderDataTable(NULL)
-  } else{
-    output$ATAC2 <-
-      DT::renderDataTable({
-        df <- select_ATAC()[, c(-4:-(ncol(select_ATAC()) - 3))]
-        # Create 19 breaks and 20 rgb color values ranging from white to blue
-        brks1 <-
-          quantile(
-            df[, c(6)] %>% select_if(is.numeric),
-            probs = seq(.05, .95, .05),
-            na.rm = TRUE
-          )
-        brks2 <-
-          quantile(
-            df[, c(5)] %>% select_if(is.numeric),
-            probs = seq(.05, .95, .05),
-            na.rm = TRUE
-          )
-        brks3 <-
-          quantile(
-            df[, c(4)] %>% select_if(is.numeric),
-            probs = seq(.05, .95, .05),
-            na.rm = TRUE
-          )
-        # clrs <- round(seq(0, 100, length.out = length(brks) + 1), 0) %>%
-        #   {paste0("rgb(", .,",", .,",220)")}
-        DT::datatable(
-          df,
-          selection = "single",
-          # extensions = c("Scroller", "RowReorder"),
-          option = list(
-            pageLength = 10,
-            pageWidth = 10,
-            # autoWidth = F,
-            searchHighlight = TRUE,
-            # columnDefs = list(list(
-            #   targets = 2, width = "210px"
-            # )),
-            scrollX = TRUE
-          )
-        ) %>%
-          formatStyle(names(df[, 6]), backgroundColor = styleInterval(brks1, head(Blues, n = length(brks1) + 1))) %>%
-          formatStyle(names(df[, 5]), backgroundColor = styleInterval(brks2, Blues[(length(brks3) + 1):1])) %>%
-          formatStyle(names(df[, 4]), backgroundColor = styleInterval(brks3, Blues[(length(brks3) + 1):1]))
-      })
+trackplot <- function(peakfile, select_peak,Species) {
+  df <- peakfile[, c(-1:-3)]
+  t_df <- t(df)
+  dt_df <- data.frame(t_df)
+  sort_df <- dt_df[order(dt_df[, select_peak]), , drop = FALSE]
+  v1 <- sort_df[c(1:(nrow(sort_df) %/% 5)), , drop = FALSE]
+  v2 <- sort_df[c(((nrow(sort_df) %/% 5) + 1):(2 * (nrow(sort_df) %/% 5))), , drop = FALSE]
+  v3 <- sort_df[c((2 * (nrow(sort_df) %/% 5) + 1):(3 * (nrow(sort_df) %/% 5))), , drop = FALSE]
+  v4 <- sort_df[c((3 * (nrow(sort_df) %/% 5) + 1):(4 * (nrow(sort_df) %/% 5))), , drop = FALSE]
+  v5 <- sort_df[c((4 * (nrow(sort_df) %/% 5) + 1):nrow(sort_df)), , drop = FALSE]
+  m1 <- colMeans(v1)
+  m2 <- colMeans(v2)
+  m3 <- colMeans(v3)
+  m4 <- colMeans(v4)
+  m5 <- colMeans(v5)
+  data <- data.frame(group1 = m1, group2 = m2, group3 = m3, group4 = m4, group5 = m5)
+  #print(data)
+  gr <- GenomicRanges::makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
+  values(gr) <- data
+  #print(gr)
+  ax <- Gviz::GenomeAxisTrack()
+
+  tracks_list <- list()
+  if(Species == "1"){
+    gen <- "hg38"
+  }else{
+    gen <- "mm10"
   }
-})
+
+  for (i in 1:length(names(elementMetadata(gr)))) {
+    track_name <- paste("track", i, sep = "")
+    tracks_list[[i]] <- Gviz::DataTrack(
+      gr[, names(elementMetadata(gr))[i]],
+      genome = gen,
+      name = names(elementMetadata(gr))[i],
+      type = "histogram",
+      ylim = c(-1, 10)
+    )
+  }
+
+  # genome
+  gen <- GenomeInfoDb::genome(tracks_list[[i]])
+  # Chromosme name
+  chr <- as.character(unique(GenomeInfoDb::seqnames(tracks_list[[i]])))
+  # Ideogram track (take a long time)
+  peak <- peakfile[select_peak, ]
+
+  tryCatch(
+    {
+      itrack <- IdeogramTrack(genome = gen, chromosome = chr)
+      # 突出显示某一区域
+      ht <- HighlightTrack(tracks_list,
+                           start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
+      )
+      return(plotTracks(list(ht, ax, itrack), type = "histogram", col = NULL))
+    },
+    error = function(e) {
+      # 突出显示某一区域
+      ht <- Gviz::HighlightTrack(tracks_list,
+                           start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
+      )
+      return(Gviz::plotTracks(list(ht, ax), type = "histogram", col = NULL))
+    }
+  )
+}
 
 
 
-# 轨道图
-select_trackplot <- reactive({
-  tryCatch({
-    peakfile <-
-      select_ATAC()[, c(-(ncol(select_ATAC()) - 2):-ncol(select_ATAC()))] %>% data.frame()
-    # print(peakfile)
-    select_peak <- req(input$ATAC2_rows_selected)
-    Species <- input$Species
-    return(trackplot(peakfile, select_peak, Species))
-  })
-})
+box_plot <- function(peakfile, gene, select_peak,plotly,...) {
+  df <- peakfile[, c(-1:-3)]
+  t_df <- t(df)
+  dt_df <- data.frame(t_df)
+  sort_df <- dt_df[order(dt_df[, select_peak]), , drop = FALSE]
+  v1 <- sort_df[c(1:(nrow(sort_df) %/% 5)), , drop = FALSE]
+  v2 <- sort_df[c(((nrow(sort_df) %/% 5) + 1):(2 * (nrow(sort_df) %/% 5))), , drop = FALSE]
+  v3 <- sort_df[c((2 * (nrow(sort_df) %/% 5) + 1):(3 * (nrow(sort_df) %/% 5))), , drop = FALSE]
+  v4 <- sort_df[c((3 * (nrow(sort_df) %/% 5) + 1):(4 * (nrow(sort_df) %/% 5))), , drop = FALSE]
+  v5 <- sort_df[c((4 * (nrow(sort_df) %/% 5) + 1):nrow(sort_df)), , drop = FALSE]
+  m1 <- colMeans(v1)
+  m2 <- colMeans(v2)
+  m3 <- colMeans(v3)
+  m4 <- colMeans(v4)
+  m5 <- colMeans(v5)
+  data <- data.frame(group1 = m1, group2 = m2, group3 = m3, group4 = m4, group5 = m5)
 
-# 箱线图
-select_boxplot <- reactive({
-  gene <- output_gene()
-  if (input$geneid_method == "ENSEMBL") {
-    index <- "ensembl_gene_id"
+  group1 <- subset(gene, select = colnames(gene) %in% rownames(v1)) %>%
+    t() %>%
+    data.frame(group = "group1")
+  group2 <- subset(gene, select = colnames(gene) %in% rownames(v2)) %>%
+    t() %>%
+    data.frame(group = "group2")
+  group3 <- subset(gene, select = colnames(gene) %in% rownames(v3)) %>%
+    t() %>%
+    data.frame(group = "group3")
+  group4 <- subset(gene, select = colnames(gene) %in% rownames(v4)) %>%
+    t() %>%
+    data.frame(group = "group4")
+  group5 <- subset(gene, select = colnames(gene) %in% rownames(v5)) %>%
+    t() %>%
+    data.frame(group = "group5")
+  gene_cluster_data <- rbind(group1, group2, group3, group4, group5)
+  names(gene_cluster_data)[1] <- "gene"
+  # b <- boxplot(boxwex=0.125,axes=FALSE,group5$., group4$., group3$., group2$., group1$., names = c("group5", "group4", "group3", "group2", "group1"),horizontal=TRUE)
+  print(gene_cluster_data)
+  sample <- rownames(gene_cluster_data)
+  if(plotly == TRUE){
+    b <- ggplot(gene_cluster_data, aes(x = group, y = gene, fill = group,color = group)) +
+      geom_boxplot(position=position_dodge(width =0.2),width=0.4,alpha = 0.4) +
+      geom_jitter() +
+      labs(
+        x = "Group name",
+        y = "RNA-seq",
+        title = paste0(gene[, 1],"\n",peakfile[select_peak, ]$chrom, ":", peakfile[select_peak, ]$chromStart, "-", peakfile[select_peak, ]$chromEnd)
+        # subtitle = paste0()
+      )
+    b <- plotly::style(b , text = paste0("sample:",rownames(gene_cluster_data),"\n","gene:",gene_cluster_data$gene))
   }
-  if (input$geneid_method == "SYMBOL") {
-    index <- "external_gene_name"
+  if(plotly == FALSE){
+    b <- ggplot(gene_cluster_data, aes(x = group, y = gene, fill = group,color = group)) +
+      geom_boxplot(position=position_dodge(width =0.2),width=0.4,alpha = 0.4) +
+      geom_jitter() +
+      labs(
+        x = "Group name",
+        y = "RNA-seq",
+        title = paste0(gene[, 1],"\n",peakfile[select_peak, ]$chrom, ":", peakfile[select_peak, ]$chromStart, "-", peakfile[select_peak, ]$chromEnd)
+        # subtitle = paste0()
+      )
   }
-  if (input$geneid_method == "ENTREZID") {
-    index <- "entrezgene_id"
-  }
-  if (length(which(duplicated(gene[[index]]))) > 0) {
-    gene <-
-      gene[-which(duplicated(gene[[index]])),]
-  }
-  peakfile <-
-    select_ATAC()[, c(-(ncol(select_ATAC()) - 2):-ncol(select_ATAC()))]
-  select_peak <- req(input$ATAC2_rows_selected)
-  b <- box_plot(peakfile, gene, select_peak)
+
+
+
   return(b)
-})
+}
 
-output$displot2 <- renderPlot({
-  select_trackplot()
-})
-
-# 输出箱线图
-output$displot3 <- renderPlotly({
-  plotly::ggplotly(select_boxplot())
-})
+# peakfile <- read.csv("/Users/TUF/Downloads/ENSG00000000419.csv",header = T,check.names = F)
+# gene <- data.table::fread("inst/extdata/TCGA-BRCA-RNA.txt",header = T)
+# gene <- gene[gene$ensembl_gene_id == "ENSG00000000419",]
+# p <- trackplot(peakfile = peakfile,1,"Homo")
+# box_plot(peakfile,gene,select_peak = 1,F)

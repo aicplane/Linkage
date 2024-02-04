@@ -1,3 +1,4 @@
+library(shiny)
 ui <- dashboardPage(
   title = "Linkage",
   skin = "blue",
@@ -92,7 +93,7 @@ ui <- dashboardPage(
             color: #808080; /* 灰色 */
             font-size: 13px
     }
-    
+
     .skin-blue .main-sidebar .sidebar-menu > li > a[data-value='six'] {
             color: #808080; /* 灰色 */
             font-size: 13px
@@ -883,7 +884,7 @@ ENSG00000005471",
               )
             ),
             shiny::tags$style("#gene_list {resize: none;}"),
-            
+
             column(
               12,
               selectInput(
@@ -897,7 +898,7 @@ ENSG00000005471",
                 selected = 2
               )
             ),
-            
+
             column(
               12,
               selectInput(
@@ -933,7 +934,7 @@ ENSG00000005471",
                 step = 0.01
               )
             ),
-            
+
             # column(12,radioGroupButtons(
             #   inputId = 'format',
             #   label = 'Search type',
@@ -943,7 +944,7 @@ ENSG00000005471",
             #   justified = TRUE,
             #   status = "primary"
             # )),
-            
+
             # column(12, textInput("dir", "Create User Folder", value = "lzh_1")),
             # uiOutput("buildaction"),
             # column(
@@ -1026,9 +1027,9 @@ ENSG00000005471",
                 "#Build {box-shadow: 0px 2px 5px #888888;}"
               )
             )
-            
+
           )
-          
+
         ),        uiOutput("Gene.TF.Table")),
 
         fluidRow(uiOutput("visNetwork"))
@@ -1179,7 +1180,7 @@ MMP9",
                 placement = "top"
               )
             ),
-            
+
             column(
               12,
               popify(
@@ -1196,7 +1197,7 @@ MMP9",
                 placement = "top"
               )
             ),
-            
+
             column(
               12,
               popify(
@@ -1213,7 +1214,7 @@ MMP9",
                 placement = "top"
               )
             ),
-            
+
             column(
               12,
               popify(
@@ -1229,9 +1230,9 @@ MMP9",
                 placement = "top"
               )
             ),
-            
+
             br(),
-            
+
             fluidRow(column(12,
                             do.call(
                               actionBttn, c(
