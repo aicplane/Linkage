@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aicplane.github.io/Linkage/404.html</loc>
+    <loc>/404.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/authors.html</loc>
+    <loc>/authors.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/index.html</loc>
+    <loc>/index.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/LICENSE-text.html</loc>
+    <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/LICENSE.html</loc>
+    <loc>/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/news/index.html</loc>
+    <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/barplot.html</loc>
+    <loc>/reference/barplot.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/box_plot.html</loc>
+    <loc>/reference/box_plot.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/cnetplot.html</loc>
+    <loc>/reference/cnetplot.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/dotplot.html</loc>
+    <loc>/reference/dotplot.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/GO.enrichment.html</loc>
+    <loc>/reference/GO.enrichment.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/hello.html</loc>
+    <loc>/reference/hello.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/index.html</loc>
+    <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/Install.biocViews.html</loc>
+    <loc>/reference/Install.biocViews.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/KEGG.enrichment.html</loc>
+    <loc>/reference/KEGG.enrichment.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/Linkage.html</loc>
+    <loc>/reference/Linkage.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/motif_analysis.html</loc>
+    <loc>/reference/motif_analysis.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/Peak_Annottation.html</loc>
+    <loc>/reference/Peak_Annottation.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/regulatory_peak.html</loc>
+    <loc>/reference/regulatory_peak.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/seqLogo_plot.html</loc>
+    <loc>/reference/seqLogo_plot.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/trackplot.html</loc>
+    <loc>/reference/trackplot.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/upsetplot.html</loc>
+    <loc>/reference/upsetplot.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/vennpie.html</loc>
+    <loc>/reference/vennpie.html</loc>
   </url>
   <url>
-    <loc>https://aicplane.github.io/Linkage/reference/wordcloud.html</loc>
+    <loc>/reference/wordcloud.html</loc>
   </url>
 </urlset>
