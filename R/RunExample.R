@@ -1,8 +1,5 @@
 #' Launch Shiny App
 #'
-#' @param name The name of the app to run
-#' @param ... arguments to pass to shiny::runApp
-#'
 #' @export
 #'
 Linkage <- function() {

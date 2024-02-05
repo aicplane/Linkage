@@ -1,4 +1,20 @@
-trackplot <- function(peakfile, select_peak,Species) {
+#' Regulate peak genomic location browsing
+#'
+#' @param peakfile  ATAC-Seq expression matrix or bed file.
+#' @param select_peak The line index of ATAC-Seq expression matrix or bed file.
+#' @param Species Select the species, Homo or Mus.The default is Homo.
+#'
+#' @return A track plot
+#' @export
+#'
+#' @examples
+#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
+#' peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T, check.names = F)
+#' gene <- data.table::fread("inst/extdata/TCGA-BRCA-RNA.txt", header = T)
+#' gene <- gene[gene$ensembl_gene_id == "ENSG00000000419", ]
+#' p <- trackplot(peakfile = peakfile, 1, "Homo")
+#' box_plot(peakfile, gene, select_peak = 1, F)
+trackplot <- function(peakfile, select_peak, Species) {
   df <- peakfile[, c(-1:-3)]
   t_df <- t(df)
   dt_df <- data.frame(t_df)
@@ -14,25 +30,25 @@ trackplot <- function(peakfile, select_peak,Species) {
   m4 <- colMeans(v4)
   m5 <- colMeans(v5)
   data <- data.frame(group1 = m1, group2 = m2, group3 = m3, group4 = m4, group5 = m5)
-  #print(data)
+  # print(data)
   gr <- GenomicRanges::makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
-  values(gr) <- data
-  #print(gr)
+  GenomicRanges::values(gr) <- data
+  # print(gr)
   ax <- Gviz::GenomeAxisTrack()
 
   tracks_list <- list()
-  if(Species == "1"){
+  if (Species == "1") {
     gen <- "hg38"
-  }else{
+  } else {
     gen <- "mm10"
   }
 
-  for (i in 1:length(names(elementMetadata(gr)))) {
+  for (i in 1:length(names(GenomicRanges::elementMetadata(gr)))) {
     track_name <- paste("track", i, sep = "")
     tracks_list[[i]] <- Gviz::DataTrack(
-      gr[, names(elementMetadata(gr))[i]],
+      gr[, names(GenomicRanges::elementMetadata(gr))[i]],
       genome = gen,
-      name = names(elementMetadata(gr))[i],
+      name = names(GenomicRanges::elementMetadata(gr))[i],
       type = "histogram",
       ylim = c(-1, 10)
     )
@@ -50,14 +66,14 @@ trackplot <- function(peakfile, select_peak,Species) {
       itrack <- IdeogramTrack(genome = gen, chromosome = chr)
       # 突出显示某一区域
       ht <- HighlightTrack(tracks_list,
-                           start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
+        start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
       )
       return(plotTracks(list(ht, ax, itrack), type = "histogram", col = NULL))
     },
     error = function(e) {
       # 突出显示某一区域
       ht <- Gviz::HighlightTrack(tracks_list,
-                           start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
+        start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
       )
       return(Gviz::plotTracks(list(ht, ax), type = "histogram", col = NULL))
     }
@@ -66,7 +82,25 @@ trackplot <- function(peakfile, select_peak,Species) {
 
 
 
-box_plot <- function(peakfile, gene, select_peak,plotly,...) {
+#' Regulate peak genomic location browsing boxplot
+#'
+#' @param peakfile ATAC-Seq expression matrix or bed file.
+#' @param gene Genes regulated by peak.
+#' @param select_peak The line index of ATAC-Seq expression matrix or bed file.
+#' @param plotly logical value,Whether or not to use plotly.The default is TRUE.
+#' @param ...
+#'
+#' @return A box plot.
+#' @export
+#'
+#' @examples
+#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
+#' peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T, check.names = F)
+#' gene <- data.table::fread(paste0(extdatadir,"/TCGA-BRCA-RNA.txt"), header = T)
+#' gene <- gene[gene$ensembl_gene_id == "ENSG00000000419", ]
+#' p <- trackplot(peakfile = peakfile, 1, "Homo")
+#' box_plot(peakfile, gene, select_peak = 1, F)
+box_plot <- function(peakfile, gene, select_peak, plotly) {
   df <- peakfile[, c(-1:-3)]
   t_df <- t(df)
   dt_df <- data.frame(t_df)
@@ -103,37 +137,28 @@ box_plot <- function(peakfile, gene, select_peak,plotly,...) {
   # b <- boxplot(boxwex=0.125,axes=FALSE,group5$., group4$., group3$., group2$., group1$., names = c("group5", "group4", "group3", "group2", "group1"),horizontal=TRUE)
   print(gene_cluster_data)
   sample <- rownames(gene_cluster_data)
-  if(plotly == TRUE){
-    b <- ggplot(gene_cluster_data, aes(x = group, y = gene, fill = group,color = group)) +
-      geom_boxplot(position=position_dodge(width =0.2),width=0.4,alpha = 0.4) +
+  if (plotly == TRUE) {
+    b <- ggplot(gene_cluster_data, aes(x = group, y = gene, fill = group, color = group)) +
+      geom_boxplot(position = position_dodge(width = 0.2), width = 0.4, alpha = 0.4) +
       geom_jitter() +
       labs(
         x = "Group name",
         y = "RNA-seq",
-        title = paste0(gene[, 1],"\n",peakfile[select_peak, ]$chrom, ":", peakfile[select_peak, ]$chromStart, "-", peakfile[select_peak, ]$chromEnd)
+        title = paste0(gene[, 1], "\n", peakfile[select_peak, ]$chrom, ":", peakfile[select_peak, ]$chromStart, "-", peakfile[select_peak, ]$chromEnd)
         # subtitle = paste0()
       )
-    b <- plotly::style(b , text = paste0("sample:",rownames(gene_cluster_data),"\n","gene:",gene_cluster_data$gene))
+    b <- plotly::style(b, text = paste0("sample:", rownames(gene_cluster_data), "\n", "gene:", gene_cluster_data$gene))
   }
-  if(plotly == FALSE){
-    b <- ggplot(gene_cluster_data, aes(x = group, y = gene, fill = group,color = group)) +
-      geom_boxplot(position=position_dodge(width =0.2),width=0.4,alpha = 0.4) +
+  if (plotly == FALSE) {
+    b <- ggplot(gene_cluster_data, aes(x = group, y = gene, fill = group, color = group)) +
+      geom_boxplot(position = position_dodge(width = 0.2), width = 0.4, alpha = 0.4) +
       geom_jitter() +
       labs(
         x = "Group name",
         y = "RNA-seq",
-        title = paste0(gene[, 1],"\n",peakfile[select_peak, ]$chrom, ":", peakfile[select_peak, ]$chromStart, "-", peakfile[select_peak, ]$chromEnd)
+        title = paste0(gene[, 1], "\n", peakfile[select_peak, ]$chrom, ":", peakfile[select_peak, ]$chromStart, "-", peakfile[select_peak, ]$chromEnd)
         # subtitle = paste0()
       )
   }
-
-
-
   return(b)
 }
-
-# peakfile <- read.csv("/Users/TUF/Downloads/ENSG00000000419.csv",header = T,check.names = F)
-# gene <- data.table::fread("inst/extdata/TCGA-BRCA-RNA.txt",header = T)
-# gene <- gene[gene$ensembl_gene_id == "ENSG00000000419",]
-# p <- trackplot(peakfile = peakfile,1,"Homo")
-# box_plot(peakfile,gene,select_peak = 1,F)

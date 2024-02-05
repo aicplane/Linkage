@@ -6,11 +6,6 @@
 \usage{
 Linkage()
 }
-\arguments{
-\item{name}{The name of the app to run}
-
-\item{...}{arguments to pass to shiny::runApp}
-}
 \description{
 Launch Shiny App
 }

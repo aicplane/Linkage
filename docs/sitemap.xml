@@ -10,9 +10,66 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>/news/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/barplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/box_plot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/cnetplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dotplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GO.enrichment.html</loc>
+  </url>
+  <url>
     <loc>/reference/hello.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Install.biocViews.html</loc>
+  </url>
+  <url>
+    <loc>/reference/KEGG.enrichment.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Linkage.html</loc>
+  </url>
+  <url>
+    <loc>/reference/motif_analysis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Peak_Annottation.html</loc>
+  </url>
+  <url>
+    <loc>/reference/regulatory_peak.html</loc>
+  </url>
+  <url>
+    <loc>/reference/seqLogo_plot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/trackplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/upsetplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/vennpie.html</loc>
+  </url>
+  <url>
+    <loc>/reference/wordcloud.html</loc>
   </url>
 </urlset>

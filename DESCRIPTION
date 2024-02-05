@@ -1,7 +1,7 @@
 Package: Linkage
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 1.0.1
+Version: 2.1.0
 Authors@R: 
     person(given = "Zenghui",
          family = "Liu",
@@ -10,7 +10,7 @@ Authors@R:
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Imports: shiny, shinyjs, shinydashboard, shinydashboardPlus,
@@ -24,5 +24,7 @@ biocViews: BiocManager, Gviz, ChIPseeker,
         BSgenome.Hsapiens.UCSC.hg38,
         BSgenome.Mmusculus.UCSC.mm10, TFBSTools,
         motifmatchr
-Suggests: testthat
+Suggests: 
+    testthat (>= 3.0.0)
 URL: https://aicplane.github.io/Linkage/
+Config/testthat/edition: 3

@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="index.html">Linkage</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +39,9 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -52,7 +55,19 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><p>“# Linkage”</p>
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="linkage">Linkage<a class="anchor" aria-label="anchor" href="#linkage"></a>
+</h1></div>
+<p><code>Linkage</code> is a user-friendly, interactive, open-source R-Shiny web application for <code>exploring and visualizing potential gene regulatory elements</code> based on <strong>ATAC-seq</strong> and <strong>RNA-seq</strong> data. Users can upload customized data and obtain genome-wide gene regulatory elements with simple clicks. All the gene regulatory elements are predicted from multi-omics data, rather than being experimentally determined. Users can easily search, browse, and download the peak-gene scatter plot for a given gene. We will continue to update Linkage and add more modules for downstream analysis in the future.</p>
+<p>```{r} if (!requireNamespace(“devtools”, quietly = TRUE)) install.packages(“devtools”)</p>
+<p>devtools::install_github(“aicplane/Linkage”)</p>
+<pre><code>
+```{r}
+library(Linkage)
+Install.biocViews()
+Linkage()</code></pre>
+<p>The Shiny application is additionally hosted at <a href="https://xulabgdpu.org.cn/linkage" class="external-link uri">https://xulabgdpu.org.cn/linkage</a></p>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -63,7 +78,8 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>What license is it under?</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 

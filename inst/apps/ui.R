@@ -1226,7 +1226,7 @@ MMP9",
                   step = 1
                 ),
                 title = "Arguments",
-                content = "maximal size of genes annotated for testing",
+                content = "maximal size of genes annotated for testing.",
                 placement = "top"
               )
             ),
