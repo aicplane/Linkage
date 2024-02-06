@@ -16,8 +16,8 @@ seqLogo plot
 Transcription factor Seqlogo plot
 }
 \examples{
-extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
+dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
+peakfile <- read.csv(dir, header = T)
 motif_analysis(peakfile, "Homo")
 seqLogo_plot("MA0618.1")
 }

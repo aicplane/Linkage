@@ -22,8 +22,8 @@ Enrichment wordcloud.
 Enrichment analysis Wordcloud
 }
 \examples{
-extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-gene_list <- read.table(paste0(extdatadir, "/Senescence-associated secretory phenotype.txt"))
+extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
+gene_list <- read.table(extdatadir)
 go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 wordcloud(go, Type = "GO")
 }

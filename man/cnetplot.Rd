@@ -18,7 +18,8 @@ Enrichment network.
 Enrichment analysis Cnetplot
 }
 \examples{
-gene_list <- read.table("inst/extdata/Senescence-associated secretory phenotype.txt")
+extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
+gene_list <- read.table(extdatadir)
 go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 cnetplot(go)
 }

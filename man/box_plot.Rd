@@ -24,9 +24,10 @@ A box plot.
 Regulate peak genomic location browsing boxplot
 }
 \examples{
-extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T, check.names = F)
-gene <- data.table::fread(paste0(extdatadir, "/TCGA-BRCA-RNA.txt"), header = T)
+peakfile.dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
+peakfile <- read.csv(peakfile.dir, header = T,check.names = F)
+gene.dir <- system.file("extdata","TCGA-BRCA-RNA.txt", package = "Linkage")
+gene <- data.table::fread(gene.dir, header = T,check.names = F)
 gene <- gene[gene$ensembl_gene_id == "ENSG00000000419", ]
 p <- trackplot(peakfile = peakfile, 1, "Homo")
 box_plot(peakfile, gene, select_peak = 1, F)
