@@ -55,7 +55,7 @@
 
 
 <dt>...</dt>
-<dd></dd>
+<dd><p>...</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -71,8 +71,8 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file 'inst/extdata/Senescence-associated secretory phenotype.txt': No such file or directory</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(file, "rt"):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="va">go</span> <span class="op">&lt;-</span> <span class="fu"><a href="GO.enrichment.html">GO.enrichment</a></span><span class="op">(</span>gene_list <span class="op">=</span> <span class="va">gene_list</span><span class="op">$</span><span class="va">V1</span>, Species <span class="op">=</span> <span class="st">"Homo"</span>, genelist_idtype <span class="op">=</span> <span class="st">"external_gene_name"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file 'inst/extdata/homo.gene_positions.plus.txt': No such file or directory</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(file, "rt"):</span> cannot open the connection</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open compressed file '', probable reason 'Invalid argument'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in readChar(con, 5L, useBytes = TRUE):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="fu">cnetplot</span><span class="op">(</span><span class="va">go</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'cnetplot': object 'go' not found</span>

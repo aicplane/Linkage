@@ -63,7 +63,7 @@
 
 
 <dt>...</dt>
-<dd></dd>
+<dd><p>...</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -76,10 +76,10 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">extdatadir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"extdata"</span><span class="op">)</span>, package <span class="op">=</span> <span class="st">"Linkage"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">gene_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">extdatadir</span>,<span class="st">"/Senescence-associated secretory phenotype.txt"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">gene_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">extdatadir</span>, <span class="st">"/Senescence-associated secretory phenotype.txt"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">go</span> <span class="op">&lt;-</span> <span class="fu"><a href="GO.enrichment.html">GO.enrichment</a></span><span class="op">(</span>gene_list <span class="op">=</span> <span class="va">gene_list</span><span class="op">$</span><span class="va">V1</span>, Species <span class="op">=</span> <span class="st">"Homo"</span>, genelist_idtype <span class="op">=</span> <span class="st">"external_gene_name"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file 'inst/extdata/homo.gene_positions.plus.txt': No such file or directory</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(file, "rt"):</span> cannot open the connection</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open compressed file '', probable reason 'Invalid argument'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in readChar(con, 5L, useBytes = TRUE):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="fu">wordcloud</span><span class="op">(</span><span class="va">go</span>, Type <span class="op">=</span> <span class="st">"GO"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'go' not found</span>
 </code></pre></div>
