@@ -11,7 +11,7 @@ Peak_Annottation(peakfile, Species = "Homo", ...)
 
 \item{Species}{Select the species, Homo or Mus.The default is Homo.}
 
-\item{...}{}
+\item{...}{...}
 }
 \value{
 A Annottation object
@@ -21,6 +21,6 @@ Annotation regulatory peak
 }
 \examples{
 extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T)
+peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
 peakAnno <- Peak_Annottation(peakfile, Species = "Homo")
 }

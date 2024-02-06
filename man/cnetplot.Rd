@@ -9,7 +9,7 @@ cnetplot(object, ...)
 \arguments{
 \item{object}{Go or KEGG object}
 
-\item{...}{}
+\item{...}{...}
 }
 \value{
 Enrichment network.

@@ -9,7 +9,7 @@ upsetplot(object, ...)
 \arguments{
 \item{object}{Go or KEGG object}
 
-\item{...}{}
+\item{...}{...}
 }
 \value{
 Enrichment upset plot.
@@ -19,7 +19,7 @@ Enrichment analysis Upsetplot
 }
 \examples{
 extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-gene_list <- read.table(paste0(extdatadir,"/Senescence-associated secretory phenotype.txt"))
+gene_list <- read.table(paste0(extdatadir, "/Senescence-associated secretory phenotype.txt"))
 go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 upsetplot(go)
 }

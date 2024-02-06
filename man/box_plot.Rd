@@ -15,7 +15,7 @@ box_plot(peakfile, gene, select_peak, plotly)
 
 \item{plotly}{logical value,Whether or not to use plotly.The default is TRUE.}
 
-\item{...}{}
+\item{...}{...}
 }
 \value{
 A box plot.
@@ -25,8 +25,8 @@ Regulate peak genomic location browsing boxplot
 }
 \examples{
 extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T, check.names = F)
-gene <- data.table::fread(paste0(extdatadir,"/TCGA-BRCA-RNA.txt"), header = T)
+peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T, check.names = F)
+gene <- data.table::fread(paste0(extdatadir, "/TCGA-BRCA-RNA.txt"), header = T)
 gene <- gene[gene$ensembl_gene_id == "ENSG00000000419", ]
 p <- trackplot(peakfile = peakfile, 1, "Homo")
 box_plot(peakfile, gene, select_peak = 1, F)

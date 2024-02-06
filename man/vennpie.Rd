@@ -11,7 +11,7 @@ vennpie(object, vennpie = TRUE, ...)
 
 \item{vennpie}{logical value, whether to include vennpie.The default is TRUE}
 
-\item{...}{}
+\item{...}{...}
 }
 \value{
 A upset plot
@@ -21,7 +21,7 @@ Annotation regulatory peak upset plot
 }
 \examples{
 extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T)
+peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
 peakAnno <- Peak_Annottation(peakfile, Species = "Homo")
 vennpie(peakAnno)
 }

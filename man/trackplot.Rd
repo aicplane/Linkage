@@ -21,7 +21,7 @@ Regulate peak genomic location browsing
 }
 \examples{
 extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T, check.names = F)
+peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T, check.names = F)
 gene <- data.table::fread("inst/extdata/TCGA-BRCA-RNA.txt", header = T)
 gene <- gene[gene$ensembl_gene_id == "ENSG00000000419", ]
 p <- trackplot(peakfile = peakfile, 1, "Homo")

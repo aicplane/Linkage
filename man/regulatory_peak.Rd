@@ -23,12 +23,12 @@ Finding the regulatory peak of genes
 }
 \examples{
 extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-RNA.seq <- data.table::fread(paste0(extdatadir,"/TCGA-BRCA-RNA.txt"), header = T)[c(1:10), ]
-position <- data.table::fread(paste0(extdatadir,"/homo.gene_positions.plus.txt"), header = T, sep = "\t")
+RNA.seq <- data.table::fread(paste0(extdatadir, "/TCGA-BRCA-RNA.txt"), header = T)[c(1:10), ]
+position <- data.table::fread(paste0(extdatadir, "/homo.gene_positions.plus.txt"), header = T, sep = "\t")
 RNA.seq <- merge(position, RNA.seq, by.x = "ensembl_gene_id", by.y = "ensembl_gene_id")
-Homo.list.files <- list.files(paste0(extdatadir,"/Homo.ATAC/"))
-Homo.list.files <- paste0(paste0(extdatadir,"/Homo.ATAC/"),Homo.list.files)
-Homo.df_list <- lapply(Homo.list.files,function(file) data.table::fread(file,header = T))
+Homo.list.files <- list.files(paste0(extdatadir, "/Homo.ATAC/"))
+Homo.list.files <- paste0(paste0(extdatadir, "/Homo.ATAC/"), Homo.list.files)
+Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = T))
 ATAC.seq <- do.call(rbind, Homo.df_list)
 regulatory_peak(RNA.seq, ATAC.seq, 500000, "spearman")
 }

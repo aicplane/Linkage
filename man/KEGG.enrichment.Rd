@@ -30,7 +30,7 @@ KEGG.enrichment(
 
 \item{maxGSSize}{Maximal size of genes annotated for testing.}
 
-\item{...}{}
+\item{...}{...}
 }
 \value{
 A KEGG object.
@@ -40,6 +40,6 @@ KEGG enrichment analysis
 }
 \examples{
 extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-gene_list <- read.table(paste0(extdatadir,"/Senescence-associated secretory phenotype.txt"))
+gene_list <- read.table(paste0(extdatadir, "/Senescence-associated secretory phenotype.txt"))
 KEGG <- KEGG.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 }

@@ -19,6 +19,6 @@ Regulatory peak motif enrichment analysis
 }
 \examples{
 extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T)
+peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
 motif_analysis(peakfile, "Homo")
 }

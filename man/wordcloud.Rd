@@ -13,7 +13,7 @@ wordcloud(object, Type, plotly = TRUE, ...)
 
 \item{plotly}{logical value,Whether or not to use plotly.The default is TRUE.}
 
-\item{...}{}
+\item{...}{...}
 }
 \value{
 Enrichment wordcloud.
@@ -23,7 +23,7 @@ Enrichment analysis Wordcloud
 }
 \examples{
 extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-gene_list <- read.table(paste0(extdatadir,"/Senescence-associated secretory phenotype.txt"))
+gene_list <- read.table(paste0(extdatadir, "/Senescence-associated secretory phenotype.txt"))
 go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 wordcloud(go, Type = "GO")
 }
