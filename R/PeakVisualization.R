@@ -8,9 +8,10 @@
 #' @export
 #'
 #' @examples
-#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T, check.names = F)
-#' gene <- data.table::fread("inst/extdata/TCGA-BRCA-RNA.txt", header = T)
+#' peakfile.dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
+#' peakfile <- read.csv(peakfile.dir, header = T,check.names = F)
+#' gene.dir <- system.file("extdata","TCGA-BRCA-RNA.txt", package = "Linkage")
+#' gene <- data.table::fread(gene.dir, header = T,check.names = F)
 #' gene <- gene[gene$ensembl_gene_id == "ENSG00000000419", ]
 #' p <- trackplot(peakfile = peakfile, 1, "Homo")
 #' box_plot(peakfile, gene, select_peak = 1, F)
@@ -37,14 +38,14 @@ trackplot <- function(peakfile, select_peak, Species) {
   ax <- Gviz::GenomeAxisTrack()
 
   tracks_list <- list()
-  if (Species == "1") {
+  if (Species == "Homo") {
     gen <- "hg38"
   } else {
     gen <- "mm10"
   }
 
   for (i in 1:length(names(GenomicRanges::elementMetadata(gr)))) {
-    track_name <- paste("track", i, sep = "")
+    # track_name <- paste("track", i, sep = "")
     tracks_list[[i]] <- Gviz::DataTrack(
       gr[, names(GenomicRanges::elementMetadata(gr))[i]],
       genome = gen,
@@ -63,19 +64,19 @@ trackplot <- function(peakfile, select_peak, Species) {
 
   tryCatch(
     {
-      itrack <- IdeogramTrack(genome = gen, chromosome = chr)
+      itrack <- Gviz::IdeogramTrack(genome = gen, chromosome = chr)
       # 突出显示某一区域
-      ht <- HighlightTrack(tracks_list,
+      ht <- Gviz::HighlightTrack(tracks_list,
         start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
       )
-      return(plotTracks(list(ht, ax, itrack), type = "histogram", col = NULL))
+      Gviz::plotTracks(list(ht, ax, itrack), type = "histogram", col = NULL)
     },
     error = function(e) {
       # 突出显示某一区域
       ht <- Gviz::HighlightTrack(tracks_list,
         start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
       )
-      return(Gviz::plotTracks(list(ht, ax), type = "histogram", col = NULL))
+      Gviz::plotTracks(list(ht, ax), type = "histogram", col = NULL)
     }
   )
 }
@@ -94,9 +95,10 @@ trackplot <- function(peakfile, select_peak, Species) {
 #' @export
 #'
 #' @examples
-#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T, check.names = F)
-#' gene <- data.table::fread(paste0(extdatadir, "/TCGA-BRCA-RNA.txt"), header = T)
+#' peakfile.dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
+#' peakfile <- read.csv(peakfile.dir, header = T,check.names = F)
+#' gene.dir <- system.file("extdata","TCGA-BRCA-RNA.txt", package = "Linkage")
+#' gene <- data.table::fread(gene.dir, header = T,check.names = F)
 #' gene <- gene[gene$ensembl_gene_id == "ENSG00000000419", ]
 #' p <- trackplot(peakfile = peakfile, 1, "Homo")
 #' box_plot(peakfile, gene, select_peak = 1, F)
@@ -135,7 +137,7 @@ box_plot <- function(peakfile, gene, select_peak, plotly) {
   gene_cluster_data <- rbind(group1, group2, group3, group4, group5)
   names(gene_cluster_data)[1] <- "gene"
   # b <- boxplot(boxwex=0.125,axes=FALSE,group5$., group4$., group3$., group2$., group1$., names = c("group5", "group4", "group3", "group2", "group1"),horizontal=TRUE)
-  print(gene_cluster_data)
+  # print(gene_cluster_data)
   sample <- rownames(gene_cluster_data)
   if (plotly == TRUE) {
     b <- ggplot2::ggplot(gene_cluster_data, ggplot2::aes(x = group, y = gene, fill = group, color = group)) +

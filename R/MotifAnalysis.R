@@ -7,8 +7,8 @@
 #' @export
 #'
 #' @examples
-#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
+#' dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
+#' peakfile <- read.csv(dir, header = T)
 #' motif_analysis(peakfile, "Homo")
 motif_analysis <- function(peakfile, Species) {
   colnames(peakfile) <- c("chrom", "chromStart", "chromEnd")
@@ -19,13 +19,17 @@ motif_analysis <- function(peakfile, Species) {
   )
 
   if (Species == "Homo") {
-    PFMatrixList <- readRDS("inst/extdata/PFMatrixList.rds")
-    pwm_library_dt <- readRDS("inst/extdata/pwm_library_dt.rds")
+    PFMatrixList.dir <- system.file("extdata","PFMatrixList.rds", package = "Linkage")
+    pwm_library_dt.dir <- system.file("extdata","pwm_library_dt.rds", package = "Linkage")
+    PFMatrixList <- readRDS(PFMatrixList.dir)
+    pwm_library_dt <- readRDS(pwm_library_dt.dir)
     genome <- "hg38"
   }
   if (Species == "Mus") {
-    PFMatrixList <- readRDS("inst/extdata/Mus.PFMatrixList.rds")
-    pwm_library_dt <- readRDS("inst/extdata/Mus.pwm_library_dt.rds")
+    PFMatrixList.dir <- system.file("extdata","Mus.PFMatrixList.rds", package = "Linkage")
+    pwm_library_dt.dir <- system.file("extdata","Mus.pwm_library_dt.rds", package = "Linkage")
+    PFMatrixList <- readRDS(PFMatrixList.dir)
+    pwm_library_dt <- readRDS(pwm_library_dt.dir)
     genome <- "mm10"
   }
 
@@ -49,11 +53,12 @@ motif_analysis <- function(peakfile, Species) {
 #' @export
 #'
 #' @examples
-#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
+#' dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
+#' peakfile <- read.csv(dir, header = T)
 #' motif_analysis(peakfile, "Homo")
 #' seqLogo_plot("MA0618.1")
 seqLogo_plot <- function(motif_ID) {
-  m <- TFBSTools::getMatrixByID("inst/extdata/JASPAR2022.sqlite", motif_ID)
+  sqlite.dir <- system.file("extdata","JASPAR2022.sqlite", package = "Linkage")
+  m <- TFBSTools::getMatrixByID(sqlite.dir, motif_ID)
   return(TFBSTools::seqLogo(TFBSTools::toICM(m)))
 }

@@ -26,10 +26,11 @@ GO.enrichment <-
            maxGSSize = 500,
            ...) {
     if (Species == "Homo") {
-      load(system.file("data", "Homo.gene.position.rda", package = "Linkage"))
+      dir <- system.file("extdata", "homo.gene_positions.plus.txt", package = "Linkage")
+      gene.position <- read.table(dir,header = T,sep = "\t",check.names = F)
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
-      print(head(gene.position))
+      # print(head(gene.position))
       if (genelist_idtype != "entrezgene_id") {
         gene_list <-
           gene.position[gene.position[[genelist_idtype]] %in% gene_list, 3]
@@ -40,7 +41,10 @@ GO.enrichment <-
     }
 
     if (Species == "Mus") {
-      load(system.file("data", "Mus.gene.position.rda", package = "Linkage"))
+      dir <- system.file("extdata", "mus.gene_positions.plus.txt", package = "Linkage")
+      gene.position <- read.table(dir,header = T,sep = "\t",check.names = F)
+      gene.position$entrezgene_id <-
+        as.character(gene.position$entrezgene_id)
       if (genelist_idtype != "entrezgene_id") {
         gene_list <-
           gene.position[gene.position[[genelist_idtype]] %in% gene_list, 3]
@@ -83,8 +87,8 @@ GO.enrichment <-
 #' @export
 #'
 #' @examples
-#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' gene_list <- read.table(paste0(extdatadir, "/Senescence-associated secretory phenotype.txt"))
+#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
+#' gene_list <- read.table(extdatadir)
 #' KEGG <- KEGG.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 KEGG.enrichment <-
   function(gene_list,
@@ -96,7 +100,8 @@ KEGG.enrichment <-
            maxGSSize = 500,
            ...) {
     if (Species == "Homo") {
-      load("data/Homo.gene.position.rda")
+      dir <- system.file("extdata", "homo.gene_positions.plus.txt", package = "Linkage")
+      gene.position <- read.table(dir,header = T,sep = "\t",check.names = F)
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
       print(head(gene.position))
@@ -104,18 +109,21 @@ KEGG.enrichment <-
         gene_list <-
           gene.position[gene.position[[genelist_idtype]] %in% gene_list, 3]
       }
-      OrgDb <- "org.Hs.eg.db"
+      # OrgDb <- "org.Hs.eg.db"
       organism <- "hsa"
       print(gene_list)
     }
 
     if (Species == "Mus") {
-      load("data/Mus.gene.position.rda")
+      dir <- system.file("extdata", "mus.gene_positions.plus.txt", package = "Linkage")
+      gene.position <- read.table(dir,header = T,sep = "\t",check.names = F)
+      gene.position$entrezgene_id <-
+        as.character(gene.position$entrezgene_id)
       if (genelist_idtype != "entrezgene_id") {
         gene_list <-
           gene.position[gene.position[[genelist_idtype]] %in% gene_list, 3]
       }
-      OrgDb <- "org.Mm.eg.db"
+      # OrgDb <- "org.Mm.eg.db"
       organism <- "mmu"
       print(gene_list)
     }
@@ -143,8 +151,8 @@ KEGG.enrichment <-
 #' @export
 #'
 #' @examples
-#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' gene_list <- read.table(paste0(extdatadir, "/Senescence-associated secretory phenotype.txt"))
+#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
+#' gene_list <- read.table(extdatadir)
 #' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 #' dotplot(go)
 dotplot <- function(object, plotly = TRUE, ...) {
@@ -179,8 +187,8 @@ dotplot <- function(object, plotly = TRUE, ...) {
 #' @export
 #'
 #' @examples
-#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' gene_list <- read.table(paste0(extdatadir, "/Senescence-associated secretory phenotype.txt"))
+#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
+#' gene_list <- read.table(extdatadir)
 #' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 #' upsetplot(go)
 upsetplot <- function(object, ...) {
@@ -203,7 +211,8 @@ upsetplot <- function(object, ...) {
 #' @export
 #'
 #' @examples
-#' gene_list <- read.table("inst/extdata/Senescence-associated secretory phenotype.txt")
+#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
+#' gene_list <- read.table(extdatadir)
 #' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 #' cnetplot(go)
 cnetplot <- function(object, ...) {
@@ -226,8 +235,8 @@ cnetplot <- function(object, ...) {
 #' @export
 #'
 #' @examples
-#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' gene_list <- read.table(paste0(extdatadir, "/Senescence-associated secretory phenotype.txt"))
+#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
+#' gene_list <- read.table(extdatadir)
 #' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 #' barplot(go)
 barplot <- function(object, plotly = TRUE, ...) {
@@ -263,8 +272,8 @@ barplot <- function(object, plotly = TRUE, ...) {
 #' @export
 #'
 #' @examples
-#' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' gene_list <- read.table(paste0(extdatadir, "/Senescence-associated secretory phenotype.txt"))
+#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
+#' gene_list <- read.table(extdatadir)
 #' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 #' wordcloud(go, Type = "GO")
 wordcloud <- function(object, Type, plotly = TRUE, ...) {
