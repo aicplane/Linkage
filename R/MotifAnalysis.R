@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T)
+#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
 #' motif_analysis(peakfile, "Homo")
 motif_analysis <- function(peakfile, Species) {
   colnames(peakfile) <- c("chrom", "chromStart", "chromEnd")
@@ -50,7 +50,7 @@ motif_analysis <- function(peakfile, Species) {
 #'
 #' @examples
 #' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T)
+#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
 #' motif_analysis(peakfile, "Homo")
 #' seqLogo_plot("MA0618.1")
 seqLogo_plot <- function(motif_ID) {

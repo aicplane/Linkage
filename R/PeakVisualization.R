@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T, check.names = F)
+#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T, check.names = F)
 #' gene <- data.table::fread("inst/extdata/TCGA-BRCA-RNA.txt", header = T)
 #' gene <- gene[gene$ensembl_gene_id == "ENSG00000000419", ]
 #' p <- trackplot(peakfile = peakfile, 1, "Homo")
@@ -88,15 +88,15 @@ trackplot <- function(peakfile, select_peak, Species) {
 #' @param gene Genes regulated by peak.
 #' @param select_peak The line index of ATAC-Seq expression matrix or bed file.
 #' @param plotly logical value,Whether or not to use plotly.The default is TRUE.
-#' @param ...
+#' @param ... ...
 #'
 #' @return A box plot.
 #' @export
 #'
 #' @examples
 #' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T, check.names = F)
-#' gene <- data.table::fread(paste0(extdatadir,"/TCGA-BRCA-RNA.txt"), header = T)
+#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T, check.names = F)
+#' gene <- data.table::fread(paste0(extdatadir, "/TCGA-BRCA-RNA.txt"), header = T)
 #' gene <- gene[gene$ensembl_gene_id == "ENSG00000000419", ]
 #' p <- trackplot(peakfile = peakfile, 1, "Homo")
 #' box_plot(peakfile, gene, select_peak = 1, F)
@@ -138,27 +138,29 @@ box_plot <- function(peakfile, gene, select_peak, plotly) {
   print(gene_cluster_data)
   sample <- rownames(gene_cluster_data)
   if (plotly == TRUE) {
-    b <- ggplot(gene_cluster_data, aes(x = group, y = gene, fill = group, color = group)) +
-      geom_boxplot(position = position_dodge(width = 0.2), width = 0.4, alpha = 0.4) +
-      geom_jitter() +
-      labs(
+    b <- ggplot2::ggplot(gene_cluster_data, ggplot2::aes(x = group, y = gene, fill = group, color = group)) +
+      ggplot2::geom_boxplot(position = ggplot2::position_dodge(width = 0.2), width = 0.4, alpha = 0.4) +
+      ggplot2::geom_jitter() +
+      ggplot2::labs(
         x = "Group name",
         y = "RNA-seq",
         title = paste0(gene[, 1], "\n", peakfile[select_peak, ]$chrom, ":", peakfile[select_peak, ]$chromStart, "-", peakfile[select_peak, ]$chromEnd)
         # subtitle = paste0()
-      )
+      ) +
+      ggplot2::theme_set(ggpubr::theme_pubr())
     b <- plotly::style(b, text = paste0("sample:", rownames(gene_cluster_data), "\n", "gene:", gene_cluster_data$gene))
   }
   if (plotly == FALSE) {
-    b <- ggplot(gene_cluster_data, aes(x = group, y = gene, fill = group, color = group)) +
-      geom_boxplot(position = position_dodge(width = 0.2), width = 0.4, alpha = 0.4) +
-      geom_jitter() +
-      labs(
+    b <- ggplot2::ggplot(gene_cluster_data, ggplot2::aes(x = group, y = gene, fill = group, color = group)) +
+      ggplot2::geom_boxplot(position = ggplot2::position_dodge(width = 0.2), width = 0.4, alpha = 0.4) +
+      ggplot2::geom_jitter() +
+      ggplot2::labs(
         x = "Group name",
         y = "RNA-seq",
         title = paste0(gene[, 1], "\n", peakfile[select_peak, ]$chrom, ":", peakfile[select_peak, ]$chromStart, "-", peakfile[select_peak, ]$chromEnd)
         # subtitle = paste0()
-      )
+      ) +
+      ggplot2::theme_set(ggpubr::theme_pubr())
   }
   return(b)
 }

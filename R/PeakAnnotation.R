@@ -2,14 +2,14 @@
 #'
 #' @param peakfile ATAC-Seq expression matrix or bed file.
 #' @param Species Select the species, Homo or Mus.The default is Homo.
-#' @param ...
+#' @param ... ...
 #'
 #' @return A Annottation object
 #' @export
 #'
 #' @examples
 #' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T)
+#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
 #' peakAnno <- Peak_Annottation(peakfile, Species = "Homo")
 Peak_Annottation <- function(peakfile, Species = "Homo", ...) {
   gr <-
@@ -39,14 +39,14 @@ Peak_Annottation <- function(peakfile, Species = "Homo", ...) {
 #'
 #' @param object A Annottation object.
 #' @param vennpie logical value, whether to include vennpie.The default is TRUE
-#' @param ...
+#' @param ... ...
 #'
 #' @return A upset plot
 #' @export
 #'
 #' @examples
 #' extdatadir <- system.file(paste0("extdata"), package = "Linkage")
-#' peakfile <- read.csv(paste0(extdatadir,"/ENSG00000000419.csv"), header = T)
+#' peakfile <- read.csv(paste0(extdatadir, "/ENSG00000000419.csv"), header = T)
 #' peakAnno <- Peak_Annottation(peakfile, Species = "Homo")
 #' vennpie(peakAnno)
 vennpie <- function(object, vennpie = TRUE, ...) {
