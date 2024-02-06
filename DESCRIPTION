@@ -8,16 +8,37 @@ Authors@R:
          role = c("aut", "cre"),
          email = "2470587020@qq.com")
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Linkage is a user-friendly, interactive, open-source R-Shiny web application for exploring and visualizing potential gene regulatory elements based on ATAC-seq and RNA-seq data. Users can upload customized data and obtain genome-wide gene regulatory elements with simple clicks. All the gene regulatory elements are predicted from multi-omics data, rather than being experimentally determined. Users can easily search, browse, and download the peak-gene scatter plot for a given gene. We will continue to update Linkage and add more modules for downstream analysis in the future.
 License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.2.3
-Imports: shiny, shinyjs, shinydashboard, shinydashboardPlus,
-        shinycssloaders, shinyWidgets, shinyBS, RColorBrewer, rvest,
-        data.table, ggplot2, ggpubr, ggpmisc, DT, dplyr, Biostrings,
-        igraph, tidyverse, visNetwork, stringr, clusterProfiler,
-        enrichplot, plotly, wordcloud2, fresh
+Imports: 
+    shiny,
+    shinyjs,
+    shinydashboard,
+    shinydashboardPlus,
+    shinycssloaders,
+    shinyWidgets,
+    shinyBS,
+    RColorBrewer,
+    rvest,
+    data.table,
+    ggplot2,
+    ggpubr,
+    ggpmisc,
+    DT,
+    dplyr,
+    Biostrings,
+    igraph,
+    tidyverse,
+    visNetwork,
+    stringr,
+    clusterProfiler,
+    enrichplot,
+    plotly,
+    wordcloud2,
+    fresh,
+    magrittr
 biocViews: BiocManager, Gviz, ChIPseeker,
         TxDb.Hsapiens.UCSC.hg38.knownGene,
         TxDb.Mmusculus.UCSC.mm10.knownGene, org.Hs.eg.db, org.Mm.eg.db,
@@ -28,3 +49,6 @@ Suggests:
     testthat (>= 3.0.0)
 URL: https://aicplane.github.io/Linkage/
 Config/testthat/edition: 3
+Depends: 
+    R (>= 2.10)
+LazyData: true
