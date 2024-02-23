@@ -1,6 +1,6 @@
 Package: Linkage
 Type: Package
-Title: What the Package Does (Title Case)
+Title: An R shiny web server for linking of ATAC-seq to gene expression data
 Version: 2.1.0
 Authors@R: 
     person(given = "Zenghui",
@@ -8,7 +8,7 @@ Authors@R:
          role = c("aut", "cre"),
          email = "2470587020@qq.com")
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: Linkage is a user-friendly, interactive, open-source R-Shiny web application for exploring and visualizing potential gene regulatory elements based on ATAC-seq and RNA-seq data. Users can upload customized data and obtain genome-wide gene regulatory elements with simple clicks. All the gene regulatory elements are predicted from multi-omics data, rather than being experimentally determined. Users can easily search, browse, and download the peak-gene scatter plot for a given gene. We will continue to update Linkage and add more modules for downstream analysis in the future.
+Description: Linkage is a user-friendly, interactive, open-source R-Shiny web application for exploring and visualizing potential gene cis-regulatory elements (CREs) based on ATAC-seq and RNA-seq data. Users can upload customized data or re-analysis public datasets, then obtain genome-wide CREs with simple clicks. All the CREs are predicted from multi-omics sequencing data, rather than being experimentally determined. The main feature for Linkage is to identify potential CREs for the whole genome by performing canonical correlation analysis between each quantitative chromatin accessibility measure and the quantitative expression level across all samples. Additional modules are developed to allow users to perform more systematic and deeper analysis for the gene regulatory landscape.
 License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.2.3
