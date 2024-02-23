@@ -21,6 +21,6 @@ Annotation regulatory peak
 }
 \examples{
 dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
-peakfile <- read.csv(dir, header = T)
+peakfile <- read.csv(dir, header = TRUE)
 peakAnno <- Peak_Annottation(peakfile, Species = "Homo")
 }
