@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
-#' peakfile <- read.csv(dir, header = T)
+#' peakfile <- read.csv(dir, header = TRUE)
 #' peakAnno <- Peak_Annottation(peakfile, Species = "Homo")
 Peak_Annottation <- function(peakfile, Species = "Homo", ...) {
   gr <-
@@ -46,7 +46,7 @@ Peak_Annottation <- function(peakfile, Species = "Homo", ...) {
 #'
 #' @examples
 #' dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
-#' peakfile <- read.csv(dir, header = T)
+#' peakfile <- read.csv(dir, header = TRUE)
 #' peakAnno <- Peak_Annottation(peakfile, Species = "Homo")
 #' vennpie(peakAnno)
 vennpie <- function(object, vennpie = TRUE, ...) {
