@@ -40,13 +40,13 @@ regulatory_peak <- function(RNA.seq, ATAC.seq, range, cor_method) {
 
       tryCatch(
         {
-          if (cor_method == "1") {
+          if (cor_method == "pearson") {
             p[j] <- cor.test(ftdf[, 1], ftdf[, 2], method = "pearson")$p.value
           }
-          if (cor_method == "2") {
+          if (cor_method == "spearman") {
             p[j] <- cor.test(ftdf[, 1], ftdf[, 2], method = "spearman", exact = FALSE)$p.value
           }
-          if (cor_method == "3") {
+          if (cor_method == "kendall") {
             p[j] <- cor.test(ftdf[, 1], ftdf[, 2], method = "kendall")$p.value
           }
         },
@@ -57,13 +57,13 @@ regulatory_peak <- function(RNA.seq, ATAC.seq, range, cor_method) {
       )
       tryCatch(
         {
-          if (cor_method == "1") {
+          if (cor_method == "pearson") {
             r[j] <- cor.test(ftdf[, 1], ftdf[, 2], method = "pearson")$estimate
           }
-          if (cor_method == "2") {
+          if (cor_method == "spearman") {
             r[j] <- cor.test(ftdf[, 1], ftdf[, 2], method = "spearman", exact = FALSE)$estimate
           }
-          if (cor_method == "3") {
+          if (cor_method == "kendall") {
             r[j] <- cor.test(ftdf[, 1], ftdf[, 2], method = "kendall")$estimate
           }
         },
