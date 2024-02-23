@@ -103,8 +103,32 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">extdatadir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Senescence-associated secretory phenotype.txt"</span>, package <span class="op">=</span> <span class="st">"Linkage"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">gene_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="va">extdatadir</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">KEGG</span> <span class="op">&lt;-</span> <span class="fu">KEGG.enrichment</span><span class="op">(</span>gene_list <span class="op">=</span> <span class="va">gene_list</span><span class="op">$</span><span class="va">V1</span>, Species <span class="op">=</span> <span class="st">"Homo"</span>, genelist_idtype <span class="op">=</span> <span class="st">"external_gene_name"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open compressed file 'data/Homo.gene.position.rda', probable reason 'No such file or directory'</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in readChar(con, 5L, useBytes = TRUE):</span> cannot open the connection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ensembl_gene_id external_gene_name entrezgene_id chromosome_name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 ENSG00000215601            TSPY24P          &lt;NA&gt;            chrY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 ENSG00000215603           ZNF92P1Y          &lt;NA&gt;            chrY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 ENSG00000231436            RBMY3AP          &lt;NA&gt;            chrY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 ENSG00000225878           SERBP1P2          &lt;NA&gt;            chrY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 ENSG00000236435            TSPY12P          &lt;NA&gt;            chrY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 ENSG00000278478                             &lt;NA&gt;            chrY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   start_position end_position</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        8280198      8282209</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        7853686      7854876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        9610571      9621276</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        4801685      4802848</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        7687739      7689548</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       10070131     10070409</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "650"   "22943" "654"   "1906"  "4318"  "4313"  "5069"  "4282"  "5228" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "1437"  "3489"  "3487"  "5054"  "3082"  "283"   "5328"  "11082" "1472" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "6405"  "3600"  "7424"  "3553"  "2246"  "3558"  "51384" "3490"  "3606" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "1435"  "5327"  "2252"  "51129" "2920"  "3627"  "6696"  "4319"  "4312" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "6364"  "3484"  "3486"  "2919"  "2921"  "3576"  "3596"  "2069"  "9235" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "10344" "6369"  "7425"  "3623"  "7124"  "284"   "3574"  "3084"  "6387" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "3569"  "4314"  "4321"  "80763" "1508"  "9518"  "4322"  "7422"  "718"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "2247"  "6354"  "6355"  "6357"  "6346"  "6347"  "6360"  "6348"  "6351" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [73] "3479"  "58191" "7077"  "3485"  "3488"  "3552"  "6352"  "3586"  "5270" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [82] "1604" </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading KEGG annotation online: "https://rest.kegg.jp/link/hsa/pathway"...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading KEGG annotation online: "https://rest.kegg.jp/list/pathway/hsa"...</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
