@@ -25,7 +25,22 @@
     <loc>/reference/box_plot.html</loc>
   </url>
   <url>
+    <loc>/reference/BuildNetwork.html</loc>
+  </url>
+  <url>
     <loc>/reference/cnetplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CombinePlots.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Corrplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CreateLinkageObject.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CreateNetworkObject.html</loc>
   </url>
   <url>
     <loc>/reference/dotplot.html</loc>
@@ -49,7 +64,16 @@
     <loc>/reference/Linkage.html</loc>
   </url>
   <url>
+    <loc>/reference/Linkage.UIO.html</loc>
+  </url>
+  <url>
+    <loc>/reference/LinkageObject-class.html</loc>
+  </url>
+  <url>
     <loc>/reference/motif_analysis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MultipleMotifAnalysis.html</loc>
   </url>
   <url>
     <loc>/reference/Peak_Annottation.html</loc>
@@ -64,7 +88,16 @@
     <loc>/reference/seqLogo_plot.html</loc>
   </url>
   <url>
+    <loc>/reference/show-methods.html</loc>
+  </url>
+  <url>
+    <loc>/reference/SingleMotifAnalysis.html</loc>
+  </url>
+  <url>
     <loc>/reference/trackplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/upsetplot.csAnno.html</loc>
   </url>
   <url>
     <loc>/reference/upsetplot.html</loc>
