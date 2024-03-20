@@ -27,7 +27,7 @@ GO.enrichment <-
            ...) {
     if (Species == "Homo") {
       dir <- system.file("extdata", "homo.gene_positions.plus.txt", package = "Linkage")
-      gene.position <- read.table(dir,header = T,sep = "\t",check.names = F)
+      gene.position <- read.table(dir,header = TRUE,sep = "\t",check.names = F)
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
       # print(head(gene.position))
@@ -42,7 +42,7 @@ GO.enrichment <-
 
     if (Species == "Mus") {
       dir <- system.file("extdata", "mus.gene_positions.plus.txt", package = "Linkage")
-      gene.position <- read.table(dir,header = T,sep = "\t",check.names = F)
+      gene.position <- read.table(dir,header = TRUE,sep = "\t",check.names = F)
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
       if (genelist_idtype != "entrezgene_id") {
@@ -68,8 +68,6 @@ GO.enrichment <-
 
     return(go)
   }
-
-
 
 
 #' KEGG enrichment analysis
@@ -101,7 +99,7 @@ KEGG.enrichment <-
            ...) {
     if (Species == "Homo") {
       dir <- system.file("extdata", "homo.gene_positions.plus.txt", package = "Linkage")
-      gene.position <- read.table(dir,header = T,sep = "\t",check.names = F)
+      gene.position <- read.table(dir,header = TRUE,sep = "\t",check.names = F)
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
       print(head(gene.position))
@@ -116,7 +114,7 @@ KEGG.enrichment <-
 
     if (Species == "Mus") {
       dir <- system.file("extdata", "mus.gene_positions.plus.txt", package = "Linkage")
-      gene.position <- read.table(dir,header = T,sep = "\t",check.names = F)
+      gene.position <- read.table(dir,header = TRUE,sep = "\t",check.names = F)
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
       if (genelist_idtype != "entrezgene_id") {
@@ -155,7 +153,7 @@ KEGG.enrichment <-
 #' gene_list <- read.table(extdatadir)
 #' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 #' dotplot(go)
-dotplot <- function(object, plotly = TRUE, ...) {
+dotplot <- function(object, plotly = FALSE, ...) {
   if (plotly == TRUE) {
     p <- plotly::ggplotly(
       enrichplot::dotplot(object) + ggplot2::theme(axis.text.y = ggplot2::element_text(size = 8)) + ggplot2::scale_y_discrete(
@@ -239,7 +237,7 @@ cnetplot <- function(object, ...) {
 #' gene_list <- read.table(extdatadir)
 #' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
 #' barplot(go)
-barplot <- function(object, plotly = TRUE, ...) {
+barplot <- function(object, plotly = FALSE, ...) {
   if (plotly == TRUE) {
     p <- plotly::ggplotly(
       graphics::barplot(object) + ggplot2::theme(axis.text.y = ggplot2::element_text(size = 8)) + ggplot2::scale_y_discrete(

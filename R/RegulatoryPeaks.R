@@ -1,27 +1,29 @@
-#' Finding the regulatory peak of genes
+#' Finding the regulatory peak of genes.
 #'
-#' @param RNA.seq Expression of a single or multiple genes
-#' @param ATAC.seq ATAC-Seq Expression Matrix
-#' @param range Expand the range of genes to find regulatory peaks
-#' @param cor_method For correlation calculation, pearson/spearman/kendall can be selected
+#' @param LinkageObject An Linkage Object.
+#' @param gene_list Character value,The gene you want to query.
+#' @param genelist_idtype There are ensembl_gene_id, external_gene_name, entrezgene_id types of genetic IDs to choose from.
+#' @param range Expand the range of genes to find regulatory peaks.
+#' @param cor_method For correlation calculation, pearson/spearman/kendall can be selected.
+#' @param filter_col p_value,FDR,rho can be selected.
+#' @param filter_value Cutoff value of filter_col.
 #'
 #' @return Regulate the peak list
 #' @export
 #'
 #' @examples
-#' RNA.seq.dir <- system.file("extdata","TCGA-BRCA-RNA.txt", package = "Linkage")
-#' RNA.seq <- data.table::fread(RNA.seq.dir, header = T)[c(1:10), ]
-#' position.dir <- system.file("extdata","homo.gene_positions.plus.txt", package = "Linkage")
-#' position <- data.table::fread(position.dir, header = T, sep = "\t")
-#' RNA.seq <- merge(position, RNA.seq, by.x = "ensembl_gene_id", by.y = "ensembl_gene_id")
-#' Homo.list.files.dir <- system.file("extdata","Homo.ATAC", package = "Linkage")
-#' Homo.list.files <- list.files(Homo.list.files.dir)
-#' Homo.list.files <- paste0(Homo.list.files.dir,"/", Homo.list.files)
-#' Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = T))
-#' ATAC.seq <- do.call(rbind, Homo.df_list)
-#' regulatory_peak(RNA.seq, ATAC.seq, 500000, "spearman")
-regulatory_peak <- function(RNA.seq, ATAC.seq, range, cor_method) {
+#' data("LinkageObject")
+#' gene_list <- c("TSPAN6", "CD99", "KLHL13")
+#' LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
+regulatory_peak <- function(LinkageObject, gene_list, genelist_idtype, range = 500000, cor_method = "spearman", filter_col = "FDR", filter_value = 0.05) {
+  if (class(LinkageObject) != "LinkageObject") stop("regulatory_peak must a LinkageObject")
+  n <- 0
+  n_peak <- 0
+  neg <- 0
+  pos <- 0
   result_peak <- list()
+  RNA.seq <- subset(LinkageObject@RNA.mtrix, subset = LinkageObject@RNA.mtrix[[genelist_idtype]] %in% gene_list)
+  ATAC.seq <- LinkageObject@ATAC.matrix
   for (i in 1:nrow(RNA.seq)) {
     RNA_row <- RNA.seq[i, ]
     result_peak[[i]] <-
@@ -76,6 +78,164 @@ regulatory_peak <- function(RNA.seq, ATAC.seq, range, cor_method) {
     result_peak[[i]]$p_value <- p
     result_peak[[i]]$FDR <- p.adjust(p, method = "BH")
     result_peak[[i]]$rho <- r
+    if (filter_col == "FDR") {
+      result_peak[[i]] <- result_peak[[i]][result_peak[[i]]$FDR <= filter_value, ]
+    }
+    if (filter_col == "rho") {
+      result_peak[[i]] <- result_peak[[i]][abs(result_peak[[i]]$rho) >= filter_value, ]
+    }
+    if (filter_col == "p_value") {
+      result_peak[[i]] <- result_peak[[i]][result_peak[[i]]$p_value <= filter_value, ]
+    }
+    if (nrow(result_peak[[i]]) > 0) {
+      pos_peak <- result_peak[[i]][result_peak[[i]]$rho > 0, ]
+      neg_peak <- result_peak[[i]][result_peak[[i]]$rho < 0, ]
+      n_peak <- n_peak + nrow(result_peak[[i]])
+      pos <- pos + nrow(pos_peak)
+      neg <- neg + nrow(neg_peak)
+      n <- n + 1
+    }
   }
-  return(result_peak)
+  names(result_peak) <- gene_list
+  p <-
+    new(
+      "LinkageObject",
+      RNA.mtrix = LinkageObject@RNA.mtrix,
+      ATAC.matrix = LinkageObject@ATAC.matrix,
+      active.gene = RNA.seq,
+      cor.peak = result_peak,
+      geneid = gene_list,
+      Summary = list(
+        "positive_peak" = pos,
+        "negetive_peak" = neg,
+        "TF_num" = 0,
+        "genelist_idtype" = NULL,
+        "filter_col" = NULL
+      )
+    )
+  return(p)
 }
+
+
+#' Correlation scatter plot.
+#'
+#' @param LinkageObject An Linkage Object.
+#' @param gene A gene that want to be visualized.
+#' @param color The color of the straight line.
+#' @param fill The color of the fill.
+#'
+#' @return Scatterplot of correlation between genes and peaks.
+#' @export
+#'
+#' @examples
+#' data("LinkageObject")
+#' gene_list <- c("TSPAN6", "CD99", "KLHL13")
+#' LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
+#' Corrplot(LinkageObject, gene = "CD99")
+Corrplot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
+
+  index <- which(LinkageObject@active.gene==gene, arr.ind = TRUE) # row col
+  corr.gene <- LinkageObject@active.gene[index[1],]
+  corr.peak <- LinkageObject@cor.peak[[gene]]
+  plot_list <- list()
+  for (i in 1:nrow(corr.peak)) {
+    ATAC3 <- corr.peak[i,]
+    ATAC4 <- dplyr::select(ATAC3, -p_value, -FDR,-rho)
+    ATAC5 <- ATAC4[, c(-1:-3)]
+    # ATAC6 <- ATAC5[click_ATAT, ]
+    plot_data <- rbind(gene = corr.gene[, c(-1:-6)], peak = ATAC5)
+    t_plot_data <- t(plot_data)
+    ft_plot_data <- data.frame(t_plot_data)
+
+    FDR <- signif(ATAC3$FDR,digits = 3)
+    p_value <- signif(ATAC3$p_value,digits = 3)
+    rho <- signif(ATAC3$rho,digits = 3)
+
+    plot_list[[i]] <- ggplot2::ggplot(ft_plot_data, ggplot2::aes(x = gene, y = peak)) +
+      ggplot2::geom_point() +
+      ggplot2::geom_smooth(method = "lm", color = color, fill = fill) +
+      ggplot2::labs(
+        x = "RNA-seq", y = "ATAC-seq",
+        title = paste0(gene,
+                       "\n",
+                       ATAC4$chrom,
+                       ":",
+                       ATAC4$chromStart,
+                       "-",
+                       ATAC4$chromEnd,
+                       "\nFDR = ",FDR," ","p_value = ",p_value," ","rho = ",rho
+        )) +
+      ggplot2::theme(
+        plot.title = ggplot2::element_text(size=10),legend.position = "top")+ggplot2::theme_classic()
+  }
+
+  for(i in 1:length(plot_list)){
+    plot_list[[i]] <- plot_list[[i]]
+  }
+
+  p <- CombinePlots(plot_list)
+
+  # fig <- ggplotly(fig)
+
+  # fig <- style(fig , text = paste0("sample:",rownames(gene_cluster_data),"\n","gene:",gene_cluster_data$gene,"\n","peak:",gene_cluster_data$peak))
+  return(p)
+}
+
+
+
+#' Combine ggplot2-based plots into a single plot
+#'
+#' @param plots A list of gg objects
+#' @param ncol Number of columns
+#' @param legend Combine legends into a single legend
+#' choose from 'right' or 'bottom'; pass 'none' to remove legends, or \code{NULL}
+#' to leave legends as they are
+#' @param ... Extra parameters passed to plot_grid
+#'
+#' @return A combined plot
+#'
+#' @importFrom cowplot plot_grid get_legend
+#' @concept RegulatoryPeaks
+CombinePlots <- function(plots, ncol = NULL, legend = NULL, ...) {
+  plots.combined <- if (length(x = plots) > 1) {
+    if (!is.null(x = legend)) {
+      if (legend != 'none') {
+        plot.legend <- get_legend(plot = plots[[1]] + theme(legend.position = legend))
+      }
+      plots <- lapply(
+        X = plots,
+        FUN = function(x) {
+          return(x + NoLegend())
+        }
+      )
+    }
+    plots.combined <- cowplot::plot_grid(
+      plotlist = plots,
+      ncol = ncol,
+      align = 'hv',
+      ...
+    )
+    if (!is.null(x = legend)) {
+      plots.combined <- switch(
+        EXPR = legend,
+        'bottom' = cowplot::plot_grid(
+          plots.combined,
+          plot.legend,
+          ncol = 1,
+          rel_heights = c(1, 0.2)
+        ),
+        'right' = cowplot::plot_grid(
+          plots.combined,
+          plot.legend,
+          rel_widths = c(3, 0.3)
+        ),
+        plots.combined
+      )
+    }
+    plots.combined
+  } else {
+    plots[[1]]
+  }
+  return(plots.combined)
+}
+
