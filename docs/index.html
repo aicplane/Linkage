@@ -36,17 +36,37 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
-  <a class="nav-link" href="reference/index.html">Reference</a>
+  <a class="nav-link" href="articles/Install.html">Install</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <h6 class="dropdown-header" data-toc-skip>Linkage in Rstudio</h6>
+    <a class="dropdown-item" href="articles/Linkage.html">Linkage shiny APP</a>
+  </div>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="news/index.html">Changelog</a>
+  <a class="external-link nav-link" href="https://github.com/aicplane/Linkage/issues">FAQ</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/aicplane/Linkage">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 
     
@@ -54,64 +74,21 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="linkage">Linkage<a class="anchor" aria-label="anchor" href="#linkage"></a>
+<div class="page-header"><h1 id="linkage-an-r-shiny-web-server-for-linking-of-atac-seq-to-gene-expression-data">Linkage: An R shiny web server for linking of ATAC-seq to gene expression data<a class="anchor" aria-label="anchor" href="#linkage-an-r-shiny-web-server-for-linking-of-atac-seq-to-gene-expression-data"></a>
 </h1></div>
+<div align="right">
+<p><img src="reference/figures/Linkage.png" width="172"></p>
+</div>
+<!-- badges: start -->
+
+<!-- badges: end -->
 <div align="justify">
 <p>Linkage is a user-friendly, interactive, open-source R-Shiny web application for exploring and visualizing potential gene cis-regulatory elements (CREs) based on <strong>ATAC-seq</strong> and <strong>RNA-seq</strong> data. Users can upload customized data or re-analysis public datasets, then obtain genome-wide CREs with simple clicks. All the CREs are predicted from multi-omics sequencing data, rather than being experimentally determined. The main feature for Linkage is to identify potential CREs for the whole genome by performing canonical correlation analysis between each quantitative chromatin accessibility measure and the quantitative expression level across all samples. Additional modules are developed to allow users to perform more systematic and deeper analysis for the gene regulatory landscape.</p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"devtools"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"aicplane/Linkage"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://aicplane.github.io/Linkage/" class="external-link">Linkage</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/Install.biocViews.html">Install.biocViews</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">Linkage</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div align="justify">
 <p>The Shiny application is additionally hosted at <a href="https://xulabgdpu.org.cn/linkage" class="external-link uri">https://xulabgdpu.org.cn/linkage</a>.</p>
 </div>
-<p><strong>Data input</strong></p>
-<div align="justify">
-<p>The <strong><em>TCGA Breast Cancer cohort</em></strong> dataset contains chromatin accessibility and gene expression data from 72 patients with breast cancer. The chromatin accessibility data is a normalized bulk ATAC-seq count matrix, which a prior count of 5 is added to the raw counts, then put into a “counts per million”, then log2 transformed, then quantile normalized. The gene expression data is a normalized bulk RNA-seq count matrix, which is log2(fpkm+1) transformed.</p>
-</div>
-<div align="justify">
-<p>The <strong><em>GSE121589</em></strong> dataset contains chromatin accessibility and gene expression data from 33 mice Muscle Stem Cells (MuSCs). The chromatin accessibility data is a normalized bulk ATAC-seq count matrix, which a prior count of 5 is added to the raw counts, then put into a “counts per million”, then log2 transformed, then quantile normalized. The gene expression data is a normalized bulk RNA-seq count matrix, which is log2(fpkm+1) transformed.</p>
-</div>
-<div align="justify">
-<p>Two tab-delimited text/csv input files (chromatin accessibility matrix and gene expression matrix) are required before running Linkage. The gene expression matrix file is a tab-delimited multi-column data matrix, which the first column represents gene symbols and the following columns represent normalized or raw expression levels of genes for each sample. The chromatin accessibility matrix file is a tab-delimited multi-column data matrix as well, which the first three columns represent chromosome name, start coordinate on the chromosome and end coordinate on the chromosome of the peaks respectively; the remaining columns of the chromatin accessibility matrix file represent normalized or raw chromatin accessibility levels of peaks for each sample. <strong>Each element of ready-to-analysis files will appear in Chromatin Accessibility Matrix panel and Gene Expression Matrix panel.</strong></p>
-</div>
-<p><img src="reference/figures/data.png"></p>
-<p><strong>Regulatory Peaks Search Module</strong></p>
-<div align="justify">
-<p><strong>Regulatory Peaks Search Module</strong> allows users to detect all potential regulatory DNA regions for specific genes. When given an <strong>input gene</strong> and <strong>targeting DNA regions</strong>, Linkage will automatically perform <strong>canonical correlation analysis</strong> between each quantitative chromatin accessibility measure in the region and the quantitative expression level of the gene across all samples. Users can easily adjust the region of interest and customize the correlation algorithm (<strong>Spearman</strong> / <strong>Pearson</strong> / <strong>Kendall</strong>). Then, all the statistically significant results are listed in the Potential Cis-regulatory Regions panel. With clicking on a specific region of this panel, users can view the scatter plot of quantitative chromatin accessibility and gene expression from the Correlation Plot panel. The <strong>rho</strong> and <strong>FDR</strong> for correlation analysis also be shown on the scatter plot.</p>
-</div>
-<p><img src="reference/figures/model_1.png"></p>
-<p><strong>Regulatory Peaks Visualization Module</strong></p>
-<div align="justify">
-<p><strong>Regulatory Peaks Visualization Module</strong> allows users to visualize the coverage of mapped ATAC-seq reads around a given specific regulatory peak, as well as the corresponding quantitative expression of the target gene of this regulatory peak. Users initially <strong>select a regulatory peak</strong> that obtained from the Regulatory Peaks Detection Module. Linkage then categorizes samples into five groups based on the quantitative chromatin accessibility of the specific regulatory peak, ranging from low to high for each individual sample. The <strong>coverage track of mapped ATAC-seq reads</strong> and the <strong>boxplot of the target gene</strong> for each group will be shown simultaneously.</p>
-</div>
-<p><img src="reference/figures/model_2.png"></p>
-<p><strong>Regulatory Peaks Annotation Module</strong></p>
-<div align="justify">
-<p><strong>Regulatory Peaks Annotation Module</strong> allows users to visualize the annotation of the predicational regulatory peaks from Linkage. Once users click <strong>‘Annotate Regulatory Peaks’</strong>, Linkage will perform the annotation of all predicational regulatory peaks in terms of genomic location features, which includes whether the peak is in the TSS, Exon, 5’ UTR, 3’ UTR, Intronic or Intergenic and the position and strand information of the nearest gene of the peaks. To effectively visualize the overlaps and distribution in annotation for peaks, Linkage also produces the <strong>upsetplot</strong> that adopting from the <strong>ChIPseeker</strong> package.</p>
-</div>
-<p><img src="reference/figures/model_3.png"></p>
-<p><strong>Motif Analysis Module</strong></p>
-<div align="justify">
-<p><strong>Motif Analysis Module</strong> supports users to visualize the enriched transcription factor motifs within potential regulatory peaks. With clicking on a specific peak, users can view the location and binding score information of each enriched transcription factor of this region. Once users select one of the transcription factors, the corresponding <strong>sequence logo</strong> of this cis-regulatory element will appear in the Sequence-logo Plot panel.</p>
-</div>
-<p><img src="reference/figures/model_4.png"></p>
-<p><strong>Regulatory Network Module</strong></p>
-<div align="justify">
-<p><strong>Regulatory Network Module</strong> helps users to visualize GRNs that nodes are genes and corresponding cis-regulatory elements，which inferred from previous analysis of Linkage. First, users can input a list of interested genes or upload a gene-list file that obtained from the previous analysis. Then users can adjust a series of parameters that related to building the GRN, including types of gene symbols, calculation methods and thresholds of interactions between the nodes (edges of the GRNs). Once users click <strong>‘Build Network’</strong>, Linkage will perform canonical correlation analysis of quantitative expression level between each interested gene and their potential cis-regulatory elements. The significant calculation results of correlation analysis are shown in the Gene-TF Table panel. Meanwhile, Linkage produces the corresponding informatic and interactive GRN that adopting from the <strong>visNetwork</strong> package. Users can further easily change network layouts, select subnetworks, and save the GRN as spreadsheets with interaction score or plots.</p>
-</div>
-<p><img src="reference/figures/model_5_1.png"><img src="reference/figures/model_5_2.png"></p>
-<p><strong>Pathway Enrichment Module</strong></p>
-<div align="justify">
-<p><strong>Pathway Enrichment Module</strong> supports users to visualize tabular and graphical pathway enrichment results of interested gene lists, which can be produced from previous analysis of Linkage. The enrichment analysis can link these gene lists with underlying molecular pathways and functional categories such as <strong>gene ontology (GO)</strong> and <strong>Kyoto Encyclopedia of Genes and Genomes (KEGG)</strong>.</p>
-</div>
-<p><img src="reference/figures/model_6_1.png"><img src="reference/figures/model_6_2.png"></p>
+<p><img src="reference/figures/pinpeline.png"></p>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
@@ -143,7 +120,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/aicplane/Linkage/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/aicplane/Linkage/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>

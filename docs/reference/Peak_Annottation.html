@@ -18,16 +18,35 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/Install.html">Install</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <h6 class="dropdown-header" data-toc-skip>Linkage in Rstudio</h6>
+    <a class="dropdown-item" href="../articles/Linkage.html">Linkage shiny APP</a>
+  </div>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
+  <a class="external-link nav-link" href="https://github.com/aicplane/Linkage/issues">FAQ</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/aicplane/Linkage">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -75,11 +94,11 @@
 <span class="r-in"><span><span class="va">gene_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TSPAN6"</span>, <span class="st">"CD99"</span>, <span class="st">"KLHL13"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">LinkageObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="regulatory_peak.html">regulatory_peak</a></span><span class="op">(</span>LinkageObject <span class="op">=</span> <span class="va">LinkageObject</span>, gene_list <span class="op">=</span> <span class="va">gene_list</span>, genelist_idtype <span class="op">=</span> <span class="st">"external_gene_name"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">peakAnno</span> <span class="op">&lt;-</span> <span class="fu">Peak_Annottation</span><span class="op">(</span><span class="va">LinkageObject</span>, Species <span class="op">=</span> <span class="st">"Homo"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-18 16:52:56 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-18 16:52:57 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-18 16:52:57 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-18 16:52:57 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-18 16:53:26 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-20 17:48:22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-20 17:48:22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-20 17:48:22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-20 17:48:22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-20 17:48:38 </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: org.Hs.eg.db</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: AnnotationDbi</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>package 'AnnotationDbi' was built under R version 4.3.2</span>
@@ -91,24 +110,24 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     'browseVignettes()'. To cite Bioconductor, see</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     'citation("Biobase")', and for packages 'citation("pkgname")'.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'select()' returned 1:1 mapping between keys and columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-18 16:53:26 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-18 16:53:26 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-18 16:53:26 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-18 16:53:26 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-18 16:53:27 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-18 16:53:27 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-18 16:53:33 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-20 17:48:38 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-20 17:48:38 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-20 17:48:38 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-20 17:48:38 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-20 17:48:39 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-20 17:48:39 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-20 17:48:43 </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'select()' returned 1:many mapping between keys and columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-18 16:53:33 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-18 16:53:33 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-18 16:53:33 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-18 16:53:33 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-18 16:53:33 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-18 16:53:33 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-18 16:53:40 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-20 17:48:43 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-20 17:48:43 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-20 17:48:43 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-20 17:48:43 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-20 17:48:44 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-20 17:48:44 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-20 17:48:49 </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'select()' returned 1:1 mapping between keys and columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-18 16:53:40 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-18 16:53:40 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-20 17:48:49 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-20 17:48:49 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

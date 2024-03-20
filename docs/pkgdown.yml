@@ -1,6 +1,8 @@
 pandoc: 3.1.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
-articles: {}
-last_built: 2024-03-18T08:46Z
+articles:
+  Install: Install.html
+  Linkage: Linkage.html
+last_built: 2024-03-20T09:43Z
 
