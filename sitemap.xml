@@ -10,6 +10,15 @@
     <loc>/LICENSE.html</loc>
   </url>
   <url>
+    <loc>/articles/Install.html</loc>
+  </url>
+  <url>
+    <loc>/articles/Linkage.html</loc>
+  </url>
+  <url>
+    <loc>/articles/index.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -17,6 +26,21 @@
   </url>
   <url>
     <loc>/news/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/BuildNetwork.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CombinePlots.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Corrplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CreateLinkageObject.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CreateNetworkObject.html</loc>
   </url>
   <url>
     <loc>/reference/GO.enrichment.html</loc>
@@ -28,16 +52,22 @@
     <loc>/reference/KEGG.enrichment.html</loc>
   </url>
   <url>
-    <loc>/reference/Linkage.html</loc>
+    <loc>/reference/Linkage.UIO.html</loc>
+  </url>
+  <url>
+    <loc>/reference/LinkageObject-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MultipleMotifAnalysis.html</loc>
   </url>
   <url>
     <loc>/reference/Peak_Annottation.html</loc>
   </url>
   <url>
-    <loc>/reference/barplot.html</loc>
+    <loc>/reference/SingleMotifAnalysis.html</loc>
   </url>
   <url>
-    <loc>/reference/box_plot.html</loc>
+    <loc>/reference/barplot.html</loc>
   </url>
   <url>
     <loc>/reference/cnetplot.html</loc>
@@ -49,9 +79,6 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/motif_analysis.html</loc>
-  </url>
-  <url>
     <loc>/reference/pipe.html</loc>
   </url>
   <url>
@@ -61,13 +88,16 @@
     <loc>/reference/seqLogo_plot.html</loc>
   </url>
   <url>
+    <loc>/reference/show-methods.html</loc>
+  </url>
+  <url>
     <loc>/reference/trackplot.html</loc>
   </url>
   <url>
-    <loc>/reference/upsetplot.html</loc>
+    <loc>/reference/upsetplot.csAnno.html</loc>
   </url>
   <url>
-    <loc>/reference/vennpie.html</loc>
+    <loc>/reference/upsetplot.html</loc>
   </url>
   <url>
     <loc>/reference/wordcloud.html</loc>

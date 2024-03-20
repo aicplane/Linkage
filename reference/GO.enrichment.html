@@ -18,16 +18,35 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/Install.html">Install</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <h6 class="dropdown-header" data-toc-skip>Linkage in Rstudio</h6>
+    <a class="dropdown-item" href="../articles/Linkage.html">Linkage shiny APP</a>
+  </div>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
+  <a class="external-link nav-link" href="https://github.com/aicplane/Linkage/issues">FAQ</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/aicplane/Linkage">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -103,7 +122,6 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">extdatadir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Senescence-associated secretory phenotype.txt"</span>, package <span class="op">=</span> <span class="st">"Linkage"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">gene_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="va">extdatadir</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">go</span> <span class="op">&lt;-</span> <span class="fu">GO.enrichment</span><span class="op">(</span>gene_list <span class="op">=</span> <span class="va">gene_list</span><span class="op">$</span><span class="va">V1</span>, Species <span class="op">=</span> <span class="st">"Homo"</span>, genelist_idtype <span class="op">=</span> <span class="st">"external_gene_name"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

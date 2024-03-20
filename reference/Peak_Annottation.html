@@ -18,16 +18,35 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/Install.html">Install</a>
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <h6 class="dropdown-header" data-toc-skip>Linkage in Rstudio</h6>
+    <a class="dropdown-item" href="../articles/Linkage.html">Linkage shiny APP</a>
+  </div>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
+  <a class="external-link nav-link" href="https://github.com/aicplane/Linkage/issues">FAQ</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/aicplane/Linkage">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -45,13 +64,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Peak_Annottation</span><span class="op">(</span><span class="va">peakfile</span>, Species <span class="op">=</span> <span class="st">"Homo"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Peak_Annottation</span><span class="op">(</span><span class="va">LinkageObject</span>, Species <span class="op">=</span> <span class="st">"Homo"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>peakfile</dt>
-<dd><p>ATAC-Seq expression matrix or bed file.</p></dd>
+    <dl><dt>LinkageObject</dt>
+<dd><p>An Linkage Object after regulatory_peak.</p></dd>
 
 
 <dt>Species</dt>
@@ -66,55 +85,47 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A Annottation object</p>
+<p>An LinkageObject after the annottation.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,<span class="st">"ENSG00000000419.csv"</span>, package <span class="op">=</span> <span class="st">"Linkage"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">peakfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">dir</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">peakAnno</span> <span class="op">&lt;-</span> <span class="fu">Peak_Annottation</span><span class="op">(</span><span class="va">peakfile</span>, Species <span class="op">=</span> <span class="st">"Homo"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-18 09:48:17 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-18 09:48:18 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-18 09:48:19 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-18 09:48:19 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-18 09:48:45 </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"LinkageObject"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">gene_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TSPAN6"</span>, <span class="st">"CD99"</span>, <span class="st">"KLHL13"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">LinkageObject</span> <span class="op">&lt;-</span> <span class="fu"><a href="regulatory_peak.html">regulatory_peak</a></span><span class="op">(</span>LinkageObject <span class="op">=</span> <span class="va">LinkageObject</span>, gene_list <span class="op">=</span> <span class="va">gene_list</span>, genelist_idtype <span class="op">=</span> <span class="st">"external_gene_name"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">peakAnno</span> <span class="op">&lt;-</span> <span class="fu">Peak_Annottation</span><span class="op">(</span><span class="va">LinkageObject</span>, Species <span class="op">=</span> <span class="st">"Homo"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-20 10:07:30 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-20 10:07:31 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-20 10:07:31 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-20 10:07:31 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-20 10:07:53 </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: org.Hs.eg.db</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: AnnotationDbi</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: stats4</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: BiocGenerics</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'BiocGenerics'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from 'package:stats':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     IQR, mad, sd, var, xtabs</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from 'package:base':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     Filter, Find, Map, Position, Reduce, anyDuplicated, aperm, append,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     as.data.frame, basename, cbind, colnames, dirname, do.call,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     duplicated, eval, evalq, get, grep, grepl, intersect, is.unsorted,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     lapply, mapply, match, mget, order, paste, pmax, pmax.int, pmin,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     pmin.int, rank, rbind, rownames, sapply, setdiff, sort, table,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     tapply, union, unique, unsplit, which.max, which.min</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: Biobase</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Welcome to Bioconductor</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     Vignettes contain introductory material; view with</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     'browseVignettes()'. To cite Bioconductor, see</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>     'citation("Biobase")', and for packages 'citation("pkgname")'.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: IRanges</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: S4Vectors</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: 'S4Vectors'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from 'package:utils':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     findMatches</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The following objects are masked from 'package:base':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>     I, expand.grid, unname</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 'select()' returned 1:1 mapping between keys and columns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-18 09:48:45 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-18 09:48:45 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-20 10:07:53 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-20 10:07:53 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-20 10:07:53 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-20 10:07:53 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-20 10:07:53 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-20 10:07:53 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-20 10:07:57 </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 'select()' returned 1:many mapping between keys and columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-20 10:07:57 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-20 10:07:57 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; preparing features information...		 2024-03-20 10:07:57 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; identifying nearest features...		 2024-03-20 10:07:57 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; calculating distance from peak to TSS...	 2024-03-20 10:07:58 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning genomic annotation...		 2024-03-20 10:07:58 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; adding gene annotation...			 2024-03-20 10:08:01 </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 'select()' returned 1:1 mapping between keys and columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; assigning chromosome lengths			 2024-03-20 10:08:01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; done...					 2024-03-20 10:08:01 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
