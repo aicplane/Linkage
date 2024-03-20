@@ -139,7 +139,7 @@ cor_test <- function(ATAC2, gene, method, Filter_col, Filter_value) {
     ATAC3 <<- ATAC2[ATAC2$FDR <= Filter_value, ]
   }
   if (Filter_col == "rho") {
-    ATAC3 <<- ATAC2[ATAC2$rho >= Filter_value, ]
+    ATAC3 <<- ATAC2[abs(ATAC2$rho) >= Filter_value, ]
   }
   if (Filter_col == "p_value") {
     ATAC3 <<- ATAC2[ATAC2$p_value <= Filter_value, ]
