@@ -2,3 +2,21 @@ url: ~
 template:
   bootstrap: 5
   bootswatch: flatly
+
+navbar:
+  title: "Linkage"
+  left:
+    - text: "Install"
+      href: articles/Install.html
+    - text: "Vignettes"
+      menu:
+        - text: Linkage in Rstudio
+        - text: "Linkage shiny APP"
+          href: articles/Linkage.html
+    - text: FAQ
+      href: "https://github.com/aicplane/Linkage/issues"
+  right:
+    - icon: fa-home
+      href: http://www.xulabgdpu.org.cn/linkage
+    - icon: fa-github
+      href: https://github.com/aicplane/Linkage

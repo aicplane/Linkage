@@ -6,8 +6,9 @@ Authors@R:
     person(given = "Zenghui",
          family = "Liu",
          role = c("aut", "cre"),
+         comment = c(ORCID = "0009-0003-5676-4237"),
          email = "2470587020@qq.com")
-Maintainer: The package maintainer <yourself@somewhere.net>
+Maintainer: <2470587020@qq.com>
 Description: Linkage is a user-friendly, interactive, open-source R-Shiny web application for exploring and visualizing potential gene cis-regulatory elements (CREs) based on ATAC-seq and RNA-seq data. Users can upload customized data or re-analysis public datasets, then obtain genome-wide CREs with simple clicks. All the CREs are predicted from multi-omics sequencing data, rather than being experimentally determined. The main feature for Linkage is to identify potential CREs for the whole genome by performing canonical correlation analysis between each quantitative chromatin accessibility measure and the quantitative expression level across all samples. Additional modules are developed to allow users to perform more systematic and deeper analysis for the gene regulatory landscape.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -38,7 +39,16 @@ Imports:
     plotly,
     wordcloud2,
     fresh,
-    magrittr
+    magrittr,
+    cowplot,
+    tidyr,
+    methods,
+    KernSmooth,
+    utils,
+    cluster,
+    foreign,
+    rpart,
+    UpSetR
 biocViews: BiocManager, Gviz, ChIPseeker,
         TxDb.Hsapiens.UCSC.hg38.knownGene,
         TxDb.Mmusculus.UCSC.mm10.knownGene, org.Hs.eg.db, org.Mm.eg.db,
@@ -46,9 +56,12 @@ biocViews: BiocManager, Gviz, ChIPseeker,
         BSgenome.Mmusculus.UCSC.mm10, TFBSTools,
         motifmatchr
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 URL: https://aicplane.github.io/Linkage/
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
 LazyData: true
+VignetteBuilder: knitr
