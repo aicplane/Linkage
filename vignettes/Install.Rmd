@@ -1,0 +1,21 @@
+---
+title: "Install"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Linkage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+``` r
+if (!requireNamespace("devtools", quietly = TRUE))
+  install.packages("devtools")
+
+devtools::install_github("aicplane/Linkage")
+```
+
+``` r
+library(Linkage)
+Install.biocViews()
+Linkage.UIO()
+```
