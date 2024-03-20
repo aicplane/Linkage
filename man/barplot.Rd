@@ -4,7 +4,7 @@
 \alias{barplot}
 \title{Enrichment analysis Barplot}
 \usage{
-barplot(object, plotly = TRUE, ...)
+barplot(object, plotly = FALSE, ...)
 }
 \arguments{
 \item{object}{Go or KEGG object.}

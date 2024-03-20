@@ -2,22 +2,19 @@
 % Please edit documentation in R/MotifAnalysis.R
 \name{seqLogo_plot}
 \alias{seqLogo_plot}
-\title{Transcription factor Seqlogo plot}
+\title{Transcription factor Seqlogo plot.}
 \usage{
 seqLogo_plot(motif_ID)
 }
 \arguments{
-\item{motif_ID}{Motif ID}
+\item{motif_ID}{Motif ID.}
 }
 \value{
-seqLogo plot
+seqLogo plot.
 }
 \description{
-Transcription factor Seqlogo plot
+Transcription factor Seqlogo plot.
 }
 \examples{
-dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
-peakfile <- read.csv(dir, header = T)
-motif_analysis(peakfile, "Homo")
 seqLogo_plot("MA0618.1")
 }

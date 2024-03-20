@@ -4,7 +4,7 @@
 \alias{dotplot}
 \title{Enrichment analysis Dotplot}
 \usage{
-dotplot(object, plotly = TRUE, ...)
+dotplot(object, plotly = FALSE, ...)
 }
 \arguments{
 \item{object}{Go or KEGG object.}

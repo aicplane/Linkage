@@ -4,23 +4,24 @@
 \alias{Peak_Annottation}
 \title{Annotation regulatory peak}
 \usage{
-Peak_Annottation(peakfile, Species = "Homo", ...)
+Peak_Annottation(LinkageObject, Species = "Homo", ...)
 }
 \arguments{
-\item{peakfile}{ATAC-Seq expression matrix or bed file.}
+\item{LinkageObject}{An Linkage Object after regulatory_peak.}
 
 \item{Species}{Select the species, Homo or Mus.The default is Homo.}
 
 \item{...}{...}
 }
 \value{
-A Annottation object
+An LinkageObject after the annottation.
 }
 \description{
 Annotation regulatory peak
 }
 \examples{
-dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
-peakfile <- read.csv(dir, header = TRUE)
-peakAnno <- Peak_Annottation(peakfile, Species = "Homo")
+data("LinkageObject")
+gene_list <- c("TSPAN6", "CD99", "KLHL13")
+LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
+peakAnno <- Peak_Annottation(LinkageObject, Species = "Homo")
 }

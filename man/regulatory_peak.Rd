@@ -2,35 +2,41 @@
 % Please edit documentation in R/RegulatoryPeaks.R
 \name{regulatory_peak}
 \alias{regulatory_peak}
-\title{Finding the regulatory peak of genes}
+\title{Finding the regulatory peak of genes.}
 \usage{
-regulatory_peak(RNA.seq, ATAC.seq, range, cor_method)
+regulatory_peak(
+  LinkageObject,
+  gene_list,
+  genelist_idtype,
+  range = 5e+05,
+  cor_method = "spearman",
+  filter_col = "FDR",
+  filter_value = 0.05
+)
 }
 \arguments{
-\item{RNA.seq}{Expression of a single or multiple genes}
+\item{LinkageObject}{An Linkage Object.}
 
-\item{ATAC.seq}{ATAC-Seq Expression Matrix}
+\item{gene_list}{Character value,The gene you want to query.}
 
-\item{range}{Expand the range of genes to find regulatory peaks}
+\item{genelist_idtype}{There are ensembl_gene_id, external_gene_name, entrezgene_id types of genetic IDs to choose from.}
 
-\item{cor_method}{For correlation calculation, pearson/spearman/kendall can be selected}
+\item{range}{Expand the range of genes to find regulatory peaks.}
+
+\item{cor_method}{For correlation calculation, pearson/spearman/kendall can be selected.}
+
+\item{filter_col}{p_value,FDR,rho can be selected.}
+
+\item{filter_value}{Cutoff value of filter_col.}
 }
 \value{
 Regulate the peak list
 }
 \description{
-Finding the regulatory peak of genes
+Finding the regulatory peak of genes.
 }
 \examples{
-RNA.seq.dir <- system.file("extdata","TCGA-BRCA-RNA.txt", package = "Linkage")
-RNA.seq <- data.table::fread(RNA.seq.dir, header = T)[c(1:10), ]
-position.dir <- system.file("extdata","homo.gene_positions.plus.txt", package = "Linkage")
-position <- data.table::fread(position.dir, header = T, sep = "\t")
-RNA.seq <- merge(position, RNA.seq, by.x = "ensembl_gene_id", by.y = "ensembl_gene_id")
-Homo.list.files.dir <- system.file("extdata","Homo.ATAC", package = "Linkage")
-Homo.list.files <- list.files(Homo.list.files.dir)
-Homo.list.files <- paste0(Homo.list.files.dir,"/", Homo.list.files)
-Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = T))
-ATAC.seq <- do.call(rbind, Homo.df_list)
-regulatory_peak(RNA.seq, ATAC.seq, 500000, "spearman")
+data("LinkageObject")
+gene_list <- c("TSPAN6", "CD99", "KLHL13")
+LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
 }
