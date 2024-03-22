@@ -6,7 +6,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-slim navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">Linkage</a>
 
@@ -24,18 +24,28 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
-    <h6 class="dropdown-header" data-toc-skip>Linkage in Rstudio</h6>
-    <a class="dropdown-item" href="../articles/Linkage.html">Linkage shiny APP</a>
+    <h6 class="dropdown-header" data-toc-skip>R package</h6>
+    <a class="dropdown-item" href="../articles/LinkageR.html">Genes and regulatory peaks to find transcription factors</a>
+    <a class="dropdown-item" href="../articles/Motif.html">Monogenic MOTIF analysis</a>
+    <a class="dropdown-item" href="../articles/Enrichment.html">Pathway Enrichment Module</a>
+    <h6 class="dropdown-header" data-toc-skip>Shiny APP</h6>
+    <a class="dropdown-item" href="../articles/Linkage.html">Linkage in shiny APP</a>
   </div>
+</li>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/aicplane/Linkage/issues">FAQ</a>
+</li>
+<li class="nav-item">
+  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">Shiny App</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">
+  <a class="external-link nav-link" href="https://aicplane.github.io/Linkage/">
     <span class="fa fa-home"></span>
      
   </a>
@@ -166,7 +176,7 @@
           
           <code><a href="Trackplot.html">Trackplot()</a></code> 
         </dt>
-        <dd>Plot Trackplot.Users initially select a regulatory peak that obtained from the Regulatory Peaks Detection Module. Linkage then categorizes samples into five groups based on the quantitative chromatin accessibility of the specific regulatory peak, ranging from low to high for each individual sample. The coverage track of mapped ATAC-seq reads and the boxplot of the target gene for each group will be shown simultaneously.</dd>
+        <dd>Track plot</dd>
       </dl><dl><dt>
           
           <code><a href="upsetplot.csAnno.html">upsetplot.csAnno()</a></code> 

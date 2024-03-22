@@ -22,7 +22,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-slim navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">Linkage</a>
 
@@ -41,12 +41,22 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
-    <h6 class="dropdown-header" data-toc-skip>Linkage in Rstudio</h6>
-    <a class="dropdown-item" href="../articles/Linkage.html">Linkage shiny APP</a>
+    <h6 class="dropdown-header" data-toc-skip>R package</h6>
+    <a class="dropdown-item" href="../articles/LinkageR.html">Genes and regulatory peaks to find transcription factors</a>
+    <a class="dropdown-item" href="../articles/Motif.html">Monogenic MOTIF analysis</a>
+    <a class="dropdown-item" href="../articles/Enrichment.html">Pathway Enrichment Module</a>
+    <h6 class="dropdown-header" data-toc-skip>Shiny APP</h6>
+    <a class="dropdown-item" href="../articles/Linkage.html">Linkage in shiny APP</a>
   </div>
 </li>
 <li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/aicplane/Linkage/issues">FAQ</a>
+</li>
+<li class="nav-item">
+  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">Shiny App</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -55,7 +65,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">
+  <a class="external-link nav-link" href="https://aicplane.github.io/Linkage/">
     <span class="fa fa-home"></span>
      
   </a>
@@ -87,6 +97,7 @@
 
     
     
+<p><img src="../reference/figures/shiny-logo1.png"></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"devtools"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>

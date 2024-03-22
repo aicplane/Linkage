@@ -22,7 +22,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-slim navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="index.html">Linkage</a>
 
@@ -41,12 +41,22 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
-    <h6 class="dropdown-header" data-toc-skip>Linkage in Rstudio</h6>
-    <a class="dropdown-item" href="articles/Linkage.html">Linkage shiny APP</a>
+    <h6 class="dropdown-header" data-toc-skip>R package</h6>
+    <a class="dropdown-item" href="articles/LinkageR.html">Genes and regulatory peaks to find transcription factors</a>
+    <a class="dropdown-item" href="articles/Motif.html">Monogenic MOTIF analysis</a>
+    <a class="dropdown-item" href="articles/Enrichment.html">Pathway Enrichment Module</a>
+    <h6 class="dropdown-header" data-toc-skip>Shiny APP</h6>
+    <a class="dropdown-item" href="articles/Linkage.html">Linkage in shiny APP</a>
   </div>
 </li>
 <li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/aicplane/Linkage/issues">FAQ</a>
+</li>
+<li class="nav-item">
+  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">Shiny App</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -55,7 +65,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">
+  <a class="external-link nav-link" href="https://aicplane.github.io/Linkage/">
     <span class="fa fa-home"></span>
      
   </a>
@@ -73,31 +83,23 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="linkage-an-r-shiny-web-server-for-linking-of-atac-seq-to-gene-expression-data">Linkage: An R shiny web server for linking of ATAC-seq to gene expression data<a class="anchor" aria-label="anchor" href="#linkage-an-r-shiny-web-server-for-linking-of-atac-seq-to-gene-expression-data"></a>
-</h1></div>
-<div align="right">
-<p><img src="reference/figures/Linkage.png" width="172"></p>
-</div>
+  <main id="main" class="col-md-9"><p><img src="reference/figures/shiny-logo1.png"></p>
 <!-- badges: start -->
 
 <!-- badges: end -->
+<!-- badges: start -->
+
+<!-- badges: end -->
+<p><img src="reference/figures/imgfile.png" align="right" height="200" style="float:right; height:200px;"></p>
 <div align="justify">
 <p>Linkage is a user-friendly, interactive, open-source R-Shiny web application for exploring and visualizing potential gene cis-regulatory elements (CREs) based on <strong>ATAC-seq</strong> and <strong>RNA-seq</strong> data. Users can upload customized data or re-analysis public datasets, then obtain genome-wide CREs with simple clicks. All the CREs are predicted from multi-omics sequencing data, rather than being experimentally determined. The main feature for Linkage is to identify potential CREs for the whole genome by performing canonical correlation analysis between each quantitative chromatin accessibility measure and the quantitative expression level across all samples. Additional modules are developed to allow users to perform more systematic and deeper analysis for the gene regulatory landscape.</p>
 </div>
+<p><img src="reference/figures/pinpeline.png"></p>
 <div align="justify">
 <p>The Shiny application is additionally hosted at <a href="https://xulabgdpu.org.cn/linkage" class="external-link uri">https://xulabgdpu.org.cn/linkage</a>.</p>
 </div>
-<p><img src="reference/figures/pinpeline.png"></p>
-</div>
-  </main><aside class="col-md-3"><div class="links">
-<h2 data-toc-skip>Links</h2>
-<ul class="list-unstyled">
-<li><a href="https://cloud.r-project.org/package=Linkage" class="external-link">View on CRAN</a></li>
-</ul>
-</div>
 
-<div class="license">
+  </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
@@ -123,7 +125,8 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/aicplane/Linkage/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/aicplane/Linkage/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/aicplane/Linkage/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/aicplane/Linkage/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a></li>
+<li><a href="https://github.com/aicplane/Linkage/actions/workflows/test-coverage.yaml" class="external-link"><img src="https://github.com/aicplane/Linkage/actions/workflows/test-coverage.yaml/badge.svg" alt="test-coverage"></a></li>
 </ul>
 </div>
 

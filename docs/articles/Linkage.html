@@ -22,7 +22,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-slim navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">Linkage</a>
 
@@ -41,12 +41,22 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
-    <h6 class="dropdown-header" data-toc-skip>Linkage in Rstudio</h6>
-    <a class="dropdown-item" href="../articles/Linkage.html">Linkage shiny APP</a>
+    <h6 class="dropdown-header" data-toc-skip>R package</h6>
+    <a class="dropdown-item" href="../articles/LinkageR.html">Genes and regulatory peaks to find transcription factors</a>
+    <a class="dropdown-item" href="../articles/Motif.html">Monogenic MOTIF analysis</a>
+    <a class="dropdown-item" href="../articles/Enrichment.html">Pathway Enrichment Module</a>
+    <h6 class="dropdown-header" data-toc-skip>Shiny APP</h6>
+    <a class="dropdown-item" href="../articles/Linkage.html">Linkage in shiny APP</a>
   </div>
 </li>
 <li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
+</li>
+<li class="nav-item">
   <a class="external-link nav-link" href="https://github.com/aicplane/Linkage/issues">FAQ</a>
+</li>
+<li class="nav-item">
+  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">Shiny App</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -55,7 +65,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="http://www.xulabgdpu.org.cn/linkage">
+  <a class="external-link nav-link" href="https://aicplane.github.io/Linkage/">
     <span class="fa fa-home"></span>
      
   </a>
@@ -90,10 +100,10 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://aicplane.github.io/Linkage/" class="external-link">Linkage</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/Linkage.UIO.html">Linkage.UIO</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="data-input">
+<div class="section level3">
+<h3 id="data-input">
 <strong>Data input</strong><a class="anchor" aria-label="anchor" href="#data-input"></a>
-</h2>
+</h3>
 <div align="justify">
 <p>The <strong><em>TCGA Breast Cancer cohort</em></strong> dataset
 contains chromatin accessibility and gene expression data from 72
@@ -131,10 +141,10 @@ panel.</strong></p>
 </div>
 <p><img src="../reference/figures/data.png"></p>
 </div>
-<div class="section level2">
-<h2 id="regulatory-peaks-search-module">
+<div class="section level3">
+<h3 id="regulatory-peaks-search-module">
 <strong>Regulatory Peaks Search Module</strong><a class="anchor" aria-label="anchor" href="#regulatory-peaks-search-module"></a>
-</h2>
+</h3>
 <div align="justify">
 <p><strong>Regulatory Peaks Search Module</strong> allows users to
 detect all potential regulatory DNA regions for specific genes. When
@@ -155,10 +165,10 @@ scatter plot.</p>
 </div>
 <p><img src="../reference/figures/model_1.png"></p>
 </div>
-<div class="section level2">
-<h2 id="regulatory-peaks-visualization-module">
+<div class="section level3">
+<h3 id="regulatory-peaks-visualization-module">
 <strong>Regulatory Peaks Visualization Module</strong><a class="anchor" aria-label="anchor" href="#regulatory-peaks-visualization-module"></a>
-</h2>
+</h3>
 <div align="justify">
 <p><strong>Regulatory Peaks Visualization Module</strong> allows users
 to visualize the coverage of mapped ATAC-seq reads around a given
@@ -174,10 +184,10 @@ each group will be shown simultaneously.</p>
 </div>
 <p><img src="../reference/figures/model_2.png"></p>
 </div>
-<div class="section level2">
-<h2 id="regulatory-peaks-annotation-module">
+<div class="section level3">
+<h3 id="regulatory-peaks-annotation-module">
 <strong>Regulatory Peaks Annotation Module</strong><a class="anchor" aria-label="anchor" href="#regulatory-peaks-annotation-module"></a>
-</h2>
+</h3>
 <div align="justify">
 <p><strong>Regulatory Peaks Annotation Module</strong> allows users to
 visualize the annotation of the predicational regulatory peaks from
@@ -192,10 +202,10 @@ adopting from the <strong>ChIPseeker</strong> package.</p>
 </div>
 <p><img src="../reference/figures/model_3.png"></p>
 </div>
-<div class="section level2">
-<h2 id="motif-analysis-module">
+<div class="section level3">
+<h3 id="motif-analysis-module">
 <strong>Motif Analysis Module</strong><a class="anchor" aria-label="anchor" href="#motif-analysis-module"></a>
-</h2>
+</h3>
 <div align="justify">
 <p><strong>Motif Analysis Module</strong> supports users to visualize
 the enriched transcription factor motifs within potential regulatory
@@ -207,10 +217,10 @@ element will appear in the Sequence-logo Plot panel.</p>
 </div>
 <p><img src="../reference/figures/model_4.png"></p>
 </div>
-<div class="section level2">
-<h2 id="regulatory-network-module">
+<div class="section level3">
+<h3 id="regulatory-network-module">
 <strong>Regulatory Network Module</strong><a class="anchor" aria-label="anchor" href="#regulatory-network-module"></a>
-</h2>
+</h3>
 <div align="justify">
 <p><strong>Regulatory Network Module</strong> helps users to visualize
 GRNs that nodes are genes and corresponding cis-regulatory
@@ -232,10 +242,10 @@ spreadsheets with interaction score or plots.</p>
 </div>
 <p><img src="../reference/figures/model_5_1.png"><img src="../reference/figures/model_5_2.png"></p>
 </div>
-<div class="section level2">
-<h2 id="pathway-enrichment-module">
+<div class="section level3">
+<h3 id="pathway-enrichment-module">
 <strong>Pathway Enrichment Module</strong><a class="anchor" aria-label="anchor" href="#pathway-enrichment-module"></a>
-</h2>
+</h3>
 <div align="justify">
 <p><strong>Pathway Enrichment Module</strong> supports users to
 visualize tabular and graphical pathway enrichment results of interested
