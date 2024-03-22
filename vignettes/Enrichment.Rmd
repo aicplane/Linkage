@@ -1,0 +1,39 @@
+---
+title: "Pathway Enrichment Module"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Pathway Enrichment Module}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Pathway Enrichment Module
+Pathway Enrichment Module supports users to visualize tabular and graphical pathway enrichment results of interested gene lists, which can be produced from previous analysis of Linkage. The enrichment analysis can link these gene lists with underlying molecular pathways and functional categories such as gene ontology (GO) and Kyoto Encyclopedia of Genes and Genomes (KEGG).
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(Linkage)
+extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
+gene_list <- read.table(extdatadir)
+go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
+KEGG <- KEGG.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
+```
+
+```{r fig.height=7, fig.width=7, message=FALSE, warning=FALSE}
+dotplot(go)
+```
+
+```{r fig.height=7, fig.width=7, message=FALSE, warning=FALSE}
+barplot(go)
+```
+
+```{r fig.height=7, fig.width=7, message=FALSE, warning=FALSE}
+upsetplot(go)
+```
+
+```{r fig.height=7, fig.width=7, message=FALSE, warning=FALSE}
+cnetplot(go)
+```
+
+```{r fig.height=5, fig.width=7, message=FALSE, warning=FALSE}
+wordcloud(go, Type = "GO")
+```
