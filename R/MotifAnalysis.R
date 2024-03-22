@@ -148,7 +148,7 @@ MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
         }
       },
       error = function(e) {
-        message("error: ", conditionMessage(e))
+        # message("error: ", conditionMessage(e))
         p[j] <- NULL
       })
       tryCatch({
@@ -163,7 +163,7 @@ MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
         }
       },
       error = function(e) {
-        message("error: ", conditionMessage(e))
+        # message("error: ", conditionMessage(e))
         r[j] <- NULL
       })
     }

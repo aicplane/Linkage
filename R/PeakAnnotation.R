@@ -34,7 +34,8 @@ Peak_Annottation <- function(LinkageObject, Species = "Homo", ...) {
       gr,
       tssRegion = c(-3000, 3000),
       TxDb = txdb,
-      annoDb = annoDb
+      annoDb = annoDb,
+      verbose = F
     )
     ann[[i]] <- peakAnno@anno
     detail[[i]] <- peakAnno@detailGenomicAnnotation

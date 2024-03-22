@@ -131,7 +131,7 @@ regulatory_peak <- function(LinkageObject, gene_list, genelist_idtype, range = 5
 #' data("LinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-#' Corrplot(LinkageObject, gene = "CD99")
+#' Corrplot(LinkageObject, gene = "TSPAN6")
 Corrplot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
 
   index <- which(LinkageObject@active.gene==gene, arr.ind = TRUE) # row col

@@ -189,7 +189,7 @@ BuildNetwork <- function(LinkageObject){
         apply(RNA_count[RNA_count[[index]] %in% nodes$label, c(-1:-6)], 1, mean)
     },
     error = function(e) {
-      print(e)
+      # print(e)
       nodes$value <- 1
     }
   )

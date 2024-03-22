@@ -1,4 +1,4 @@
-#' Plot Trackplot.Users initially select a regulatory peak that obtained from the Regulatory Peaks Detection Module. Linkage then categorizes samples into five groups based on the quantitative chromatin accessibility of the specific regulatory peak, ranging from low to high for each individual sample. The coverage track of mapped ATAC-seq reads and the boxplot of the target gene for each group will be shown simultaneously.
+#' Track plot
 #'
 #' @param LinkageObject An Linkage Object after regulatory_peak.
 #' @param Geneid The gene you want to query.
@@ -77,11 +77,12 @@ Trackplot <- function(LinkageObject,Geneid,peakid,Species = "Homo"){
       x <- ggplotify::as.ggplot(ggplotify::grid2grob(Gviz::plotTracks(list(ht, ax, itrack), type = "histogram", col = NULL)))
     },
     error = function(e) {
+      message(e)
       # 突出显示某一区域
       ht <- Gviz::HighlightTrack(tracks_list,
                                  start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
       )
-      x <- ggplotify::as.ggplot(ggplotify::grid2grob(Gviz::plotTracks(list(ht, ax), type = "histogram", col = NULL)))
+      x <<- ggplotify::as.ggplot(ggplotify::grid2grob(Gviz::plotTracks(list(ht, ax), type = "histogram", col = NULL)))
     }
   )
 

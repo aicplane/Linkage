@@ -102,14 +102,14 @@ KEGG.enrichment <-
       gene.position <- read.table(dir,header = TRUE,sep = "\t",check.names = F)
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
-      print(head(gene.position))
+      # print(head(gene.position))
       if (genelist_idtype != "entrezgene_id") {
         gene_list <-
           gene.position[gene.position[[genelist_idtype]] %in% gene_list, 3]
       }
       # OrgDb <- "org.Hs.eg.db"
       organism <- "hsa"
-      print(gene_list)
+      # print(gene_list)
     }
 
     if (Species == "Mus") {
@@ -123,7 +123,7 @@ KEGG.enrichment <-
       }
       # OrgDb <- "org.Mm.eg.db"
       organism <- "mmu"
-      print(gene_list)
+      # print(gene_list)
     }
 
     KEGG <- clusterProfiler::enrichKEGG(
