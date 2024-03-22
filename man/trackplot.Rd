@@ -2,7 +2,7 @@
 % Please edit documentation in R/PeakVisualization.R
 \name{Trackplot}
 \alias{Trackplot}
-\title{Plot Trackplot.Users initially select a regulatory peak that obtained from the Regulatory Peaks Detection Module. Linkage then categorizes samples into five groups based on the quantitative chromatin accessibility of the specific regulatory peak, ranging from low to high for each individual sample. The coverage track of mapped ATAC-seq reads and the boxplot of the target gene for each group will be shown simultaneously.}
+\title{Track plot}
 \usage{
 Trackplot(LinkageObject, Geneid, peakid, Species = "Homo")
 }
@@ -19,7 +19,7 @@ Trackplot(LinkageObject, Geneid, peakid, Species = "Homo")
 Trackplot.
 }
 \description{
-Plot Trackplot.Users initially select a regulatory peak that obtained from the Regulatory Peaks Detection Module. Linkage then categorizes samples into five groups based on the quantitative chromatin accessibility of the specific regulatory peak, ranging from low to high for each individual sample. The coverage track of mapped ATAC-seq reads and the boxplot of the target gene for each group will be shown simultaneously.
+Track plot
 }
 \examples{
 data("LinkageObject")

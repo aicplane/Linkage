@@ -25,5 +25,5 @@ Correlation scatter plot.
 data("LinkageObject")
 gene_list <- c("TSPAN6", "CD99", "KLHL13")
 LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-Corrplot(LinkageObject, gene = "CD99")
+Corrplot(LinkageObject, gene = "TSPAN6")
 }
