@@ -43,8 +43,33 @@ LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene
 Motif Analysis Module supports users to visualize the enriched transcription factor motifs within potential regulatory peaks. With clicking on a specific peak, users can view the location and binding score information of each enriched transcription factor of this region. Once users select one of the transcription factors, the corresponding sequence logo of this cis-regulatory element will appear in the Sequence-logo Plot panel.
 :::
 ```{r echo=TRUE, fig.height=7, fig.width=7, message=FALSE, warning=FALSE, paged.print=TRUE}
-motif <- SingleMotifAnalysis(LinkageObject@cor.peak$TSPAN6, "Homo")
-motif
+library(DT)
+df <- SingleMotifAnalysis(LinkageObject@cor.peak$TSPAN6, "Homo")
+brks1 <-
+  quantile(df$score,
+           probs = seq(.05, .95, .05),
+           na.rm = TRUE)
+DT::datatable(
+  df,
+  selection = "single",
+  extensions = c("Scroller", "RowReorder"),
+  option = list(
+    rowReorder = TRUE,
+    deferRender = TRUE,
+    scrollY = 295,
+    scroller = TRUE,
+    scrollX = TRUE,
+    searchHighlight = TRUE,
+    orderClasses = TRUE,
+    autoWidth = F
+  )
+) %>% formatStyle(
+  names(df)[8],
+  background = styleColorBar(range(brks1), 'lightblue'),
+  backgroundSize = '90% 100%',
+  backgroundRepeat = 'no-repeat',
+  backgroundPosition = 'center'
+)
 ```
 
 ```{r fig.height=7, fig.width=7, message=FALSE, warning=FALSE}
