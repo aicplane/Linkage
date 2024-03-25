@@ -7,7 +7,7 @@
 #' Linkage::Install.biocViews()
 Install.biocViews <- function() {
   if (!requireNamespace("BiocManager", quietly = TRUE)) {
-    install.packages("BiocManager")
+    utils::install.packages("BiocManager")
   }
 
   if (!requireNamespace("TFBSTools", quietly = TRUE)) {
