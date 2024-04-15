@@ -37,6 +37,9 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/AnnoUpsetPlot.html</loc>
+  </url>
+  <url>
     <loc>/reference/barplot.html</loc>
   </url>
   <url>
@@ -64,10 +67,31 @@
     <loc>/reference/dotplot.html</loc>
   </url>
   <url>
+    <loc>/reference/EnrichBarPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/EnrichCnetPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/EnrichDotPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/EnrichUpsetPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/EnrichWordCloud.html</loc>
+  </url>
+  <url>
     <loc>/reference/GO.enrichment.html</loc>
   </url>
   <url>
+    <loc>/reference/GOEnrichment.html</loc>
+  </url>
+  <url>
     <loc>/reference/hello.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Homo.position.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -77,6 +101,9 @@
   </url>
   <url>
     <loc>/reference/KEGG.enrichment.html</loc>
+  </url>
+  <url>
+    <loc>/reference/KEGGEnrichment.html</loc>
   </url>
   <url>
     <loc>/reference/Linkage.html</loc>
@@ -94,13 +121,37 @@
     <loc>/reference/MultipleMotifAnalysis.html</loc>
   </url>
   <url>
+    <loc>/reference/Mus.PFMatrixList.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Mus.position.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Mus.pwm_library_dt.html</loc>
+  </url>
+  <url>
+    <loc>/reference/PeakAnnottation.html</loc>
+  </url>
+  <url>
     <loc>/reference/Peak_Annottation.html</loc>
+  </url>
+  <url>
+    <loc>/reference/PFMatrixList.html</loc>
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
   </url>
   <url>
+    <loc>/reference/pwm_library_dt.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RegulatoryPeak.html</loc>
+  </url>
+  <url>
     <loc>/reference/regulatory_peak.html</loc>
+  </url>
+  <url>
+    <loc>/reference/SeqLogoPlot.html</loc>
   </url>
   <url>
     <loc>/reference/seqLogo_plot.html</loc>
@@ -110,6 +161,9 @@
   </url>
   <url>
     <loc>/reference/SingleMotifAnalysis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/SmallLinkageObject.html</loc>
   </url>
   <url>
     <loc>/reference/trackplot.html</loc>
