@@ -34,6 +34,7 @@ library(enrichplot)
 library(plotly)
 library(wordcloud2)
 library(fresh)
+library(LinkageData)
 
 color_from_middle <- function (data, color1,color2)
 {
