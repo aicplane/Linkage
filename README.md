@@ -1,6 +1,10 @@
 ![](man/figures/shiny-logo1.png)
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/aicplane/Linkage/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/aicplane/Linkage/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+<!-- badges: start -->
 
 [![pkgdown](https://github.com/aicplane/Linkage/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/aicplane/Linkage/actions/workflows/pkgdown.yaml)
 
