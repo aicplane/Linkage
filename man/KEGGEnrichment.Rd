@@ -42,7 +42,7 @@ Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 load(Geneset)
 KEGG <-
   KEGGEnrichment(
-    gene_list = gene_list$V1,
+    gene_list = SASPGeneSet,
     Species = "Homo",
     genelist_idtype = "external_gene_name"
   )

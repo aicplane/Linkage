@@ -11,6 +11,8 @@ CreateLinkageObject(ATAC_count, RNA_count, Species, id_type)
 
 \item{RNA_count}{The gene expression matrix file is a tab-delimited multi-column data matrix, which the first column represents gene symbols and the following columns represent normalized or raw expression levels of genes for each sample.}
 
+\item{Species}{Select the species, Homo or Mus.}
+
 \item{id_type}{The RNA_count gene id type. There are ensembl_gene_id, external_gene_name, entrezgene_id types of genetic IDs to choose from.}
 }
 \value{
@@ -20,12 +22,15 @@ A Linkage Object
 Create a Linkage Object
 }
 \examples{
-RNA.seq.dir <- system.file("extdata", "TCGA-BRCA-RNA.txt", package = "Linkage")
-RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-Homo.list.files.dir <- system.file("extdata", "Homo.ATAC", package = "Linkage")
-Homo.list.files <- list.files(Homo.list.files.dir)
-Homo.list.files <- paste0(Homo.list.files.dir, "/", Homo.list.files)
-Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = TRUE))
-ATAC.seq <- do.call(rbind, Homo.df_list)
-LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
+library(Linkage)
+library(LinkageData)
+ATAC.seq <- BreastCancerATAC()
+RNA.seq <- BreastCancerRNA()
+LinkageObject <-
+  CreateLinkageObject(
+    ATAC_count = ATAC.seq,
+    RNA_count = RNA.seq,
+    Species = "Homo",
+    id_type = "ensembl_gene_id"
+  )
 }

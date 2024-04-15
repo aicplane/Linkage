@@ -18,8 +18,10 @@ Motif result
 Regulatory peak motif enrichment analysis
 }
 \examples{
-dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
-peakfile <- read.csv(dir, header = TRUE)
-motif <- SingleMotifAnalysis(peakfile, "Homo")
+library(Linkage)
+library(LinkageData)
+peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "LinkageData")
+load(peakpath)
+motif <- SingleMotifAnalysis(PeakFile, "Homo")
 head(motif)
 }

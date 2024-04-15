@@ -7,7 +7,7 @@
 MultipleMotifAnalysis(LinkageObject, Species = "Homo", TF_cor_method)
 }
 \arguments{
-\item{LinkageObject}{An Linkage Object after regulatory_peak.}
+\item{LinkageObject}{An Linkage Object after RegulatoryPeak.}
 
 \item{Species}{Select the species, Homo or Mus.The default is Homo.}
 
@@ -20,15 +20,26 @@ An Linkage Object after MultipleMotifAnalysis
 MotifAnalysis.
 }
 \examples{
-RNA.seq.dir <- system.file("extdata", "TCGA-BRCA-RNA.txt", package = "Linkage")
-RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-Homo.list.files.dir <- system.file("extdata", "Homo.ATAC", package = "Linkage")
-Homo.list.files <- list.files(Homo.list.files.dir)
-Homo.list.files <- paste0(Homo.list.files.dir, "/", Homo.list.files)
-Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = TRUE))
-ATAC.seq <- do.call(rbind, Homo.df_list)
-LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
-gene_list <- c("TSPAN6", "CD99", "KLHL13", "ARX", "HCCS")
-LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-LinkageObject <- MultipleMotifAnalysis(LinkageObject = LinkageObject,Species = "Homo",TF_cor_method = "pearson")
+library(Linkage)
+library(LinkageData)
+ATAC.seq <- BreastCancerATAC()
+RNA.seq <- BreastCancerRNA()
+LinkageObject <-
+  CreateLinkageObject(
+    ATAC_count = ATAC.seq,
+    RNA_count = RNA.seq,
+    Species = "Homo",
+    id_type = "ensembl_gene_id"
+  )
+gene_list <- c("TSPAN6", "CD99", "KLHL13")
+LinkageObject <-
+  RegulatoryPeak(
+    LinkageObject = LinkageObject,
+    gene_list = gene_list,
+    genelist_idtype = "external_gene_name"
+  )
+LinkageObject <-
+  MultipleMotifAnalysis(LinkageObject = LinkageObject,
+                        Species = "Homo",
+                        TF_cor_method = "pearson")
 }

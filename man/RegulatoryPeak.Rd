@@ -37,11 +37,11 @@ Finding the regulatory peak of genes.
 }
 \examples{
 library(Linkage)
-data("LinkageObject")
+data("SmallLinkageObject")
 gene_list <- c("TSPAN6", "CD99", "KLHL13")
 LinkageObject <-
   RegulatoryPeak(
-    LinkageObject = LinkageObject,
+    LinkageObject = SmallLinkageObject,
     gene_list = gene_list,
     genelist_idtype = "external_gene_name"
   )

@@ -10,6 +10,10 @@ CreateNetworkObject(LinkageObject, genelist_idtype, filter_col, filter_value)
 \item{LinkageObject}{An Linkage Object after MultipleMotifAnalysis.}
 
 \item{genelist_idtype}{There are ensembl_gene_id, external_gene_name, entrezgene_id types of genetic IDs to choose from.}
+
+\item{filter_col}{p_value,FDR,rho can be selected.}
+
+\item{filter_value}{Cutoff value of filter_col.}
 }
 \value{
 Network Object.
@@ -18,16 +22,33 @@ Network Object.
 Create Network Object.
 }
 \examples{
-RNA.seq.dir <- system.file("extdata", "TCGA-BRCA-RNA.txt", package = "Linkage")
-RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-Homo.list.files.dir <- system.file("extdata", "Homo.ATAC", package = "Linkage")
-Homo.list.files <- list.files(Homo.list.files.dir)
-Homo.list.files <- paste0(Homo.list.files.dir, "/", Homo.list.files)
-Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = TRUE))
-ATAC.seq <- do.call(rbind, Homo.df_list)
-LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
-gene_list <- c("TSPAN6", "CD99", "KLHL13", "ARX", "HCCS")
-LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-LinkageObject <- MultipleMotifAnalysis(LinkageObject = LinkageObject,Species = "Homo",TF_cor_method = "pearson")
-LinkageObject <- CreateNetworkObject(LinkageObject = LinkageObject, genelist_idtype = "entrezgene_id", filter_col = "FDR", filter_value = 0.01)
+library(Linkage)
+library(LinkageData)
+ATAC.seq <- BreastCancerATAC()
+RNA.seq <- BreastCancerRNA()
+LinkageObject <-
+  CreateLinkageObject(
+    ATAC_count = ATAC.seq,
+    RNA_count = RNA.seq,
+    Species = "Homo",
+    id_type = "ensembl_gene_id"
+  )
+gene_list <- c("TSPAN6", "CD99", "KLHL13")
+LinkageObject <-
+  RegulatoryPeak(
+    LinkageObject = LinkageObject,
+    gene_list = gene_list,
+    genelist_idtype = "external_gene_name"
+  )
+LinkageObject <-
+  MultipleMotifAnalysis(LinkageObject = LinkageObject,
+                        Species = "Homo",
+                        TF_cor_method = "pearson")
+LinkageObject <-
+  CreateNetworkObject(
+    LinkageObject = LinkageObject,
+    genelist_idtype = "entrezgene_id",
+    filter_col = "FDR",
+    filter_value = 0.01
+  )
 }

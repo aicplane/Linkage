@@ -3,32 +3,34 @@
 \docType{class}
 \name{LinkageObject-class}
 \alias{LinkageObject-class}
-\title{The LinkageObject class}
+\title{Linkage Class}
 \value{
-Linkage Object
+Linkage Class
 }
 \description{
-The LinkageObject class
+Linkage Class
 }
 \section{Slots}{
 
 \describe{
-\item{\code{RNA.mtrix}}{data.frame.}
+\item{\code{RNA.mtrix}}{RNA-seq count.}
 
-\item{\code{ATAC.matrix}}{data.frame.}
+\item{\code{ATAC.matrix}}{ATAC-seq count.}
 
-\item{\code{active.gene}}{data.frame.}
+\item{\code{active.gene}}{selected genes.}
 
-\item{\code{cor.peak}}{list.}
+\item{\code{cor.peak}}{Regulatory peaks for each selected genes.}
 
-\item{\code{cor.peak.annotation}}{list.}
+\item{\code{cor.peak.annotation}}{Regulatory peaks annotation.}
 
-\item{\code{Motif}}{list.}
+\item{\code{detailpeakannotation}}{Regulatory peaks annotation detail.}
 
-\item{\code{Gene_TF}}{data.frame.}
+\item{\code{Motif}}{The all TFs of selected genes.}
 
-\item{\code{geneid}}{character.}
+\item{\code{Gene_TF}}{The hight correlation TFs of selected genes.}
 
-\item{\code{NetworkSetting}}{list.}
+\item{\code{geneid}}{The selcted genes id.}
+
+\item{\code{Summary}}{Summary}
 }}
 
