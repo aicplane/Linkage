@@ -1,7 +1,7 @@
 Package: Linkage
 Type: Package
 Title: An R shiny web server for linking of ATAC-seq to gene expression data
-Version: 2.1.0
+Version: 1.2.0
 Authors@R: 
     person(given = "Zenghui",
          family = "Liu",
@@ -12,8 +12,9 @@ Maintainer: <2470587020@qq.com>
 Description: Linkage is a user-friendly, interactive, open-source R-Shiny web application for exploring and visualizing potential gene cis-regulatory elements (CREs) based on ATAC-seq and RNA-seq data. Users can upload customized data or re-analysis public datasets, then obtain genome-wide CREs with simple clicks. All the CREs are predicted from multi-omics sequencing data, rather than being experimentally determined. The main feature for Linkage is to identify potential CREs for the whole genome by performing canonical correlation analysis between each quantitative chromatin accessibility measure and the quantitative expression level across all samples. Additional modules are developed to allow users to perform more systematic and deeper analysis for the gene regulatory landscape.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.2.3
-Imports: 
+RoxygenNote: 7.3.1
+Imports:
+    LinkageData,
     shiny,
     shinyjs,
     shinydashboard,
@@ -43,18 +44,24 @@ Imports:
     cowplot,
     tidyr,
     methods,
-    KernSmooth,
     utils,
-    cluster,
-    foreign,
     rpart,
-    UpSetR
-biocViews: BiocManager, Gviz, ChIPseeker,
-        TxDb.Hsapiens.UCSC.hg38.knownGene,
-        TxDb.Mmusculus.UCSC.mm10.knownGene, org.Hs.eg.db, org.Mm.eg.db,
-        BSgenome.Hsapiens.UCSC.hg38,
-        BSgenome.Mmusculus.UCSC.mm10, TFBSTools,
-        motifmatchr
+    UpSetR,
+    BiocManager,
+    Gviz,
+    ChIPseeker,
+    TxDb.Hsapiens.UCSC.hg38.knownGene,
+    TxDb.Mmusculus.UCSC.mm10.knownGene, 
+    org.Hs.eg.db, org.Mm.eg.db,
+    BSgenome.Hsapiens.UCSC.hg38,
+    BSgenome.Mmusculus.UCSC.mm10, TFBSTools,
+    motifmatchr,
+    GenomeInfoDb,
+    GenomicRanges,
+    IRanges,
+    ggplotify,
+    tibble,
+    wordcloud
 Suggests: 
     knitr,
     rmarkdown,
