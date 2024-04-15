@@ -1,16 +1,17 @@
-#' The LinkageObject class
+#' Linkage Class
 #'
-#' @slot RNA.mtrix data.frame.
-#' @slot ATAC.matrix data.frame.
-#' @slot active.gene data.frame.
-#' @slot cor.peak list.
-#' @slot cor.peak.annotation list.
-#' @slot Motif list.
-#' @slot Gene_TF data.frame.
-#' @slot geneid character.
-#' @slot NetworkSetting list.
+#' @slot RNA.mtrix RNA-seq count.
+#' @slot ATAC.matrix ATAC-seq count.
+#' @slot active.gene selected genes.
+#' @slot cor.peak Regulatory peaks for each selected genes.
+#' @slot cor.peak.annotation Regulatory peaks annotation.
+#' @slot detailpeakannotation Regulatory peaks annotation detail.
+#' @slot Motif The all TFs of selected genes.
+#' @slot Gene_TF The hight correlation TFs of selected genes.
+#' @slot geneid The selcted genes id.
+#' @slot Summary Summary
 #'
-#' @return Linkage Object
+#' @return Linkage Class
 #' @export
 setClass("LinkageObject",
          slots = list(
@@ -44,18 +45,7 @@ setClass("LinkageObject",
            )
          )
 )
-#' show method for \code{LinkageObject} instance
-#'
-#' @name show
-#' @docType methods
-#' @rdname show-methods
-#' @aliases show,LinkageObject,ANY-method
-#' @title show method
-#' @param object A \code{LinkageObject} instance
-#' @return message
-#' @importFrom methods show
-#' @exportMethod show
-#' @usage show(object)
+
 setMethod(
   "show", "LinkageObject",
   function(object) {
@@ -72,26 +62,31 @@ setMethod(
 #' @param ATAC_count The chromatin accessibility matrix file is a tab-delimited multi-column data matrix as well, which the first three columns represent chromosome name, start coordinate on the chromosome and end coordinate on the chromosome of the peaks respectively; the remaining columns of the chromatin accessibility matrix file represent normalized or raw chromatin accessibility levels of peaks for each sample.
 #' @param RNA_count The gene expression matrix file is a tab-delimited multi-column data matrix, which the first column represents gene symbols and the following columns represent normalized or raw expression levels of genes for each sample.
 #' @param id_type The RNA_count gene id type. There are ensembl_gene_id, external_gene_name, entrezgene_id types of genetic IDs to choose from.
+#' @param Species Select the species, Homo or Mus.
 #'
 #' @return A Linkage Object
 #' @export
 #'
 #' @examples
-#' RNA.seq.dir <- system.file("extdata", "TCGA-BRCA-RNA.txt", package = "Linkage")
-#' RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-#' Homo.list.files.dir <- system.file("extdata", "Homo.ATAC", package = "Linkage")
-#' Homo.list.files <- list.files(Homo.list.files.dir)
-#' Homo.list.files <- paste0(Homo.list.files.dir, "/", Homo.list.files)
-#' Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = TRUE))
-#' ATAC.seq <- do.call(rbind, Homo.df_list)
-#' LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
+#' library(Linkage)
+#' library(LinkageData)
+#' ATAC.seq <- BreastCancerATAC()
+#' RNA.seq <- BreastCancerRNA()
+#' LinkageObject <-
+#'   CreateLinkageObject(
+#'     ATAC_count = ATAC.seq,
+#'     RNA_count = RNA.seq,
+#'     Species = "Homo",
+#'     id_type = "ensembl_gene_id"
+#'   )
 CreateLinkageObject <- function(ATAC_count, RNA_count, Species, id_type) {
   if(Species == "Homo"){
-    position.dir <- system.file("extdata", "homo.gene_positions.plus.txt", package = "Linkage")
+    data("Homo.position")
+    position <- Homo.position
   }else{
-    position.dir <- system.file("extdata", "mus.gene_positions.plus.txt", package = "Linkage")
+    data("Mus.position")
+    position <- Mus.position
   }
-  position <- data.table::fread(position.dir, header = TRUE, sep = "\t")
   RNA_count <- merge(position, RNA_count, by.x = id_type, by.y = colnames(RNA_count)[1])
 
   if (ATAC_count[1, 2] < ATAC_count[1, 3]) {
@@ -110,18 +105,4 @@ CreateLinkageObject <- function(ATAC_count, RNA_count, Species, id_type) {
   return(LinkageObject)
 }
 
-# RNA.seq.dir <- system.file("extdata", "TCGA-BRCA-RNA.txt", package = "Linkage")
-# RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-# Homo.list.files.dir <- system.file("extdata", "Homo.ATAC", package = "Linkage")
-# Homo.list.files <- list.files(Homo.list.files.dir)
-# Homo.list.files <- paste0(Homo.list.files.dir, "/", Homo.list.files)
-# Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = TRUE))
-# ATAC.seq <- do.call(rbind, Homo.df_list)
-# LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
-#
-# ATAC.seq <- data.table::fread("D:/R/R-4.3.0/library/Linkage/extdata/Homo.ATAC/chrX.txt", header = TRUE)
-# RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-# RNA.seq <- LinkageObject@RNA.mtrix[LinkageObject@RNA.mtrix$external_gene_name %in% c("TSPAN6", "CD99", "KLHL13", "ARX", "HCCS"),c(1,7:ncol(LinkageObject@RNA.mtrix))]
-# LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
-#
-# save(LinkageObject,file = "data/LinkageObject.rdata")
+

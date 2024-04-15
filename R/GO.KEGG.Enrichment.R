@@ -7,42 +7,44 @@
 #' @param qvalueCutoff Cutoff value of qvalue.
 #' @param minGSSize Minimal size of genes annotated by Ontology term for testing.
 #' @param maxGSSize Maximal size of genes annotated for testing.
-#' @param ... ...
 #'
 #' @return A GO object.
 #' @export
 #'
+#' @importFrom clusterProfiler enrichGO
+#'
 #' @examples
-#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
-#' gene_list <- read.table(extdatadir)
-#' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
-GO.enrichment <-
+#' library(Linkage)
+#' library(LinkageData)
+#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
+#' load(Geneset)
+#' go <-
+#'   GOEnrichment(gene_list = SASPGeneSet,
+#'                Species = "Homo",
+#'                genelist_idtype = "external_gene_name")
+GOEnrichment <-
   function(gene_list,
            Species = "Homo",
            genelist_idtype,
            pvalueCutoff = 0.05,
            qvalueCutoff = 0.2,
            minGSSize = 10,
-           maxGSSize = 500,
-           ...) {
+           maxGSSize = 500
+           ) {
     if (Species == "Homo") {
-      dir <- system.file("extdata", "homo.gene_positions.plus.txt", package = "Linkage")
-      gene.position <- read.table(dir,header = TRUE,sep = "\t",check.names = F)
+      data("Homo.position")
+      gene.position <- Homo.position
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
-      # print(head(gene.position))
       if (genelist_idtype != "entrezgene_id") {
         gene_list <-
           gene.position[gene.position[[genelist_idtype]] %in% gene_list, 3]
       }
       OrgDb <- "org.Hs.eg.db"
-      # organism <- 'hsa'
-      # print(gene_list)
     }
-
     if (Species == "Mus") {
-      dir <- system.file("extdata", "mus.gene_positions.plus.txt", package = "Linkage")
-      gene.position <- read.table(dir,header = TRUE,sep = "\t",check.names = F)
+      data("Mus.position")
+      gene.position <- Mus.position
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
       if (genelist_idtype != "entrezgene_id") {
@@ -50,11 +52,9 @@ GO.enrichment <-
           gene.position[gene.position[[genelist_idtype]] %in% gene_list, 3]
       }
       OrgDb <- "org.Mm.eg.db"
-      # organism <- 'mmu'
-      # print(gene_list)
     }
 
-    go <- clusterProfiler::enrichGO(
+    go <- enrichGO(
       gene = gene_list,
       OrgDb = OrgDb,
       ont = "ALL",
@@ -65,7 +65,6 @@ GO.enrichment <-
       maxGSSize = maxGSSize,
       readable = T
     )
-
     return(go)
   }
 
@@ -79,54 +78,56 @@ GO.enrichment <-
 #' @param qvalueCutoff Cutoff value of qvalue.
 #' @param minGSSize Minimal size of genes annotated by Ontology term for testing.
 #' @param maxGSSize Maximal size of genes annotated for testing.
-#' @param ... ...
 #'
 #' @return A KEGG object.
 #' @export
 #'
+#' @importFrom clusterProfiler enrichKEGG
+#'
 #' @examples
-#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
-#' gene_list <- read.table(extdatadir)
-#' KEGG <- KEGG.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
-KEGG.enrichment <-
+#' library(Linkage)
+#' library(LinkageData)
+#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
+#' load(Geneset)
+#' KEGG <-
+#'   KEGGEnrichment(
+#'     gene_list = SASPGeneSet,
+#'     Species = "Homo",
+#'     genelist_idtype = "external_gene_name"
+#'   )
+KEGGEnrichment <-
   function(gene_list,
            Species = "Homo",
            genelist_idtype,
            pvalueCutoff = 0.05,
            qvalueCutoff = 0.2,
            minGSSize = 10,
-           maxGSSize = 500,
-           ...) {
+           maxGSSize = 500
+           ) {
     if (Species == "Homo") {
-      dir <- system.file("extdata", "homo.gene_positions.plus.txt", package = "Linkage")
-      gene.position <- read.table(dir,header = TRUE,sep = "\t",check.names = F)
+      data("Homo.position")
+      gene.position <- Homo.position
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
-      # print(head(gene.position))
       if (genelist_idtype != "entrezgene_id") {
         gene_list <-
           gene.position[gene.position[[genelist_idtype]] %in% gene_list, 3]
       }
-      # OrgDb <- "org.Hs.eg.db"
       organism <- "hsa"
-      # print(gene_list)
     }
-
     if (Species == "Mus") {
-      dir <- system.file("extdata", "mus.gene_positions.plus.txt", package = "Linkage")
-      gene.position <- read.table(dir,header = TRUE,sep = "\t",check.names = F)
+      data("Mus.position")
+      gene.position <- Mus.position
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
       if (genelist_idtype != "entrezgene_id") {
         gene_list <-
           gene.position[gene.position[[genelist_idtype]] %in% gene_list, 3]
       }
-      # OrgDb <- "org.Mm.eg.db"
       organism <- "mmu"
-      # print(gene_list)
     }
 
-    KEGG <- clusterProfiler::enrichKEGG(
+    KEGG <- enrichKEGG(
       gene = gene_list,
       organism = organism,
       pvalueCutoff = pvalueCutoff,
@@ -134,7 +135,6 @@ KEGG.enrichment <-
       minGSSize = minGSSize,
       maxGSSize = maxGSSize,
     )
-
     return(KEGG)
   }
 
@@ -142,36 +142,32 @@ KEGG.enrichment <-
 #' Enrichment analysis Dotplot
 #'
 #' @param object Go or KEGG object.
-#' @param plotly logical value,Whether or not to use plotly.The default is TRUE.
-#' @param ... ...
+#' @param size font size.
 #'
 #' @return Enrichment dot plot.
 #' @export
 #'
+#' @importFrom enrichplot dotplot
+#' @importFrom stringr str_wrap
+#' @import ggplot2
+#'
 #' @examples
-#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
-#' gene_list <- read.table(extdatadir)
-#' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
-#' dotplot(go)
-dotplot <- function(object, plotly = FALSE, ...) {
-  if (plotly == TRUE) {
-    p <- plotly::ggplotly(
-      enrichplot::dotplot(object) + ggplot2::theme(axis.text.y = ggplot2::element_text(size = 8)) + ggplot2::scale_y_discrete(
-        labels = function(x) {
-          stringr::str_wrap(x, width = 100)
-        }
-      ),
-      dynamicTicks = TRUE
-    )
-  }
-  if (plotly == FALSE) {
+#' library(Linkage)
+#' library(LinkageData)
+#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
+#' load(Geneset)
+#' go <-
+#'   GOEnrichment(gene_list = SASPGeneSet,
+#'                Species = "Homo",
+#'                genelist_idtype = "external_gene_name")
+#' p <- EnrichDotPlot(go)
+EnrichDotPlot <- function(object,size = 8) {
     p <-
-      enrichplot::dotplot(object) + ggplot2::theme(axis.text.y = ggplot2::element_text(size = 8)) + ggplot2::scale_y_discrete(
+      dotplot(object) + theme(axis.text.y = element_text(size = size)) + scale_y_discrete(
         labels = function(x) {
-          stringr::str_wrap(x, width = 100)
+          str_wrap(x, width = 100)
         }
       )
-  }
   return(p)
 }
 
@@ -179,21 +175,30 @@ dotplot <- function(object, plotly = FALSE, ...) {
 #' Enrichment analysis Upsetplot
 #'
 #' @param object Go or KEGG object
-#' @param ... ...
+#' @param size font size.
 #'
 #' @return Enrichment upset plot.
 #' @export
 #'
+#' @importFrom enrichplot upsetplot
+#' @importFrom stringr str_wrap
+#' @import ggplot2
+#'
 #' @examples
-#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
-#' gene_list <- read.table(extdatadir)
-#' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
-#' upsetplot(go)
-upsetplot <- function(object, ...) {
+#' library(Linkage)
+#' library(LinkageData)
+#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
+#' load(Geneset)
+#' go <-
+#'   GOEnrichment(gene_list = SASPGeneSet,
+#'                Species = "Homo",
+#'                genelist_idtype = "external_gene_name")
+#' p <- EnrichUpsetPlot(go)
+EnrichUpsetPlot <- function(object, size = 8) {
   p <-
-    enrichplot::upsetplot(object) + ggplot2::theme(axis.text.y = ggplot2::element_text(size = 8)) + ggplot2::scale_y_discrete(
+    upsetplot(object) + theme(axis.text.y = element_text(size = size)) + scale_y_discrete(
       labels = function(x) {
-        stringr::str_wrap(x, width = 100)
+        str_wrap(x, width = 100)
       }
     )
 
@@ -203,21 +208,30 @@ upsetplot <- function(object, ...) {
 #' Enrichment analysis Cnetplot
 #'
 #' @param object Go or KEGG object
-#' @param ... ...
+#' @param size font size.
 #'
 #' @return Enrichment network.
 #' @export
 #'
+#' @importFrom enrichplot cnetplot
+#' @importFrom stringr str_wrap
+#' @import ggplot2
+#'
 #' @examples
-#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
-#' gene_list <- read.table(extdatadir)
-#' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
-#' cnetplot(go)
-cnetplot <- function(object, ...) {
+#' library(Linkage)
+#' library(LinkageData)
+#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
+#' load(Geneset)
+#' go <-
+#'   GOEnrichment(gene_list = SASPGeneSet,
+#'                Species = "Homo",
+#'                genelist_idtype = "external_gene_name")
+#' p <- EnrichCnetPlot(go)
+EnrichCnetPlot <- function(object, size = 8) {
   p <-
-    enrichplot::cnetplot(object) + ggplot2::theme(axis.text.y = ggplot2::element_text(size = 8)) + ggplot2::scale_y_discrete(
+    cnetplot(object) + theme(axis.text.y = element_text(size)) + scale_y_discrete(
       labels = function(x) {
-        stringr::str_wrap(x, width = 100)
+        str_wrap(x, width = 100)
       }
     )
   return(p)
@@ -226,35 +240,32 @@ cnetplot <- function(object, ...) {
 #' Enrichment analysis Barplot
 #'
 #' @param object Go or KEGG object.
-#' @param plotly logical value,Whether or not to use plotly.The default is TRUE.
-#' @param ... ...
+#' @param size font size.
 #'
 #' @return Enrichment bar plot.
 #' @export
 #'
+#' @importFrom graphics barplot
+#' @importFrom stringr str_wrap
+#' @import ggplot2
+#'
 #' @examples
-#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
-#' gene_list <- read.table(extdatadir)
-#' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
-#' barplot(go)
-barplot <- function(object, plotly = FALSE, ...) {
-  if (plotly == TRUE) {
-    p <- plotly::ggplotly(
-      graphics::barplot(object) + ggplot2::theme(axis.text.y = ggplot2::element_text(size = 8)) + ggplot2::scale_y_discrete(
-        labels = function(x) {
-          stringr::str_wrap(x, width = 100)
-        }
-      )
-    )
-  }
-  if (plotly == FALSE) {
+#' library(Linkage)
+#' library(LinkageData)
+#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
+#' load(Geneset)
+#' go <-
+#'   GOEnrichment(gene_list = SASPGeneSet,
+#'                Species = "Homo",
+#'                genelist_idtype = "external_gene_name")
+#' p <- EnrichBarPlot(go)
+EnrichBarPlot <- function(object, size = 8) {
     p <-
-      graphics::barplot(object) + ggplot2::theme(axis.text.y = ggplot2::element_text(size = 8)) + ggplot2::scale_y_discrete(
+      barplot(object) + theme(axis.text.y = element_text(size)) + scale_y_discrete(
         labels = function(x) {
-          stringr::str_wrap(x, width = 100)
+          str_wrap(x, width = 100)
         }
       )
-  }
   return(p)
 }
 
@@ -264,39 +275,47 @@ barplot <- function(object, plotly = FALSE, ...) {
 #' @param object Go or KEGG object.
 #' @param Type Indicate whether it is a GO or KEGG object, GO and KEGG can be selected.
 #' @param plotly logical value,Whether or not to use plotly.The default is TRUE.
-#' @param ... ...
 #'
 #' @return Enrichment wordcloud.
 #' @export
 #'
+#' @importFrom dplyr select
+#' @importFrom wordcloud2 wordcloud2
+#' @importFrom wordcloud wordcloud
+#'
 #' @examples
-#' extdatadir <- system.file("extdata", "Senescence-associated secretory phenotype.txt", package = "Linkage")
-#' gene_list <- read.table(extdatadir)
-#' go <- GO.enrichment(gene_list = gene_list$V1, Species = "Homo", genelist_idtype = "external_gene_name")
-#' wordcloud(go, Type = "GO")
-wordcloud <- function(object, Type, plotly = TRUE, ...) {
+#' library(Linkage)
+#' library(LinkageData)
+#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
+#' load(Geneset)
+#' go <-
+#'   GOEnrichment(gene_list = SASPGeneSet,
+#'                Species = "Homo",
+#'                genelist_idtype = "external_gene_name")
+#' p <- EnrichWordCloud(go, Type = "GO")
+EnrichWordCloud <- function(object, Type, plotly = TRUE) {
   if (Type == "GO") {
     wcdf <- read.table(text = object$GeneRatio, sep = "/")[1]
     wcdf$word <- object[, 3]
     names(wcdf)[1] <- "freq"
-    wcdf <- dplyr::select(wcdf, c(2, 1))
+    wcdf <- select(wcdf, c(2, 1))
     if (plotly == TRUE) {
-      p <- wordcloud2::wordcloud2(wcdf, size = 1)
+      p <- wordcloud2(wcdf, size = 1)
     }
     if (plotly == FALSE) {
-      p <- wordcloud::wordcloud(wcdf, size = 1)
+      p <- wordcloud(wcdf, size = 1)
     }
   }
   if (Type == "KEGG") {
     wcdf <- read.table(text = object$GeneRatio, sep = "/")[1]
     wcdf$word <- object[, 2]
     names(wcdf)[1] <- "freq"
-    wcdf <- dplyr::select(wcdf, c(2, 1))
+    wcdf <- select(wcdf, c(2, 1))
     if (plotly == TRUE) {
-      p <- wordcloud2::wordcloud2(wcdf, size = 1)
+      p <- wordcloud2(wcdf, size = 1)
     }
     if (plotly == FALSE) {
-      p <- wordcloud::wordcloud(wcdf$word, wcdf$freq, scale = c(5, 1), colors = RColorBrewer::brewer.pal(8, "Dark2"))
+      p <- wordcloud(wcdf$word, wcdf$freq, scale = c(5, 1), colors = RColorBrewer::brewer.pal(8, "Dark2"))
     }
   }
   return(p)

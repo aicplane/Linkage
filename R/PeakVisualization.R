@@ -1,26 +1,44 @@
-#' Track plot
+#' TrackPlot
 #'
-#' @param LinkageObject An Linkage Object after regulatory_peak.
+#' @param LinkageObject An Linkage Object after RegulatoryPeak.
 #' @param Geneid The gene you want to query.
 #' @param peakid The peak you want to query.
 #' @param Species Select the species, Homo or Mus.The default is Homo.
 #'
-#' @return Trackplot.
+#' @return TrackPlot.
 #' @export
+#' @importFrom dplyr select
+#' @importFrom GenomicRanges makeGRangesFromDataFrame values<- elementMetadata
+#' @importFrom Gviz GenomeAxisTrack DataTrack IdeogramTrack HighlightTrack plotTracks
+#' @importFrom GenomeInfoDb genome seqnames
+#' @importFrom ggplotify grid2grob as.ggplot
+#' @importFrom ggpubr theme_pubr
+#' @importFrom cowplot plot_grid
 #'
 #' @examples
-#' data("LinkageObject")
+#' library(Linkage)
+#' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
-#' LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-#' Trackplot(LinkageObject,Geneid = "TSPAN6",peakid = "chrX:100635908-100636408",Species = "Homo")
-Trackplot <- function(LinkageObject,Geneid,peakid,Species = "Homo"){
+#'   LinkageObject <-
+#' RegulatoryPeak(
+#'   LinkageObject = SmallLinkageObject,
+#'   gene_list = gene_list,
+#'   genelist_idtype = "external_gene_name"
+#' )
+#' TrackPlot(
+#'   LinkageObject,
+#'   Geneid = "TSPAN6",
+#'   peakid = "chrX:100635908-100636408",
+#'   Species = "Homo"
+#' )
+TrackPlot <- function(LinkageObject,Geneid,peakid,Species = "Homo"){
 
   index <- which(LinkageObject@active.gene==Geneid, arr.ind = TRUE) # row col
   genefile <- LinkageObject@active.gene[index[1],]
   peakfile <- LinkageObject@cor.peak[[Geneid]]
   peakfile$peakRange <- paste0(peakfile[[1]],":",peakfile[[2]],"-",peakfile[[3]])
   select_peak <- which(peakfile==peakid, arr.ind = TRUE) # row col
-  peakfile <- dplyr::select(peakfile,-p_value, -FDR,-rho,-peakRange)
+  peakfile <- select(peakfile,-"p_value", -"FDR",-"rho",-"peakRange")
   df <- peakfile[, c(-1:-3)]
   t_df <- t(df)
   dt_df <- data.frame(t_df)
@@ -37,10 +55,10 @@ Trackplot <- function(LinkageObject,Geneid,peakid,Species = "Homo"){
   m5 <- colMeans(v5)
   data <- data.frame(group1 = m1, group2 = m2, group3 = m3, group4 = m4, group5 = m5)
   # print(data)
-  gr <- GenomicRanges::makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
-  GenomicRanges::values(gr) <- data
+  gr <- makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
+  values(gr) <- data
   # print(gr)
-  ax <- Gviz::GenomeAxisTrack()
+  ax <- GenomeAxisTrack()
 
   tracks_list <- list()
   if (Species == "Homo") {
@@ -49,40 +67,40 @@ Trackplot <- function(LinkageObject,Geneid,peakid,Species = "Homo"){
     gen <- "mm10"
   }
 
-  for (i in 1:length(names(GenomicRanges::elementMetadata(gr)))) {
+  for (i in 1:length(names(elementMetadata(gr)))) {
     # track_name <- paste("track", i, sep = "")
-    tracks_list[[i]] <- Gviz::DataTrack(
-      gr[, names(GenomicRanges::elementMetadata(gr))[i]],
+    tracks_list[[i]] <- DataTrack(
+      gr[, names(elementMetadata(gr))[i]],
       genome = gen,
-      name = names(GenomicRanges::elementMetadata(gr))[i],
+      name = names(elementMetadata(gr))[i],
       type = "histogram",
       ylim = c(-1, 10)
     )
   }
 
   # genome
-  gen <- GenomeInfoDb::genome(tracks_list[[i]])
+  gen <- genome(tracks_list[[i]])
   # Chromosme name
-  chr <- as.character(unique(GenomeInfoDb::seqnames(tracks_list[[i]])))
+  chr <- as.character(unique(seqnames(tracks_list[[i]])))
   # Ideogram track (take a long time)
   peak <- peakfile[select_peak[1], ]
 
   tryCatch(
     {
-      itrack <- Gviz::IdeogramTrack(genome = gen, chromosome = chr)
+      itrack <- IdeogramTrack(genome = gen, chromosome = chr)
       # 突出显示某一区域
-      ht <- Gviz::HighlightTrack(tracks_list,
+      ht <- HighlightTrack(tracks_list,
                                  start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
       )
-      x <- ggplotify::as.ggplot(ggplotify::grid2grob(Gviz::plotTracks(list(ht, ax, itrack), type = "histogram", col = NULL)))
+      x <<- as.ggplot(grid2grob(plotTracks(list(ht, ax, itrack), type = "histogram", col = NULL)))
     },
     error = function(e) {
       message(e)
       # 突出显示某一区域
-      ht <- Gviz::HighlightTrack(tracks_list,
+      ht <- HighlightTrack(tracks_list,
                                  start = peak$chromStart, width = as.numeric(peak$chromEnd - peak$chromStart), chromosome = substring(peak[, 1], 4)
       )
-      x <<- ggplotify::as.ggplot(ggplotify::grid2grob(Gviz::plotTracks(list(ht, ax), type = "histogram", col = NULL)))
+      x <<- as.ggplot(grid2grob(plotTracks(list(ht, ax), type = "histogram", col = NULL)))
     }
   )
 
@@ -109,25 +127,25 @@ Trackplot <- function(LinkageObject,Geneid,peakid,Species = "Homo"){
   # print(gene_cluster_data)
   sample <- rownames(gene_cluster_data)
   gene_cluster_data$group <- factor(gene_cluster_data$group,c("group5","group4","group3","group2","group1"))
-  y <- ggplot2::ggplot(gene_cluster_data, ggplot2::aes(x = gene, y = group)) +
-    ggplot2::geom_boxplot(position = ggplot2::position_dodge(width = 0.1), width = 0.2, alpha = 0.6,fill="grey",color="#666666") +
-    # ggplot2::geom_jitter() +
-    ggplot2::theme_set(ggpubr::theme_pubr())+ggplot2::theme_classic()+
-    ggplot2::theme(
-      axis.title.x = ggplot2::element_text(colour = "#666666"),
-      axis.line.y = ggplot2::element_blank(),
+  y <- ggplot(gene_cluster_data, aes(x = gene, y = group)) +
+    geom_boxplot(position = position_dodge(width = 0.1), width = 0.2, alpha = 0.6,fill="grey",color="#666666") +
+    # geom_jitter() +
+    theme_set(theme_pubr())+theme_classic()+
+    theme(
+      axis.title.x = element_text(colour = "#666666"),
+      axis.line.y = element_blank(),
       # axis.text.x = element_blank(),
-      axis.text.y = ggplot2::element_blank(),
+      axis.text.y = element_blank(),
       # axis.ticks.x = element_blank(),
-      axis.ticks.y = ggplot2::element_blank(),
+      axis.ticks.y = element_blank(),
       # axis.title.y = element_blank(),
       legend.position = "none",
-      plot.title = ggplot2::element_text(size = 10,colour = "#666666",hjust = 0.5)
-    )+ggplot2::labs(title = Geneid);y
-  y <- ggplotify::grid2grob(print(y))
-  x <- x+ggplot2::labs(title = peakid)+ggplot2::theme(plot.title = ggplot2::element_text(size = 10,colour = "#666666",hjust = 0.5))
+      plot.title = element_text(size = 10,colour = "#666666",hjust = 0.5)
+    )+labs(title = Geneid);y
+  y <- grid2grob(print(y))
+  x <- x+labs(title = peakid)+theme(plot.title = element_text(size = 10,colour = "#666666",hjust = 0.5))
   y <- y
-  p <- cowplot::plot_grid(x,y,ncol = 2,rel_widths = c(5,1))
+  p <- plot_grid(x,y,ncol = 2,rel_widths = c(5,1))
   return(p)
 }
 

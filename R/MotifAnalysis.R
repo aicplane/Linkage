@@ -6,36 +6,40 @@
 #' @return Motif result
 #' @export
 #'
+#' @importFrom GenomicRanges GRanges
+#' @importFrom IRanges IRanges
+#' @importFrom motifmatchr matchMotifs
+#'
 #' @examples
-#' dir <- system.file("extdata","ENSG00000000419.csv", package = "Linkage")
-#' peakfile <- read.csv(dir, header = TRUE)
-#' motif <- SingleMotifAnalysis(peakfile, "Homo")
+#' library(Linkage)
+#' library(LinkageData)
+#' peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "LinkageData")
+#' load(peakpath)
+#' motif <- SingleMotifAnalysis(PeakFile, "Homo")
 #' head(motif)
 SingleMotifAnalysis <- function(peakfile, Species) {
   colnames(peakfile) <- c("chrom", "chromStart", "chromEnd")
   peaks <- peakfile
-  peaks <- GenomicRanges::GRanges(
+  peaks <- GRanges(
     seqnames = c(peaks$chrom),
-    ranges = IRanges::IRanges(start = peaks$chromStart, end = peaks$chromEnd)
+    ranges = IRanges(start = peaks$chromStart, end = peaks$chromEnd)
   )
 
   if (Species == "Homo") {
-    PFMatrixList.dir <- system.file("extdata","PFMatrixList.rds", package = "Linkage")
-    pwm_library_dt.dir <- system.file("extdata","pwm_library_dt.rds", package = "Linkage")
-    PFMatrixList <- readRDS(PFMatrixList.dir)
-    pwm_library_dt <- readRDS(pwm_library_dt.dir)
+    data("PFMatrixList")
+    data("pwm_library_dt")
     genome <- "hg38"
   }
   if (Species == "Mus") {
-    PFMatrixList.dir <- system.file("extdata","Mus.PFMatrixList.rds", package = "Linkage")
-    pwm_library_dt.dir <- system.file("extdata","Mus.pwm_library_dt.rds", package = "Linkage")
-    PFMatrixList <- readRDS(PFMatrixList.dir)
-    pwm_library_dt <- readRDS(pwm_library_dt.dir)
+    data("Mus.PFMatrixList")
+    data("Mus.pwm_library_dt")
+    PFMatrixList <- Mus.PFMatrixList
+    pwm_library_dt <- Mus.pwm_library_dt
     genome <- "mm10"
   }
 
   # Get motif positions within peaks for example motifs in peaks
-  motif_ix <- motifmatchr::matchMotifs(PFMatrixList, peaks,
+  motif_ix <- matchMotifs(PFMatrixList, peaks,
     genome = genome,
     out = "positions"
   ) %>% data.frame()
@@ -52,68 +56,83 @@ SingleMotifAnalysis <- function(peakfile, Species) {
 #'
 #' @return seqLogo plot.
 #' @export
+#' @importFrom TFBSTools getMatrixByID seqLogo toICM
 #'
 #' @examples
-#' seqLogo_plot("MA0618.1")
-seqLogo_plot <- function(motif_ID) {
+#' library(Linkage)
+#' SeqLogoPlot("MA0618.1")
+SeqLogoPlot <- function(motif_ID) {
   sqlite.dir <- system.file("extdata","JASPAR2022.sqlite", package = "Linkage")
-  m <- TFBSTools::getMatrixByID(sqlite.dir, motif_ID)
-  return(TFBSTools::seqLogo(TFBSTools::toICM(m)))
+  m <- getMatrixByID(sqlite.dir, motif_ID)
+  return(seqLogo(toICM(m)))
 }
 
 
 #' MotifAnalysis.
 #'
-#' @param LinkageObject An Linkage Object after regulatory_peak.
+#' @param LinkageObject An Linkage Object after RegulatoryPeak.
 #' @param Species Select the species, Homo or Mus.The default is Homo.
 #' @param TF_cor_method For correlation calculation, pearson/spearman/kendall can be selected.
 #'
 #' @return An Linkage Object after MultipleMotifAnalysis
 #' @export
 #'
+#' @importFrom GenomicRanges GRanges
+#' @importFrom IRanges IRanges
+#' @importFrom motifmatchr matchMotifs
+#'
 #' @examples
-#' RNA.seq.dir <- system.file("extdata", "TCGA-BRCA-RNA.txt", package = "Linkage")
-#' RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-#' Homo.list.files.dir <- system.file("extdata", "Homo.ATAC", package = "Linkage")
-#' Homo.list.files <- list.files(Homo.list.files.dir)
-#' Homo.list.files <- paste0(Homo.list.files.dir, "/", Homo.list.files)
-#' Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = TRUE))
-#' ATAC.seq <- do.call(rbind, Homo.df_list)
-#' LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
-#' gene_list <- c("TSPAN6", "CD99", "KLHL13", "ARX", "HCCS")
-#' LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-#' LinkageObject <- MultipleMotifAnalysis(LinkageObject = LinkageObject,Species = "Homo",TF_cor_method = "pearson")
+#' library(Linkage)
+#' library(LinkageData)
+#' ATAC.seq <- BreastCancerATAC()
+#' RNA.seq <- BreastCancerRNA()
+#' LinkageObject <-
+#'   CreateLinkageObject(
+#'     ATAC_count = ATAC.seq,
+#'     RNA_count = RNA.seq,
+#'     Species = "Homo",
+#'     id_type = "ensembl_gene_id"
+#'   )
+#' gene_list <- c("TSPAN6", "CD99", "KLHL13")
+#' LinkageObject <-
+#'   RegulatoryPeak(
+#'     LinkageObject = LinkageObject,
+#'     gene_list = gene_list,
+#'     genelist_idtype = "external_gene_name"
+#'   )
+#' LinkageObject <-
+#'   MultipleMotifAnalysis(LinkageObject = LinkageObject,
+#'                         Species = "Homo",
+#'                         TF_cor_method = "pearson")
 MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
   tf <- list()
   motif <- list()
   result_peak <- LinkageObject@cor.peak
   if (Species == "Homo") {
-    PFMatrixList.dir <- system.file("extdata","PFMatrixList.rds", package = "Linkage")
-    pwm_library_dt.dir <- system.file("extdata","pwm_library_dt.rds", package = "Linkage")
-    PFMatrixList <- readRDS(PFMatrixList.dir)
-    pwm_library_dt <- readRDS(pwm_library_dt.dir)
+    data("PFMatrixList")
+    data("pwm_library_dt")
     genome <- "hg38"
   }
   if (Species == "Mus") {
-    PFMatrixList.dir <- system.file("extdata","Mus.PFMatrixList.rds", package = "Linkage")
-    pwm_library_dt.dir <- system.file("extdata","Mus.pwm_library_dt.rds", package = "Linkage")
-    PFMatrixList <- readRDS(PFMatrixList.dir)
-    pwm_library_dt <- readRDS(pwm_library_dt.dir)
+    data("Mus.PFMatrixList")
+    data("Mus.pwm_library_dt")
+    PFMatrixList <- Mus.PFMatrixList
+    pwm_library_dt <- Mus.pwm_library_dt
     genome <- "mm10"
   }
 
   for (i in 1:length(result_peak)) {
     peaks <- result_peak[[i]]
-    peaks <- GenomicRanges::GRanges(
+    peaks <- GRanges(
       seqnames = c(peaks$chrom),
-      ranges = IRanges::IRanges(
+      ranges = IRanges(
         start = peaks$chromStart,
         end = peaks$chromEnd
       )
     )
 
     # Get motif positions within peaks for example motifs in peaks
-    motif_ix <- motifmatchr::matchMotifs(PFMatrixList,
+    motif_ix <- matchMotifs(PFMatrixList,
                                          peaks,
                                          genome = genome,
                                          out = "positions") %>% data.frame()
@@ -121,7 +140,6 @@ MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
     motif[[i]] <- pwm_library_dt[motif_ix$group, ]
     motif[[i]] <- cbind(motif[[i]], motif_ix)
     motif[[i]] <- unique(motif[[i]]$name)
-    # print(motif[[i]])
 
     tf[[i]] <- LinkageObject@RNA.mtrix[LinkageObject@RNA.mtrix$external_gene_name %in% motif[[i]],]
 
@@ -132,9 +150,9 @@ MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
 
     for (j in 1:nrow(tf[[i]])) {
       df <- rbind(tf[[i]][j, c(-1:-6)],
-                  RNA_row[, c(-1:-6)]) # 构造新的数据框
+                  RNA_row[, c(-1:-6)])
       tdf <- t(df)
-      ftdf <- data.frame(tdf) # 转置数据框
+      ftdf <- data.frame(tdf)
 
       tryCatch({
         if (TF_cor_method == "pearson") {
@@ -148,7 +166,6 @@ MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
         }
       },
       error = function(e) {
-        # message("error: ", conditionMessage(e))
         p[j] <- NULL
       })
       tryCatch({
@@ -163,7 +180,6 @@ MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
         }
       },
       error = function(e) {
-        # message("error: ", conditionMessage(e))
         r[j] <- NULL
       })
     }
@@ -173,7 +189,6 @@ MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
     tf[[i]]$rho <- r
   }
   names(tf) <- LinkageObject@geneid
-  # print(tf)
   LinkageObject <-
     new(
       "LinkageObject",

@@ -12,11 +12,17 @@
 #' @export
 #'
 #' @examples
-#' data("LinkageObject")
+#' library(Linkage)
+#' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
-#' LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-regulatory_peak <- function(LinkageObject, gene_list, genelist_idtype, range = 500000, cor_method = "spearman", filter_col = "FDR", filter_value = 0.05) {
-  if (class(LinkageObject) != "LinkageObject") stop("regulatory_peak must a LinkageObject")
+#' LinkageObject <-
+#'   RegulatoryPeak(
+#'     LinkageObject = SmallLinkageObject,
+#'     gene_list = gene_list,
+#'     genelist_idtype = "external_gene_name"
+#'   )
+RegulatoryPeak <- function(LinkageObject, gene_list, genelist_idtype, range = 500000, cor_method = "spearman", filter_col = "FDR", filter_value = 0.05) {
+  if (class(LinkageObject) != "LinkageObject") stop("RegulatoryPeak must a LinkageObject")
   n <- 0
   n_peak <- 0
   neg <- 0
@@ -53,7 +59,7 @@ regulatory_peak <- function(LinkageObject, gene_list, genelist_idtype, range = 5
           }
         },
         error = function(e) {
-          message("发生了错误: ", conditionMessage(e))
+          message("error: ", conditionMessage(e))
           p[j] <- NULL
         }
       )
@@ -70,7 +76,7 @@ regulatory_peak <- function(LinkageObject, gene_list, genelist_idtype, range = 5
           }
         },
         error = function(e) {
-          message("发生了错误: ", conditionMessage(e))
+          message("error: ", conditionMessage(e))
           r[j] <- NULL
         }
       )
@@ -126,13 +132,21 @@ regulatory_peak <- function(LinkageObject, gene_list, genelist_idtype, range = 5
 #'
 #' @return Scatterplot of correlation between genes and peaks.
 #' @export
+#' @importFrom dplyr select
+#' @import ggplot2
 #'
 #' @examples
-#' data("LinkageObject")
+#' library(Linkage)
+#' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
-#' LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-#' Corrplot(LinkageObject, gene = "TSPAN6")
-Corrplot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
+#' LinkageObject <-
+#'   RegulatoryPeak(
+#'     LinkageObject = SmallLinkageObject,
+#'     gene_list = gene_list,
+#'     genelist_idtype = "external_gene_name"
+#'   )
+#' CorrPlot(LinkageObject, gene = "TSPAN6")
+CorrPlot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
 
   index <- which(LinkageObject@active.gene==gene, arr.ind = TRUE) # row col
   corr.gene <- LinkageObject@active.gene[index[1],]
@@ -140,9 +154,8 @@ Corrplot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
   plot_list <- list()
   for (i in 1:nrow(corr.peak)) {
     ATAC3 <- corr.peak[i,]
-    ATAC4 <- dplyr::select(ATAC3, -p_value, -FDR,-rho)
+    ATAC4 <- select(ATAC3, -"p_value", -"FDR",-"rho")
     ATAC5 <- ATAC4[, c(-1:-3)]
-    # ATAC6 <- ATAC5[click_ATAT, ]
     plot_data <- rbind(gene = corr.gene[, c(-1:-6)], peak = ATAC5)
     t_plot_data <- t(plot_data)
     ft_plot_data <- data.frame(t_plot_data)
@@ -151,10 +164,10 @@ Corrplot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
     p_value <- signif(ATAC3$p_value,digits = 3)
     rho <- signif(ATAC3$rho,digits = 3)
 
-    plot_list[[i]] <- ggplot2::ggplot(ft_plot_data, ggplot2::aes(x = gene, y = peak)) +
-      ggplot2::geom_point() +
-      ggplot2::geom_smooth(method = "lm", color = color, fill = fill) +
-      ggplot2::labs(
+    plot_list[[i]] <- ggplot(ft_plot_data, aes(x = gene, y = peak)) +
+      geom_point() +
+      geom_smooth(method = "lm", color = color, fill = fill) +
+      labs(
         x = "RNA-seq", y = "ATAC-seq",
         title = paste0(gene,
                        "\n",
@@ -165,8 +178,8 @@ Corrplot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
                        ATAC4$chromEnd,
                        "\nFDR = ",FDR," ","p_value = ",p_value," ","rho = ",rho
         )) +
-      ggplot2::theme(
-        plot.title = ggplot2::element_text(size=10),legend.position = "top")+ggplot2::theme_classic()
+      theme(
+        plot.title = element_text(size=10),legend.position = "top")+theme_classic()
   }
 
   for(i in 1:length(plot_list)){
@@ -175,9 +188,6 @@ Corrplot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
 
   p <- CombinePlots(plot_list)
 
-  # fig <- ggplotly(fig)
-
-  # fig <- style(fig , text = paste0("sample:",rownames(gene_cluster_data),"\n","gene:",gene_cluster_data$gene,"\n","peak:",gene_cluster_data$peak))
   return(p)
 }
 
@@ -209,7 +219,7 @@ CombinePlots <- function(plots, ncol = NULL, legend = NULL, ...) {
         }
       )
     }
-    plots.combined <- cowplot::plot_grid(
+    plots.combined <- plot_grid(
       plotlist = plots,
       ncol = ncol,
       align = 'hv',
@@ -218,13 +228,13 @@ CombinePlots <- function(plots, ncol = NULL, legend = NULL, ...) {
     if (!is.null(x = legend)) {
       plots.combined <- switch(
         EXPR = legend,
-        'bottom' = cowplot::plot_grid(
+        'bottom' = plot_grid(
           plots.combined,
           plot.legend,
           ncol = 1,
           rel_heights = c(1, 0.2)
         ),
-        'right' = cowplot::plot_grid(
+        'right' = plot_grid(
           plots.combined,
           plot.legend,
           rel_widths = c(3, 0.3)

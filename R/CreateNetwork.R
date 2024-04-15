@@ -2,23 +2,42 @@
 #'
 #' @param LinkageObject An Linkage Object after MultipleMotifAnalysis.
 #' @param genelist_idtype There are ensembl_gene_id, external_gene_name, entrezgene_id types of genetic IDs to choose from.
+#' @param filter_col p_value,FDR,rho can be selected.
+#' @param filter_value Cutoff value of filter_col.
 #'
 #' @return Network Object.
 #' @export
 #'
 #' @examples
-#' RNA.seq.dir <- system.file("extdata", "TCGA-BRCA-RNA.txt", package = "Linkage")
-#' RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-#' Homo.list.files.dir <- system.file("extdata", "Homo.ATAC", package = "Linkage")
-#' Homo.list.files <- list.files(Homo.list.files.dir)
-#' Homo.list.files <- paste0(Homo.list.files.dir, "/", Homo.list.files)
-#' Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = TRUE))
-#' ATAC.seq <- do.call(rbind, Homo.df_list)
-#' LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
-#' gene_list <- c("TSPAN6", "CD99", "KLHL13", "ARX", "HCCS")
-#' LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-#' LinkageObject <- MultipleMotifAnalysis(LinkageObject = LinkageObject,Species = "Homo",TF_cor_method = "pearson")
-#' LinkageObject <- CreateNetworkObject(LinkageObject = LinkageObject, genelist_idtype = "entrezgene_id", filter_col = "FDR", filter_value = 0.01)
+#' library(Linkage)
+#' library(LinkageData)
+#' ATAC.seq <- BreastCancerATAC()
+#' RNA.seq <- BreastCancerRNA()
+#' LinkageObject <-
+#'   CreateLinkageObject(
+#'     ATAC_count = ATAC.seq,
+#'     RNA_count = RNA.seq,
+#'     Species = "Homo",
+#'     id_type = "ensembl_gene_id"
+#'   )
+#' gene_list <- c("TSPAN6", "CD99", "KLHL13")
+#' LinkageObject <-
+#'   RegulatoryPeak(
+#'     LinkageObject = LinkageObject,
+#'     gene_list = gene_list,
+#'     genelist_idtype = "external_gene_name"
+#'   )
+#' LinkageObject <-
+#'   MultipleMotifAnalysis(LinkageObject = LinkageObject,
+#'                         Species = "Homo",
+#'                         TF_cor_method = "pearson")
+#' LinkageObject <-
+#'   CreateNetworkObject(
+#'     LinkageObject = LinkageObject,
+#'     genelist_idtype = "entrezgene_id",
+#'     filter_col = "FDR",
+#'     filter_value = 0.01
+#'   )
 CreateNetworkObject <- function(LinkageObject, genelist_idtype, filter_col, filter_value) {
   RNA.seq <- LinkageObject@active.gene
   tf <- LinkageObject@Motif
@@ -95,19 +114,40 @@ CreateNetworkObject <- function(LinkageObject, genelist_idtype, filter_col, filt
 #' @return An visNetwork
 #' @export
 #'
+#' @importFrom dplyr select distinct rename mutate left_join
+#' @importFrom igraph graph_from_data_frame cluster_louvain membership
+#' @import visNetwork
+#'
 #' @examples
-#' RNA.seq.dir <- system.file("extdata", "TCGA-BRCA-RNA.txt", package = "Linkage")
-#' RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-#' Homo.list.files.dir <- system.file("extdata", "Homo.ATAC", package = "Linkage")
-#' Homo.list.files <- list.files(Homo.list.files.dir)
-#' Homo.list.files <- paste0(Homo.list.files.dir, "/", Homo.list.files)
-#' Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = TRUE))
-#' ATAC.seq <- do.call(rbind, Homo.df_list)
-#' LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
-#' gene_list <- c("TSPAN6", "CD99", "KLHL13", "ARX", "HCCS")
-#' LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
-#' LinkageObject <- MultipleMotifAnalysis(LinkageObject = LinkageObject,Species = "Homo",TF_cor_method = "pearson")
-#' LinkageObject <- CreateNetworkObject(LinkageObject = LinkageObject, genelist_idtype = "entrezgene_id", filter_col = "FDR", filter_value = 0.01)
+#' library(Linkage)
+#' library(LinkageData)
+#' ATAC.seq <- BreastCancerATAC()
+#' RNA.seq <- BreastCancerRNA()
+#' LinkageObject <-
+#'   CreateLinkageObject(
+#'     ATAC_count = ATAC.seq,
+#'     RNA_count = RNA.seq,
+#'     Species = "Homo",
+#'     id_type = "ensembl_gene_id"
+#'   )
+#' gene_list <- c("TSPAN6", "CD99", "KLHL13")
+#' LinkageObject <-
+#'   RegulatoryPeak(
+#'     LinkageObject = LinkageObject,
+#'     gene_list = gene_list,
+#'     genelist_idtype = "external_gene_name"
+#'   )
+#' LinkageObject <-
+#'   MultipleMotifAnalysis(LinkageObject = LinkageObject,
+#'                         Species = "Homo",
+#'                         TF_cor_method = "pearson")
+#' LinkageObject <-
+#'   CreateNetworkObject(
+#'     LinkageObject = LinkageObject,
+#'     genelist_idtype = "entrezgene_id",
+#'     filter_col = "FDR",
+#'     filter_value = 0.01
+#'   )
 #' BuildNetwork(LinkageObject)
 BuildNetwork <- function(LinkageObject){
 
@@ -116,7 +156,7 @@ BuildNetwork <- function(LinkageObject){
 
   Gene.TF.frame.filter <- LinkageObject@Gene_TF
   Gene.TF.frame.filter <-
-    dplyr::select(
+    select(
       Gene.TF.frame.filter,
       c("gene", "TF", "p_value", "FDR", "rho")
     ) %>% na.omit()
@@ -127,21 +167,18 @@ BuildNetwork <- function(LinkageObject){
     Gene.TF.frame.filter[Gene.TF.frame.filter$rho > 0, ]$TF
 
   Gene <- Gene.TF.frame.filter %>%
-    dplyr::distinct(gene) %>%
-    dplyr::rename(label = gene)
+    distinct(gene) %>%
+    rename(label = gene)
 
-  # 目的地去重
   TFs <- Gene.TF.frame.filter %>%
-    dplyr::distinct(TF) %>%
-    dplyr::rename(label = TF)
+    distinct(TF) %>%
+    rename(label = TF)
 
-  ## 合并数据并添加一列索引
   nodes <- rbind(Gene, TFs)
   nodes <- nodes %>%
-    dplyr::mutate(id = 1:nrow(nodes)) %>%
-    dplyr::select(id, everything())
+    mutate(id = 1:nrow(nodes)) %>%
+    select(id, everything())
   nodes <- nodes[!duplicated(nodes$label), ]
-  # id has to be the same like from and to columns in edges
   nodes$id <- nodes$label
 
   edges <- Gene.TF.frame.filter
@@ -153,16 +190,14 @@ BuildNetwork <- function(LinkageObject){
   if (TF_filter_method == "rho") {
     edges$value <- abs(edges[["rho"]])
   }
-  # Create graph for Louvain
-  graph <- igraph::graph_from_data_frame(edges, directed = FALSE)
-  # Louvain Comunity Detection
-  cluster <- igraph::cluster_louvain(graph)
-  cluster_df <- data.frame(as.list(igraph::membership(cluster)),check.names = F)
+  graph <- graph_from_data_frame(edges, directed = FALSE)
+  cluster <- cluster_louvain(graph)
+  cluster_df <- data.frame(as.list(membership(cluster)),check.names = F)
   cluster_df <- as.data.frame(t(cluster_df))
   cluster_df$label <- rownames(cluster_df)
 
   nodes$label <- as.character(nodes$label)
-  nodes <- dplyr::left_join(nodes, cluster_df, by = "label")
+  nodes <- left_join(nodes, cluster_df, by = "label")
 
   colnames(nodes)[3] <- "group"
   nodes$group <-
@@ -182,7 +217,6 @@ BuildNetwork <- function(LinkageObject){
         nodes <- nodes[-which(rowSums(is.na(nodes)) > 0), ]
       }
       RNA_count <- a@RNA.mtrix
-      # print(RNA_count[-which(duplicated(RNA_count[[index]])),])
       RNA_count <-
         RNA_count[-which(duplicated(RNA_count[[index]])), ]
       nodes$value <-
@@ -199,19 +233,19 @@ BuildNetwork <- function(LinkageObject){
   edges$color <-
     ifelse(edges$to %in% positive.TF, "#FF8C00", "lightgreen")
 
-  network <- visNetwork::visNetwork(nodes, edges) %>%
-    visNetwork::visGroups(groupname = "Gene", color = "red") %>%
-    visNetwork::visGroups(groupname = "Negative TF", color = "lightblue") %>%
-    visNetwork::visGroups(groupname = "Positive TF", color = "lightblue") %>%
-    visNetwork::visIgraphLayout() %>%
-    visNetwork::visEdges(arrows = "from") %>%
-    visNetwork::visInteraction(
+  network <- visNetwork(nodes, edges) %>%
+    visGroups(groupname = "Gene", color = "red") %>%
+    visGroups(groupname = "Negative TF", color = "lightblue") %>%
+    visGroups(groupname = "Positive TF", color = "lightblue") %>%
+    visIgraphLayout() %>%
+    visEdges(arrows = "from") %>%
+    visInteraction(
       navigationButtons = F,
       dragNodes = T,
       dragView = T,
       zoomView = T
     ) %>%
-    visNetwork::visOptions(
+    visOptions(
       highlightNearest = T,
       nodesIdSelection = TRUE,
       selectedBy = "group"
