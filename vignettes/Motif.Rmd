@@ -15,14 +15,16 @@ The chromatin accessibility data is a normalized bulk ATAC-seq count matrix, whi
 
 ```{r message=FALSE, warning=FALSE}
 library(Linkage)
-RNA.seq.dir <- system.file("extdata", "TCGA-BRCA-RNA.txt", package = "Linkage")
-RNA.seq <- data.table::fread(RNA.seq.dir, header = TRUE)
-Homo.list.files.dir <- system.file("extdata", "Homo.ATAC", package = "Linkage")
-Homo.list.files <- list.files(Homo.list.files.dir)
-Homo.list.files <- paste0(Homo.list.files.dir, "/", Homo.list.files)
-Homo.df_list <- lapply(Homo.list.files, function(file) data.table::fread(file, header = TRUE))
-ATAC.seq <- do.call(rbind, Homo.df_list)
-LinkageObject <- CreateLinkageObject(ATAC_count = ATAC.seq, RNA_count = RNA.seq, Species = "Homo", id_type = "ensembl_gene_id")
+library(LinkageData)
+ATAC.seq <- BreastCancerATAC()
+RNA.seq <- BreastCancerRNA()
+LinkageObject <-
+  CreateLinkageObject(
+    ATAC_count = ATAC.seq,
+    RNA_count = RNA.seq,
+    Species = "Homo",
+    id_type = "ensembl_gene_id"
+  )
 LinkageObject
 ```
 
@@ -34,14 +36,20 @@ LinkageObject
 
 ```{r fig.height=7, fig.width=7, message=FALSE, warning=FALSE}
 gene_list <- c("TSPAN6", "CD99", "KLHL13")
-LinkageObject <- regulatory_peak(LinkageObject = LinkageObject, gene_list = gene_list, genelist_idtype = "external_gene_name")
+LinkageObject <-
+  RegulatoryPeak(
+    LinkageObject = LinkageObject,
+    gene_list = gene_list,
+    genelist_idtype = "external_gene_name"
+  )
 ```
 
-### 3.Motif Analysis Module 
+### 3.Motif Analysis Module
 
 ::: {align="justify"}
 Motif Analysis Module supports users to visualize the enriched transcription factor motifs within potential regulatory peaks. With clicking on a specific peak, users can view the location and binding score information of each enriched transcription factor of this region. Once users select one of the transcription factors, the corresponding sequence logo of this cis-regulatory element will appear in the Sequence-logo Plot panel.
 :::
+
 ```{r echo=TRUE, fig.height=7, fig.width=7, message=FALSE, warning=FALSE, paged.print=TRUE}
 library(DT)
 df <- SingleMotifAnalysis(LinkageObject@cor.peak$TSPAN6, "Homo")
@@ -73,5 +81,5 @@ DT::datatable(
 ```
 
 ```{r fig.height=7, fig.width=7, message=FALSE, warning=FALSE}
-seqLogo_plot("MA0618.1")
+SeqLogoPlot("MA0618.1")
 ```
