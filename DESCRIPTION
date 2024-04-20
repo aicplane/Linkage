@@ -35,8 +35,7 @@ Imports:
     utils,
     rpart,
     UpSetR,
-    BiocManager,
-    ChIPseeker,
+    BiocManager,   
     ggplotify,
     tibble,
     wordcloud
@@ -68,6 +67,7 @@ biocViews:
     GenomeInfoDb,
     GenomicRanges,
     IRanges,
+    ChIPseeker
 Remotes:
     aicplane/LinkageData
 URL: https://aicplane.github.io/Linkage-tutorial/
