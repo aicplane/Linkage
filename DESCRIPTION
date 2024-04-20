@@ -71,7 +71,5 @@ biocViews:
 Remotes:
     aicplane/LinkageData
 URL: https://aicplane.github.io/Linkage-tutorial/
-Depends: 
-    R (>= 4.3.2)
 LazyData: true
 VignetteBuilder: knitr
