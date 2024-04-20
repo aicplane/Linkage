@@ -70,7 +70,7 @@ biocViews:
     IRanges,
 Remotes:
     aicplane/LinkageData
-URL: https://aicplane.github.io/Linkage/
+URL: https://aicplane.github.io/Linkage-tutorial/
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
