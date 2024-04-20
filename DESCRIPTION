@@ -14,21 +14,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.3.1
 Imports:
-    LinkageData,
-    shiny,
-    shinyjs,
-    shinydashboard,
-    shinydashboardPlus,
-    shinycssloaders,
-    shinyWidgets,
-    shinyBS,
-    RColorBrewer,
-    rvest,
-    data.table,
     ggplot2,
     ggpubr,
-    ggpmisc,
-    DT,
+    ggpmisc,    
     dplyr,
     Biostrings,
     igraph,
@@ -63,6 +51,18 @@ Imports:
     tibble,
     wordcloud
 Suggests: 
+    LinkageData,
+    shiny,
+    shinyjs,
+    shinydashboard,
+    shinydashboardPlus,
+    shinycssloaders,
+    shinyWidgets,
+    shinyBS,
+    RColorBrewer,
+    rvest,
+    data.table,
+    DT,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
