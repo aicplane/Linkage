@@ -56,7 +56,6 @@ Suggests:
     testthat (>= 3.0.0)
 biocViews: 
     Gviz,
-    ChIPseeker (>= 1.34.1),
     TxDb.Hsapiens.UCSC.hg38.knownGene,
     TxDb.Mmusculus.UCSC.mm10.knownGene, 
     org.Hs.eg.db, 
@@ -70,6 +69,7 @@ biocViews:
     IRanges
 Remotes:
     aicplane/LinkageData
+    YuLab-SMU/ChIPseeker
 URL: https://aicplane.github.io/Linkage-tutorial/
 LazyData: true
 VignetteBuilder: knitr
