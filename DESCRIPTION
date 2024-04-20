@@ -73,6 +73,6 @@ Remotes:
 URL: https://aicplane.github.io/Linkage-tutorial/
 Config/testthat/edition: 3
 Depends: 
-    R (>= 2.10)
+    R (>= 4.3)
 LazyData: true
 VignetteBuilder: knitr
