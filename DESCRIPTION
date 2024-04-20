@@ -55,7 +55,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 biocViews: 
-    ChIPseeker,
+    ChIPseeker (>= 1.34.1),
     Gviz,
     TxDb.Hsapiens.UCSC.hg38.knownGene,
     TxDb.Mmusculus.UCSC.mm10.knownGene, 
