@@ -68,7 +68,7 @@ biocViews:
     GenomicRanges,
     IRanges
 Remotes:
-    aicplane/LinkageData
+    aicplane/LinkageData,
     YuLab-SMU/ChIPseeker
 URL: https://aicplane.github.io/Linkage-tutorial/
 LazyData: true
