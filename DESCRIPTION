@@ -36,17 +36,7 @@ Imports:
     rpart,
     UpSetR,
     BiocManager,
-    Gviz,
     ChIPseeker,
-    TxDb.Hsapiens.UCSC.hg38.knownGene,
-    TxDb.Mmusculus.UCSC.mm10.knownGene, 
-    org.Hs.eg.db, org.Mm.eg.db,
-    BSgenome.Hsapiens.UCSC.hg38,
-    BSgenome.Mmusculus.UCSC.mm10, TFBSTools,
-    motifmatchr,
-    GenomeInfoDb,
-    GenomicRanges,
-    IRanges,
     ggplotify,
     tibble,
     wordcloud
@@ -65,6 +55,21 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
+biocViews: 
+    Gviz,
+    TxDb.Hsapiens.UCSC.hg38.knownGene,
+    TxDb.Mmusculus.UCSC.mm10.knownGene, 
+    org.Hs.eg.db, 
+    org.Mm.eg.db,
+    BSgenome.Hsapiens.UCSC.hg38,
+    BSgenome.Mmusculus.UCSC.mm10, 
+    TFBSTools,
+    motifmatchr,
+    GenomeInfoDb,
+    GenomicRanges,
+    IRanges,
+Remotes:
+    aicplane/LinkageData
 URL: https://aicplane.github.io/Linkage/
 Config/testthat/edition: 3
 Depends: 
