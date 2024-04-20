@@ -55,6 +55,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 biocViews: 
+    ChIPseeker,
     Gviz,
     TxDb.Hsapiens.UCSC.hg38.knownGene,
     TxDb.Mmusculus.UCSC.mm10.knownGene, 
@@ -66,13 +67,11 @@ biocViews:
     motifmatchr,
     GenomeInfoDb,
     GenomicRanges,
-    IRanges,
-    ChIPseeker
+    IRanges
 Remotes:
     aicplane/LinkageData
 URL: https://aicplane.github.io/Linkage-tutorial/
-Config/testthat/edition: 3
 Depends: 
-    R (>= 4.3)
+    R (>= 4.3.2)
 LazyData: true
 VignetteBuilder: knitr
