@@ -39,22 +39,6 @@ Imports:
     ggplotify,
     tibble,
     wordcloud
-  biocViews: 
-    ChIPseeker,
-    Gviz,
-    TxDb.Hsapiens.UCSC.hg38.knownGene,
-    TxDb.Mmusculus.UCSC.mm10.knownGene, 
-    org.Hs.eg.db, 
-    org.Mm.eg.db,
-    BSgenome.Hsapiens.UCSC.hg38,
-    BSgenome.Mmusculus.UCSC.mm10, 
-    TFBSTools,
-    motifmatchr,
-    GenomeInfoDb,
-    GenomicRanges,
-    IRanges
-  Remotes:
-    aicplane/LinkageData
 Suggests: 
     shiny,
     shinyjs,
@@ -89,3 +73,5 @@ Remotes:
 URL: https://aicplane.github.io/Linkage-tutorial/
 LazyData: true
 VignetteBuilder: knitr
+Encoding: UTF-8
+ByteCompile: true
