@@ -39,7 +39,8 @@ Imports:
     ggplotify,
     tibble,
     wordcloud
-Suggests: 
+Suggests:
+    ChIPseeker,
     shiny,
     shinyjs,
     shinydashboard,
@@ -55,7 +56,6 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 biocViews: 
-    ChIPseeker,
     Gviz,
     TxDb.Hsapiens.UCSC.hg38.knownGene,
     TxDb.Mmusculus.UCSC.mm10.knownGene, 
