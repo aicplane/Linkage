@@ -14,21 +14,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.3.1
 Imports:
-    LinkageData,
-    shiny,
-    shinyjs,
-    shinydashboard,
-    shinydashboardPlus,
-    shinycssloaders,
-    shinyWidgets,
-    shinyBS,
-    RColorBrewer,
-    rvest,
-    data.table,
     ggplot2,
     ggpubr,
-    ggpmisc,
-    DT,
+    ggpmisc,    
     dplyr,
     Biostrings,
     igraph,
@@ -47,28 +35,41 @@ Imports:
     utils,
     rpart,
     UpSetR,
-    BiocManager,
-    Gviz,
-    ChIPseeker,
-    TxDb.Hsapiens.UCSC.hg38.knownGene,
-    TxDb.Mmusculus.UCSC.mm10.knownGene, 
-    org.Hs.eg.db, org.Mm.eg.db,
-    BSgenome.Hsapiens.UCSC.hg38,
-    BSgenome.Mmusculus.UCSC.mm10, TFBSTools,
-    motifmatchr,
-    GenomeInfoDb,
-    GenomicRanges,
-    IRanges,
+    BiocManager,   
     ggplotify,
     tibble,
     wordcloud
+biocViews: 
+    ChIPseeker,
+    Gviz,
+    TxDb.Hsapiens.UCSC.hg38.knownGene,
+    TxDb.Mmusculus.UCSC.mm10.knownGene, 
+    org.Hs.eg.db, 
+    org.Mm.eg.db,
+    BSgenome.Hsapiens.UCSC.hg38,
+    BSgenome.Mmusculus.UCSC.mm10, 
+    TFBSTools,
+    motifmatchr,
+    GenomeInfoDb,
+    GenomicRanges,
+    IRanges
+Remotes:
+    aicplane/LinkageData
 Suggests: 
+    shiny,
+    shinyjs,
+    shinydashboard,
+    shinydashboardPlus,
+    shinycssloaders,
+    shinyWidgets,
+    shinyBS,
+    RColorBrewer,
+    rvest,
+    data.table,
+    DT,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
-URL: https://aicplane.github.io/Linkage/
-Config/testthat/edition: 3
-Depends: 
-    R (>= 2.10)
+URL: https://aicplane.github.io/Linkage-tutorial/
 LazyData: true
 VignetteBuilder: knitr
