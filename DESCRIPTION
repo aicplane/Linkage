@@ -70,7 +70,6 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
-=======
 biocViews: 
     ChIPseeker,
     Gviz,
