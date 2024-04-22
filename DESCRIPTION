@@ -73,5 +73,4 @@ Remotes:
 URL: https://aicplane.github.io/Linkage-tutorial/
 LazyData: true
 VignetteBuilder: knitr
-Encoding: UTF-8
 ByteCompile: true
