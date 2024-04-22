@@ -40,19 +40,6 @@ Imports:
     tibble,
     wordcloud
 Suggests:
-    ChIPseeker,
-    Gviz,
-    TxDb.Hsapiens.UCSC.hg38.knownGene,
-    TxDb.Mmusculus.UCSC.mm10.knownGene, 
-    org.Hs.eg.db, 
-    org.Mm.eg.db,
-    BSgenome.Hsapiens.UCSC.hg38,
-    BSgenome.Mmusculus.UCSC.mm10, 
-    TFBSTools,
-    motifmatchr,
-    GenomeInfoDb,
-    GenomicRanges,
-    IRanges,
     shiny,
     shinyjs,
     shinydashboard,
@@ -67,6 +54,20 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
+biocViews:
+    IRanges,
+    ChIPseeker,
+    Gviz,
+    TxDb.Hsapiens.UCSC.hg38.knownGene,
+    TxDb.Mmusculus.UCSC.mm10.knownGene, 
+    org.Hs.eg.db, 
+    org.Mm.eg.db,
+    BSgenome.Hsapiens.UCSC.hg38,
+    BSgenome.Mmusculus.UCSC.mm10, 
+    TFBSTools,
+    motifmatchr,
+    GenomeInfoDb,
+    GenomicRanges
 Remotes:
     aicplane/LinkageData
 URL: https://aicplane.github.io/Linkage-tutorial/
