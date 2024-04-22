@@ -39,7 +39,7 @@ Imports:
     ggplotify,
     tibble,
     wordcloud
-biocViews: 
+  biocViews: 
     ChIPseeker,
     Gviz,
     TxDb.Hsapiens.UCSC.hg38.knownGene,
@@ -53,7 +53,7 @@ biocViews:
     GenomeInfoDb,
     GenomicRanges,
     IRanges
-Remotes:
+  Remotes:
     aicplane/LinkageData
 Suggests: 
     shiny,
