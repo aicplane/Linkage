@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' ATAC.seq <- BreastCancerATAC()
 #' RNA.seq <- BreastCancerRNA()
@@ -98,10 +98,18 @@ CreateNetworkObject <- function(LinkageObject, genelist_idtype, filter_col, filt
       ATAC.matrix = LinkageObject@ATAC.matrix,
       active.gene = LinkageObject@active.gene,
       cor.peak = LinkageObject@cor.peak,
+      cor.peak.annotation = LinkageObject@cor.peak.annotation,
+      detailpeakannotation = LinkageObject@detailpeakannotation,
       Motif = LinkageObject@Motif,
       Gene_TF = Gene.TF.frame.filter,
       geneid = LinkageObject@geneid,
-      Summary = list("genelist_idtype" = genelist_idtype,"filter_col" = filter_col)
+      Summary = list(
+        "positive_peak" = LinkageObject@Summary$positive_peak,
+        "negetive_peak" = LinkageObject@Summary$negetive_peak,
+        "TF_num" = nrow(Gene.TF.frame.filter),
+        "genelist_idtype" = genelist_idtype,
+        "filter_col" = filter_col
+      )
     )
   return(LinkageObject)
 }
@@ -119,7 +127,7 @@ CreateNetworkObject <- function(LinkageObject, genelist_idtype, filter_col, filt
 #' @import visNetwork
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' ATAC.seq <- BreastCancerATAC()
 #' RNA.seq <- BreastCancerRNA()

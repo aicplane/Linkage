@@ -4,7 +4,7 @@
 #' @export
 #'
 #' @examples
-#' Linkage::Install.biocViews()
+#' linkage::Install.biocViews()
 Install.biocViews <- function() {
   if (!requireNamespace("BiocManager", quietly = TRUE)) {
     utils::install.packages("BiocManager")

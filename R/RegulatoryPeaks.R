@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-
@@ -42,9 +42,9 @@ RegulatoryPeak <- function(LinkageObject, gene_list, genelist_idtype, range = 50
       df <- rbind(
         result_peak[[i]][j, c(-1:-3)],
         RNA_row[, c(-1:-6)]
-      ) # 构造新的数据框
+      )
       tdf <- t(df)
-      ftdf <- data.frame(tdf) # 转置数据框
+      ftdf <- data.frame(tdf)
 
       tryCatch(
         {
@@ -110,6 +110,10 @@ RegulatoryPeak <- function(LinkageObject, gene_list, genelist_idtype, range = 50
       ATAC.matrix = LinkageObject@ATAC.matrix,
       active.gene = RNA.seq,
       cor.peak = result_peak,
+      cor.peak.annotation = LinkageObject@cor.peak.annotation,
+      detailpeakannotation = LinkageObject@detailpeakannotation,
+      Motif = LinkageObject@Motif,
+      Gene_TF = LinkageObject@Gene_TF,
       geneid = gene_list,
       Summary = list(
         "positive_peak" = pos,
@@ -121,7 +125,6 @@ RegulatoryPeak <- function(LinkageObject, gene_list, genelist_idtype, range = 50
     )
   return(p)
 }
-
 
 #' Correlation scatter plot.
 #'
@@ -136,7 +139,7 @@ RegulatoryPeak <- function(LinkageObject, gene_list, genelist_idtype, range = 50
 #' @import ggplot2
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-

@@ -67,8 +67,10 @@ setMethod(
 #' @return A Linkage Object
 #' @export
 #'
+#' @importFrom dplyr select
+#'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' ATAC.seq <- BreastCancerATAC()
 #' RNA.seq <- BreastCancerRNA()
@@ -98,7 +100,7 @@ CreateLinkageObject <- function(ATAC_count, RNA_count, Species, id_type) {
     names(ATAC_count)[1] <- "chrom"
     names(ATAC_count)[2] <- "chromEnd"
     names(ATAC_count)[3] <- "chromStart"
-    ATAC_count <- dplyr::select(ATAC_count,1,3,2,everything())
+    ATAC_count <- select(ATAC_count,1,3,2,everything())
   }
 
   LinkageObject <- new("LinkageObject", RNA.mtrix = RNA_count, ATAC.matrix = ATAC_count)

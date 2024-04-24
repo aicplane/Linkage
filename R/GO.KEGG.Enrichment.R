@@ -14,7 +14,7 @@
 #' @importFrom clusterProfiler enrichGO
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 #' load(Geneset)
@@ -85,7 +85,7 @@ GOEnrichment <-
 #' @importFrom clusterProfiler enrichKEGG
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 #' load(Geneset)
@@ -152,7 +152,7 @@ KEGGEnrichment <-
 #' @import ggplot2
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 #' load(Geneset)
@@ -185,7 +185,7 @@ EnrichDotPlot <- function(object,size = 8) {
 #' @import ggplot2
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 #' load(Geneset)
@@ -218,7 +218,7 @@ EnrichUpsetPlot <- function(object, size = 8) {
 #' @import ggplot2
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 #' load(Geneset)
@@ -250,7 +250,7 @@ EnrichCnetPlot <- function(object, size = 8) {
 #' @import ggplot2
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 #' load(Geneset)
@@ -284,7 +284,7 @@ EnrichBarPlot <- function(object, size = 8) {
 #' @importFrom wordcloud wordcloud
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 #' load(Geneset)

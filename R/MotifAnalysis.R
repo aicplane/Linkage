@@ -11,7 +11,7 @@
 #' @importFrom motifmatchr matchMotifs
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "LinkageData")
 #' load(peakpath)
@@ -59,10 +59,10 @@ SingleMotifAnalysis <- function(peakfile, Species) {
 #' @importFrom TFBSTools getMatrixByID seqLogo toICM
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' SeqLogoPlot("MA0618.1")
 SeqLogoPlot <- function(motif_ID) {
-  sqlite.dir <- system.file("extdata","JASPAR2022.sqlite", package = "Linkage")
+  sqlite.dir <- system.file("extdata","JASPAR2022.sqlite", package = "linkage")
   m <- getMatrixByID(sqlite.dir, motif_ID)
   return(seqLogo(toICM(m)))
 }
@@ -82,7 +82,7 @@ SeqLogoPlot <- function(motif_ID) {
 #' @importFrom motifmatchr matchMotifs
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' library(LinkageData)
 #' ATAC.seq <- BreastCancerATAC()
 #' RNA.seq <- BreastCancerRNA()
@@ -196,8 +196,12 @@ MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
       ATAC.matrix = LinkageObject@ATAC.matrix ,
       active.gene = LinkageObject@active.gene,
       cor.peak = LinkageObject@cor.peak,
+      cor.peak.annotation = LinkageObject@cor.peak.annotation,
+      detailpeakannotation = LinkageObject@detailpeakannotation,
       Motif = tf,
-      geneid = LinkageObject@geneid
+      Gene_TF = LinkageObject@Gene_TF,
+      geneid = LinkageObject@geneid,
+      Summary = LinkageObject@Summary
     )
   return(LinkageObject)
 }

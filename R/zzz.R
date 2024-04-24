@@ -9,7 +9,7 @@ Github page: https://github.com/aicplane/Linkage/
 Documentation: https://aicplane.github.io/Linkage/
 
 This message can be suppressed by:
-  suppressPackageStartupMessages(library(Linkage))
+  suppressPackageStartupMessages(library(linkage))
 ====================================================
 ")
   packageStartupMessage(msg)

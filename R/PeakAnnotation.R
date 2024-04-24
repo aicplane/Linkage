@@ -12,7 +12,7 @@
 #' @importFrom ChIPseeker annotatePeak
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-
@@ -57,9 +57,12 @@ PeakAnnottation <- function(LinkageObject, Species = "Homo") {
       ATAC.matrix = LinkageObject@ATAC.matrix,
       active.gene = LinkageObject@active.gene,
       cor.peak = LinkageObject@cor.peak,
-      geneid = LinkageObject@geneid,
       cor.peak.annotation = ann,
-      detailpeakannotation = detail
+      detailpeakannotation = detail,
+      Motif = LinkageObject@Motif,
+      Gene_TF = LinkageObject@Gene_TF,
+      geneid = LinkageObject@geneid,
+      Summary = LinkageObject@Summary
     )
   return(p)
 }
@@ -79,7 +82,7 @@ PeakAnnottation <- function(LinkageObject, Species = "Homo") {
 #' @importFrom UpSetR upset
 #'
 #' @examples
-#' library(Linkage)
+#' library(linkage)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-
