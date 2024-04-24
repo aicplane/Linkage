@@ -1,16 +1,10 @@
 ![](man/figures/shiny-logo1.png)
 
-<!-- badges: start -->
+
 
 [![test-coverage](https://github.com/aicplane/Linkage/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/aicplane/Linkage/actions/workflows/test-coverage.yaml)
-
-<!-- badges: end -->
-
-<!-- badges: start -->
-
 [![pkgdown](https://github.com/aicplane/Linkage/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/aicplane/Linkage/actions/workflows/pkgdown.yaml)
 
-<!-- badges: end -->
 
 <img src="man/figures/imgfile.png" align="right" height="200" style="float:right; height:200px;"/>
 
