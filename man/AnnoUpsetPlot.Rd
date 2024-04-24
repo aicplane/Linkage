@@ -18,7 +18,7 @@ An upsetplot after the annottation.
 AnnoUpsetPlot
 }
 \examples{
-library(Linkage)
+library(linkage)
 data("SmallLinkageObject")
 gene_list <- c("TSPAN6", "CD99", "KLHL13")
 LinkageObject <-

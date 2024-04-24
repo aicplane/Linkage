@@ -16,7 +16,7 @@ An visNetwork
 BuildNetwork.
 }
 \examples{
-library(Linkage)
+library(linkage)
 library(LinkageData)
 ATAC.seq <- BreastCancerATAC()
 RNA.seq <- BreastCancerRNA()

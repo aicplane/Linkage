@@ -18,7 +18,7 @@ Enrichment dot plot.
 Enrichment analysis Dotplot
 }
 \examples{
-library(Linkage)
+library(linkage)
 library(LinkageData)
 Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 load(Geneset)

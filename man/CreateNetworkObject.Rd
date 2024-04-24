@@ -22,7 +22,7 @@ Network Object.
 Create Network Object.
 }
 \examples{
-library(Linkage)
+library(linkage)
 library(LinkageData)
 ATAC.seq <- BreastCancerATAC()
 RNA.seq <- BreastCancerRNA()

@@ -36,7 +36,7 @@ A GO object.
 GO enrichment analysis
 }
 \examples{
-library(Linkage)
+library(linkage)
 library(LinkageData)
 Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 load(Geneset)

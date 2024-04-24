@@ -20,7 +20,7 @@ An Linkage Object after MultipleMotifAnalysis
 MotifAnalysis.
 }
 \examples{
-library(Linkage)
+library(linkage)
 library(LinkageData)
 ATAC.seq <- BreastCancerATAC()
 RNA.seq <- BreastCancerRNA()

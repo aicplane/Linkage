@@ -13,5 +13,5 @@ Install the dependencies under bioconductor
 Used when the linkage is installed for the first time and is used to install dependencies
 }
 \examples{
-Linkage::Install.biocViews()
+linkage::Install.biocViews()
 }

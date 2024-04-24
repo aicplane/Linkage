@@ -18,7 +18,7 @@ Enrichment network.
 Enrichment analysis Cnetplot
 }
 \examples{
-library(Linkage)
+library(linkage)
 library(LinkageData)
 Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 load(Geneset)

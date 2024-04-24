@@ -20,7 +20,7 @@ Enrichment wordcloud.
 Enrichment analysis Wordcloud
 }
 \examples{
-library(Linkage)
+library(linkage)
 library(LinkageData)
 Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 load(Geneset)
