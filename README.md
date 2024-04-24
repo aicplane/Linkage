@@ -2,7 +2,13 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/aicplane/Linkage/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/aicplane/Linkage/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/aicplane/Linkage/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/aicplane/Linkage/actions/workflows/test-coverage.yaml)
+
+<!-- badges: end -->
+
+<!-- badges: start -->
+
+[![pkgdown](https://github.com/aicplane/Linkage/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/aicplane/Linkage/actions/workflows/pkgdown.yaml)
 
 <!-- badges: end -->
 
