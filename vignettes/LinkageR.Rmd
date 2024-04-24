@@ -1,8 +1,8 @@
 ---
-title: "Linkage in Rstudio"
+title: "linkage in Rstudio"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Linkage in Rstudio}
+  %\VignetteIndexEntry{linkage in Rstudio}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,7 @@ The chromatin accessibility data is a normalized bulk ATAC-seq count matrix, whi
 :::
 
 ```{r message=FALSE, warning=FALSE}
-library(Linkage)
+library(linkage)
 library(LinkageData)
 ATAC.seq <- BreastCancerATAC()
 RNA.seq <- BreastCancerRNA()

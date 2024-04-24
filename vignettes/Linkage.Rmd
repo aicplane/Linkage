@@ -1,14 +1,14 @@
 ---
-title: "Linkage"
+title: "linkage"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Linkage}
+  %\VignetteIndexEntry{linkage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ``` r
-library(Linkage)
+library(linkage)
 Linkage.UIO()
 ```
 

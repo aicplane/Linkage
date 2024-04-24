@@ -7,7 +7,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-![](../man/figures/shiny-logo1.png)
+``` r
+if (!requireNamespace("devtools", quietly = TRUE))
+  install.packages("devtools")
+
+devtools::install_github("aicplane/LinkageData")
+```
 
 
 ``` r
@@ -18,7 +23,7 @@ devtools::install_github("aicplane/Linkage")
 ```
 
 ``` r
-library(Linkage)
+library(linkage)
 Install.biocViews()
 Linkage.UIO()
 ```

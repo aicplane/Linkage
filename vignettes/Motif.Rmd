@@ -14,7 +14,7 @@ The chromatin accessibility data is a normalized bulk ATAC-seq count matrix, whi
 :::
 
 ```{r message=FALSE, warning=FALSE}
-library(Linkage)
+library(linkage)
 library(LinkageData)
 ATAC.seq <- BreastCancerATAC()
 RNA.seq <- BreastCancerRNA()
