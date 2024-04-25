@@ -34,37 +34,22 @@
     <loc>/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
     <loc>/reference/AnnoUpsetPlot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/barplot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/box_plot.html</loc>
   </url>
   <url>
     <loc>/reference/BuildNetwork.html</loc>
   </url>
   <url>
-    <loc>/reference/cnetplot.html</loc>
-  </url>
-  <url>
     <loc>/reference/CombinePlots.html</loc>
   </url>
   <url>
-    <loc>/reference/Corrplot.html</loc>
+    <loc>/reference/CorrPlot.html</loc>
   </url>
   <url>
     <loc>/reference/CreateLinkageObject.html</loc>
   </url>
   <url>
     <loc>/reference/CreateNetworkObject.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dotplot.html</loc>
   </url>
   <url>
     <loc>/reference/EnrichBarPlot.html</loc>
@@ -82,13 +67,7 @@
     <loc>/reference/EnrichWordCloud.html</loc>
   </url>
   <url>
-    <loc>/reference/GO.enrichment.html</loc>
-  </url>
-  <url>
     <loc>/reference/GOEnrichment.html</loc>
-  </url>
-  <url>
-    <loc>/reference/hello.html</loc>
   </url>
   <url>
     <loc>/reference/Homo.position.html</loc>
@@ -100,22 +79,13 @@
     <loc>/reference/Install.biocViews.html</loc>
   </url>
   <url>
-    <loc>/reference/KEGG.enrichment.html</loc>
-  </url>
-  <url>
     <loc>/reference/KEGGEnrichment.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Linkage.html</loc>
   </url>
   <url>
     <loc>/reference/Linkage.UIO.html</loc>
   </url>
   <url>
     <loc>/reference/LinkageObject-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/motif_analysis.html</loc>
   </url>
   <url>
     <loc>/reference/MultipleMotifAnalysis.html</loc>
@@ -133,9 +103,6 @@
     <loc>/reference/PeakAnnottation.html</loc>
   </url>
   <url>
-    <loc>/reference/Peak_Annottation.html</loc>
-  </url>
-  <url>
     <loc>/reference/PFMatrixList.html</loc>
   </url>
   <url>
@@ -148,16 +115,7 @@
     <loc>/reference/RegulatoryPeak.html</loc>
   </url>
   <url>
-    <loc>/reference/regulatory_peak.html</loc>
-  </url>
-  <url>
     <loc>/reference/SeqLogoPlot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/seqLogo_plot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/show-methods.html</loc>
   </url>
   <url>
     <loc>/reference/SingleMotifAnalysis.html</loc>
@@ -166,18 +124,6 @@
     <loc>/reference/SmallLinkageObject.html</loc>
   </url>
   <url>
-    <loc>/reference/trackplot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/upsetplot.csAnno.html</loc>
-  </url>
-  <url>
-    <loc>/reference/upsetplot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/vennpie.html</loc>
-  </url>
-  <url>
-    <loc>/reference/wordcloud.html</loc>
+    <loc>/reference/TrackPlot.html</loc>
   </url>
 </urlset>
