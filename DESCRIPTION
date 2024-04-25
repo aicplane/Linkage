@@ -51,8 +51,7 @@ Imports:
     motifmatchr,
     GenomeInfoDb,
     GenomicRanges,
-    ChIPseeker,
-    LinkageData
+    ChIPseeker
 Suggests:
     shiny,
     shinyjs,
@@ -68,6 +67,8 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
+Remotes:
+    aicplane/LinkageData
 Depends: R (>= 4.3)
 URL: https://aicplane.github.io/Linkage-tutorial/
 LazyData: true
