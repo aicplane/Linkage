@@ -1,0 +1,11 @@
+pandoc: 3.1.1
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  Enrichment: Enrichment.html
+  Install: Install.html
+  Linkage: Linkage.html
+  LinkageR: LinkageR.html
+  Motif: Motif.html
+last_built: 2024-04-24T09:24Z
+
