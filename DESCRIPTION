@@ -51,9 +51,9 @@ Imports:
     motifmatchr,
     GenomeInfoDb,
     GenomicRanges,
-    ChIPseeker,
-    LinkageData
+    ChIPseeker
 Suggests:
+    LinkageData,
     shiny,
     shinyjs,
     shinydashboard,
