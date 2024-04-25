@@ -12,6 +12,10 @@ Pathway Enrichment Module supports users to visualize tabular and graphical path
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 library(linkage)
+if (!requireNamespace("devtools", quietly = TRUE))
+  install.packages("devtools")
+if (!requireNamespace("LinkageData", quietly = TRUE))
+devtools::install_github("aicplane/LinkageData")
 library(LinkageData)
 Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 load(Geneset)
