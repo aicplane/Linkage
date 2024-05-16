@@ -13,16 +13,16 @@
     <loc>/articles/Enrichment.html</loc>
   </url>
   <url>
+    <loc>/articles/GRN-tutorial.html</loc>
+  </url>
+  <url>
     <loc>/articles/Install.html</loc>
   </url>
   <url>
     <loc>/articles/Linkage.html</loc>
   </url>
   <url>
-    <loc>/articles/LinkageR.html</loc>
-  </url>
-  <url>
-    <loc>/articles/Motif.html</loc>
+    <loc>/articles/TCGA-BRCA guided tutorial.html</loc>
   </url>
   <url>
     <loc>/articles/index.html</loc>
@@ -37,7 +37,7 @@
     <loc>/reference/AnnoUpsetPlot.html</loc>
   </url>
   <url>
-    <loc>/reference/BuildNetwork.html</loc>
+    <loc>/reference/BuildGRNs.html</loc>
   </url>
   <url>
     <loc>/reference/CombinePlots.html</loc>
@@ -47,9 +47,6 @@
   </url>
   <url>
     <loc>/reference/CreateLinkageObject.html</loc>
-  </url>
-  <url>
-    <loc>/reference/CreateNetworkObject.html</loc>
   </url>
   <url>
     <loc>/reference/EnrichBarPlot.html</loc>
@@ -65,6 +62,9 @@
   </url>
   <url>
     <loc>/reference/EnrichWordCloud.html</loc>
+  </url>
+  <url>
+    <loc>/reference/FilterGRNs.html</loc>
   </url>
   <url>
     <loc>/reference/GOEnrichment.html</loc>
@@ -85,7 +85,7 @@
     <loc>/reference/LinkageObject-class.html</loc>
   </url>
   <url>
-    <loc>/reference/MultipleMotifAnalysis.html</loc>
+    <loc>/reference/MotifEnrichment.html</loc>
   </url>
   <url>
     <loc>/reference/Mus.PFMatrixList.html</loc>
@@ -100,7 +100,7 @@
     <loc>/reference/PFMatrixList.html</loc>
   </url>
   <url>
-    <loc>/reference/PeakAnnottation.html</loc>
+    <loc>/reference/PeakAnnotation.html</loc>
   </url>
   <url>
     <loc>/reference/RegulatoryPeak.html</loc>
@@ -109,10 +109,10 @@
     <loc>/reference/SeqLogoPlot.html</loc>
   </url>
   <url>
-    <loc>/reference/SingleMotifAnalysis.html</loc>
+    <loc>/reference/SmallLinkageObject.html</loc>
   </url>
   <url>
-    <loc>/reference/SmallLinkageObject.html</loc>
+    <loc>/reference/VisualGRNs.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
