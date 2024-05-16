@@ -1,11 +1,45 @@
 ---
-title: "Install"
+title: "Installation Instructions for Linkage"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Install}
+  %\VignetteIndexEntry{Installation Instructions for Linkage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{css,echo=FALSE}
+body {
+    font-family: Arial, sans-serif; /* 设置字体 */
+    color: #333; /* 设置文字颜色 */
+    background-color: #white; /* 设置背景颜色 */
+    line-height: 1.5;
+    text-align: justify; /* 设置正文两端对齐 */
+}
+
+p {
+    line-height: 1.5; /* 设置段落行高 */
+}
+
+img {
+    display: block; /* 将图片显示为块级元素 */
+    margin: 0 auto; /* 设置左右外边距为自动，实现居中显示 */
+}
+
+.img-container {
+  display: flex;
+}
+
+.img-container img {
+  flex: 1;
+}
+
+```
+
+To install Seurat, R version 4.0 or greater is required. We also recommend installing R Studio for better visualization of plots.
+
+**Install from CRAN**
+
+**Install from github**
 
 ``` r
 if (!requireNamespace("devtools", quietly = TRUE))
@@ -13,7 +47,6 @@ if (!requireNamespace("devtools", quietly = TRUE))
 
 devtools::install_github("aicplane/LinkageData")
 ```
-
 
 ``` r
 if (!requireNamespace("devtools", quietly = TRUE))

@@ -1,0 +1,73 @@
+---
+title: "Gene Regulatory Network Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Gene Regulatory Network Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{css,echo=FALSE}
+body {
+    font-family: Arial, sans-serif; /* 设置字体 */
+    color: #333; /* 设置文字颜色 */
+    background-color: #white; /* 设置背景颜色 */
+    line-height: 1.5;
+    text-align: justify; /* 设置正文两端对齐 */
+}
+
+p {
+    line-height: 1.5; /* 设置段落行高 */
+}
+
+img {
+    display: block; /* 将图片显示为块级元素 */
+    margin: 0 auto; /* 设置左右外边距为自动，实现居中显示 */
+}
+
+.img-container {
+  display: flex;
+}
+
+.img-container img {
+  flex: 1;
+}
+
+```
+
+### **Gene Regulatory Network Analysis**
+If you wish to view the genetic regulatory landscape globally, Linkage can help to build the GRNs that nodes are genes and corresponding cis-regulatory elements. You can first calculate the enriched CREs with potential regulatory peaks and perform canonical correlation analysis of quantitative expression level between each interested gene and their potential CREs by the `BuildGRNs()` function. Linkage offers transcription factor binding site information of two species, i.e., the human and the mouse, for users to do the CREs enrichment analysis. Then the `FilterGRNs()` function allows you to filter the ambiguous connections of gene-CREs pairs by setting the thresholds of interactions between nodes. Finally, you can view the corresponding informatic and interactive GRNs by the `VisualGRNs()` function. In the example below, we visualize the GRN of "TSPAN6", "CD99" and "KLHL13" with their potential CREs.
+
+```{r fig.height=5, fig.width=7, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(linkage)
+library(LinkageData)
+ATAC.seq <- BreastCancerATAC()
+RNA.seq <- BreastCancerRNA()
+LinkageObject <-
+  CreateLinkageObject(
+    ATAC_count = ATAC.seq,
+    RNA_count = RNA.seq,
+    Species = "Homo",
+    id_type = "ensembl_gene_id"
+  )
+gene_list <- c("TSPAN6", "CD99", "KLHL13")
+LinkageObject <-
+  RegulatoryPeak(
+    LinkageObject = LinkageObject,
+    gene_list = gene_list,
+    genelist_idtype = "external_gene_name"
+  )
+LinkageObject <-
+  BuildGRNs(LinkageObject = LinkageObject,
+                        Species = "Homo",
+                        TF_cor_method = "pearson")
+LinkageObject <-
+  FilterGRNs(
+    LinkageObject = LinkageObject,
+    genelist_idtype = "entrezgene_id",
+    filter_col = "FDR",
+    filter_value = 0.01
+  )
+VisualGRNs(LinkageObject)
+```
+

@@ -7,6 +7,9 @@
     <loc>/articles/Enrichment.html</loc>
   </url>
   <url>
+    <loc>/articles/GRN-tutorial.html</loc>
+  </url>
+  <url>
     <loc>/articles/index.html</loc>
   </url>
   <url>
@@ -22,6 +25,9 @@
     <loc>/articles/Motif.html</loc>
   </url>
   <url>
+    <loc>/articles/TCGA-BRCA guided tutorial.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -35,6 +41,9 @@
   </url>
   <url>
     <loc>/reference/AnnoUpsetPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/BuildGRNs.html</loc>
   </url>
   <url>
     <loc>/reference/BuildNetwork.html</loc>
@@ -67,6 +76,9 @@
     <loc>/reference/EnrichWordCloud.html</loc>
   </url>
   <url>
+    <loc>/reference/FilterGRNs.html</loc>
+  </url>
+  <url>
     <loc>/reference/GOEnrichment.html</loc>
   </url>
   <url>
@@ -88,6 +100,9 @@
     <loc>/reference/LinkageObject-class.html</loc>
   </url>
   <url>
+    <loc>/reference/MotifEnrichment.html</loc>
+  </url>
+  <url>
     <loc>/reference/MultipleMotifAnalysis.html</loc>
   </url>
   <url>
@@ -98,6 +113,9 @@
   </url>
   <url>
     <loc>/reference/Mus.pwm_library_dt.html</loc>
+  </url>
+  <url>
+    <loc>/reference/PeakAnnotation.html</loc>
   </url>
   <url>
     <loc>/reference/PeakAnnottation.html</loc>
@@ -125,5 +143,8 @@
   </url>
   <url>
     <loc>/reference/TrackPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/VisualGRNs.html</loc>
   </url>
 </urlset>

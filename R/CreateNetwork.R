@@ -1,6 +1,6 @@
 #' Create Network Object.
 #'
-#' @param LinkageObject An Linkage Object after MultipleMotifAnalysis.
+#' @param LinkageObject An Linkage Object after BuildGRNs.
 #' @param genelist_idtype There are ensembl_gene_id, external_gene_name, entrezgene_id types of genetic IDs to choose from.
 #' @param filter_col p_value,FDR,rho can be selected.
 #' @param filter_value Cutoff value of filter_col.
@@ -28,17 +28,17 @@
 #'     genelist_idtype = "external_gene_name"
 #'   )
 #' LinkageObject <-
-#'   MultipleMotifAnalysis(LinkageObject = LinkageObject,
+#'   BuildGRNs(LinkageObject = LinkageObject,
 #'                         Species = "Homo",
 #'                         TF_cor_method = "pearson")
 #' LinkageObject <-
-#'   CreateNetworkObject(
+#'   BuildGRNs(
 #'     LinkageObject = LinkageObject,
 #'     genelist_idtype = "entrezgene_id",
 #'     filter_col = "FDR",
 #'     filter_value = 0.01
 #'   )
-CreateNetworkObject <- function(LinkageObject, genelist_idtype, filter_col, filter_value) {
+FilterGRNs <- function(LinkageObject, genelist_idtype, filter_col, filter_value) {
   RNA.seq <- LinkageObject@active.gene
   tf <- LinkageObject@Motif
   Gene.TF <- list()
@@ -115,9 +115,9 @@ CreateNetworkObject <- function(LinkageObject, genelist_idtype, filter_col, filt
 }
 
 
-#' BuildNetwork.
+#' VisualGRNs.
 #'
-#' @param LinkageObject An Linkage Object after CreateNetworkObject.
+#' @param LinkageObject An Linkage Object after FilterGRNs .
 #'
 #' @return An visNetwork
 #' @export
@@ -146,18 +146,18 @@ CreateNetworkObject <- function(LinkageObject, genelist_idtype, filter_col, filt
 #'     genelist_idtype = "external_gene_name"
 #'   )
 #' LinkageObject <-
-#'   MultipleMotifAnalysis(LinkageObject = LinkageObject,
+#'   BuildGRNs(LinkageObject = LinkageObject,
 #'                         Species = "Homo",
 #'                         TF_cor_method = "pearson")
 #' LinkageObject <-
-#'   CreateNetworkObject(
+#'   BuildGRNs(
 #'     LinkageObject = LinkageObject,
 #'     genelist_idtype = "entrezgene_id",
 #'     filter_col = "FDR",
 #'     filter_value = 0.01
 #'   )
-#' BuildNetwork(LinkageObject)
-BuildNetwork <- function(LinkageObject){
+#' VisualGRNs(LinkageObject)
+VisualGRNs <- function(LinkageObject){
 
   index <- LinkageObject@Summary$genelist_idtype
   TF_filter_method <- LinkageObject@Summary$filter_col

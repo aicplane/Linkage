@@ -21,8 +21,8 @@
 #'     gene_list = gene_list,
 #'     genelist_idtype = "external_gene_name"
 #'   )
-#' peakAnno <- PeakAnnottation(LinkageObject, Species = "Homo")
-PeakAnnottation <- function(LinkageObject, Species = "Homo") {
+#' peakAnno <- PeakAnnotation(LinkageObject, Species = "Homo")
+PeakAnnotation <- function(LinkageObject, Species = "Homo") {
   ann <- list()
   detail <- list()
   for (i in 1:length(LinkageObject@geneid)) {
@@ -91,7 +91,7 @@ PeakAnnottation <- function(LinkageObject, Species = "Homo") {
 #'     gene_list = gene_list,
 #'     genelist_idtype = "external_gene_name"
 #'   )
-#' peakAnno <- PeakAnnottation(LinkageObject, Species = "Homo")
+#' peakAnno <- PeakAnnotation(LinkageObject, Species = "Homo")
 #' AnnoUpsetPlot(LinkageObject = peakAnno)
 AnnoUpsetPlot <- function(LinkageObject, order_by = "freq") {
 

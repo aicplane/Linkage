@@ -1,23 +1,50 @@
 ---
-title: "Pathway Enrichment Module"
+title: "Pathway Enrichment Analysis"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Pathway Enrichment Module}
+  %\VignetteIndexEntry{Pathway Enrichment Analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-Pathway Enrichment Module
-Pathway Enrichment Module supports users to visualize tabular and graphical pathway enrichment results of interested gene lists, which can be produced from previous analysis of Linkage. The enrichment analysis can link these gene lists with underlying molecular pathways and functional categories such as gene ontology (GO) and Kyoto Encyclopedia of Genes and Genomes (KEGG).
+```{css,echo=FALSE}
+body {
+    font-family: Arial, sans-serif; /* 设置字体 */
+    color: #333; /* 设置文字颜色 */
+    background-color: #white; /* 设置背景颜色 */
+    line-height: 1.5;
+    text-align: justify; /* 设置正文两端对齐 */
+}
 
+p {
+    line-height: 1.5; /* 设置段落行高 */
+}
+
+img {
+    display: block; /* 将图片显示为块级元素 */
+    margin: 0 auto; /* 设置左右外边距为自动，实现居中显示 */
+}
+
+.img-container {
+  display: flex;
+}
+
+.img-container img {
+  flex: 1;
+}
+
+```
+
+### **Pathway Enrichment Analysis**
+::: {align="justify"}
+Linkage can help you visualize tabular and graphical pathway enrichment results of interested gene lists. The `GOEnrichment()` and `KEGGEnrichment()` functions allow you to input a list of interested genes and set four key parameters (i.e., adjusted pvalue cutoff, qvalue cutoff, minimal size of annotated genes for testing, and maximal size of annotated genes for testing) for GO or KEGG pathway enrichment analysis.
+::: 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 library(linkage)
-
 if (!requireNamespace("devtools", quietly = TRUE))
   install.packages("devtools")
 if (!requireNamespace("LinkageData", quietly = TRUE))
 devtools::install_github("aicplane/LinkageData")
-
 library(LinkageData)
 Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
 load(Geneset)
@@ -32,6 +59,8 @@ KEGG <-
     genelist_idtype = "external_gene_name"
   )
 ```
+
+Linkage offers several types of visual charts to interpret the functional results from multiple perspectives.
 
 ```{r fig.height=7, fig.width=7, message=FALSE, warning=FALSE}
 EnrichDotPlot(go)

@@ -27,6 +27,6 @@ LinkageObject <-
     gene_list = gene_list,
     genelist_idtype = "external_gene_name"
   )
-peakAnno <- PeakAnnottation(LinkageObject, Species = "Homo")
+peakAnno <- PeakAnnotation(LinkageObject, Species = "Homo")
 AnnoUpsetPlot(LinkageObject = peakAnno)
 }

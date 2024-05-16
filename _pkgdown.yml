@@ -12,11 +12,11 @@ navbar:
     - text: "Vignettes"
       menu:
         - text: R package
-        - text: "Genes and regulatory peaks to find transcription factors"
-          href: articles/LinkageR.html
-        - text: "Monogenic MOTIF analysis"
-          href: articles/Motif.html
-        - text: "Pathway Enrichment Module"
+        - text: "TCGA-BRCA guided tutorial"
+          href: articles/TCGA-BRCA guided tutorial.html
+        - text: "Gene Regulatory Network Analysis"
+          href: articles/GRN-tutorial.html
+        - text: "Pathway Enrichment Analysis"
           href: articles/Enrichment.html
         - text: Shiny APP
         - text: "Linkage in shiny APP"

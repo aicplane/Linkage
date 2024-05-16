@@ -15,9 +15,9 @@
 #' library(LinkageData)
 #' peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "LinkageData")
 #' load(peakpath)
-#' motif <- SingleMotifAnalysis(PeakFile, "Homo")
+#' motif <- MotifEnrichment(PeakFile, "Homo")
 #' head(motif)
-SingleMotifAnalysis <- function(peakfile, Species) {
+MotifEnrichment <- function(peakfile, Species) {
   colnames(peakfile) <- c("chrom", "chromStart", "chromEnd")
   peaks <- peakfile
   peaks <- GRanges(
@@ -74,7 +74,7 @@ SeqLogoPlot <- function(motif_ID) {
 #' @param Species Select the species, Homo or Mus.The default is Homo.
 #' @param TF_cor_method For correlation calculation, pearson/spearman/kendall can be selected.
 #'
-#' @return An Linkage Object after MultipleMotifAnalysis
+#' @return An Linkage Object after BuildGRNs
 #' @export
 #'
 #' @importFrom GenomicRanges GRanges
@@ -101,10 +101,10 @@ SeqLogoPlot <- function(motif_ID) {
 #'     genelist_idtype = "external_gene_name"
 #'   )
 #' LinkageObject <-
-#'   MultipleMotifAnalysis(LinkageObject = LinkageObject,
+#'   BuildGRNs (LinkageObject = LinkageObject,
 #'                         Species = "Homo",
 #'                         TF_cor_method = "pearson")
-MultipleMotifAnalysis <- function(LinkageObject,Species = "Homo",TF_cor_method){
+BuildGRNs <- function(LinkageObject,Species = "Homo",TF_cor_method){
   tf <- list()
   motif <- list()
   result_peak <- LinkageObject@cor.peak
