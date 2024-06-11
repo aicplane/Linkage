@@ -13,7 +13,7 @@ navbar:
       menu:
         - text: R package
         - text: "TCGA-BRCA guided tutorial"
-          href: articles/TCGA-BRCA guided tutorial.html
+          href: articles/TCGA-BRCA-guided-tutorial.html
         - text: "Gene Regulatory Network Analysis"
           href: articles/GRN-tutorial.html
         - text: "Pathway Enrichment Analysis"
