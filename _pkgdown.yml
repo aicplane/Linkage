@@ -26,7 +26,7 @@ navbar:
     - text: FAQ
       href: https://github.com/aicplane/Linkage/issues
     - text: Shiny App
-      href: http://www.xulabgdpu.org.cn/linkage
+      href: http://xulabgdpu.org.cn/linkage
   right:
     - icon: fa-home
       href: https://aicplane.github.io/Linkage/
