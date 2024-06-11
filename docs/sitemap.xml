@@ -28,6 +28,9 @@
     <loc>/articles/TCGA-BRCA guided tutorial.html</loc>
   </url>
   <url>
+    <loc>/articles/TCGA-BRCA-guided-tutorial.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -133,6 +136,9 @@
     <loc>/reference/RegulatoryPeak.html</loc>
   </url>
   <url>
+    <loc>/reference/SASPGeneSet.html</loc>
+  </url>
+  <url>
     <loc>/reference/SeqLogoPlot.html</loc>
   </url>
   <url>
@@ -140,6 +146,12 @@
   </url>
   <url>
     <loc>/reference/SmallLinkageObject.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Small_ATAC.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Small_RNA.html</loc>
   </url>
   <url>
     <loc>/reference/TrackPlot.html</loc>
