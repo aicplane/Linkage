@@ -35,18 +35,16 @@ img {
 
 ```
 
-### **Gene Regulatory Network Analysis**
 If you wish to view the genetic regulatory landscape globally, Linkage can help to build the GRNs that nodes are genes and corresponding cis-regulatory elements. You can first calculate the enriched CREs with potential regulatory peaks and perform canonical correlation analysis of quantitative expression level between each interested gene and their potential CREs by the `BuildGRNs()` function. Linkage offers transcription factor binding site information of two species, i.e., the human and the mouse, for users to do the CREs enrichment analysis. Then the `FilterGRNs()` function allows you to filter the ambiguous connections of gene-CREs pairs by setting the thresholds of interactions between nodes. Finally, you can view the corresponding informatic and interactive GRNs by the `VisualGRNs()` function. In the example below, we visualize the GRN of "TSPAN6", "CD99" and "KLHL13" with their potential CREs.
 
 ```{r fig.height=5, fig.width=7, message=FALSE, warning=FALSE, paged.print=FALSE}
-library(linkage)
-library(LinkageData)
-ATAC.seq <- BreastCancerATAC()
-RNA.seq <- BreastCancerRNA()
+library(LinkageR)
+data("Small_ATAC.rda")
+data("Small_RNA.rda")
 LinkageObject <-
   CreateLinkageObject(
-    ATAC_count = ATAC.seq,
-    RNA_count = RNA.seq,
+    ATAC_count = Small_ATAC,
+    RNA_count = Small_RNA,
     Species = "Homo",
     id_type = "ensembl_gene_id"
   )

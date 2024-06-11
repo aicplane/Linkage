@@ -37,8 +37,6 @@ img {
 
 To install Seurat, R version 4.0 or greater is required. We also recommend installing R Studio for better visualization of plots.
 
-**Install from CRAN**
-
 **Install from github**
 
 ``` r
@@ -52,11 +50,10 @@ devtools::install_github("aicplane/LinkageData")
 if (!requireNamespace("devtools", quietly = TRUE))
   install.packages("devtools")
 
-devtools::install_github("aicplane/Linkage")
+devtools::install_github("aicplane/LinkageR")
 ```
 
 ``` r
-library(linkage)
+library(LinkageR)
 Install.biocViews()
-Linkage.UIO()
 ```

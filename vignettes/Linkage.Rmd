@@ -1,5 +1,5 @@
 ---
-title: "linkage"
+title: "Linkage"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{linkage}
@@ -8,7 +8,7 @@ vignette: >
 ---
 
 ``` r
-library(linkage)
+library(LinkageR)
 Linkage.UIO()
 ```
 
