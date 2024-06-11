@@ -22,14 +22,11 @@ A Linkage Object
 Create a Linkage Object
 }
 \examples{
-library(linkage)
-library(LinkageData)
-ATAC.seq <- BreastCancerATAC()
-RNA.seq <- BreastCancerRNA()
+library(LinkageR)
 LinkageObject <-
   CreateLinkageObject(
-    ATAC_count = ATAC.seq,
-    RNA_count = RNA.seq,
+    ATAC_count = Small_ATAC,
+    RNA_count = Small_RNA,
     Species = "Homo",
     id_type = "ensembl_gene_id"
   )

@@ -18,9 +18,8 @@ Motif result
 Regulatory peak motif enrichment analysis
 }
 \examples{
-library(linkage)
-library(LinkageData)
-peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "LinkageData")
+library(LinkageR)
+peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "LinkageR")
 load(peakpath)
 motif <- MotifEnrichment(PeakFile, "Homo")
 head(motif)

@@ -22,7 +22,7 @@ Scatterplot of correlation between genes and peaks.
 Correlation scatter plot.
 }
 \examples{
-library(linkage)
+library(LinkageR)
 data("SmallLinkageObject")
 gene_list <- c("TSPAN6", "CD99", "KLHL13")
 LinkageObject <-

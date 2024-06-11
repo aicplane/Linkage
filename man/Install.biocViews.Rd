@@ -2,7 +2,7 @@
 % Please edit documentation in R/Install.packge.R
 \name{Install.biocViews}
 \alias{Install.biocViews}
-\title{Used when the linkage is installed for the first time and is used to install dependencies}
+\title{Used when the Linkage is installed for the first time and is used to install dependencies}
 \usage{
 Install.biocViews()
 }
@@ -10,8 +10,9 @@ Install.biocViews()
 Install the dependencies under bioconductor
 }
 \description{
-Used when the linkage is installed for the first time and is used to install dependencies
+Used when the Linkage is installed for the first time and is used to install dependencies
 }
 \examples{
-linkage::Install.biocViews()
+library(LinkageR)
+Install.biocViews()
 }

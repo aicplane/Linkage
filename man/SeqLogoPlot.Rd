@@ -16,6 +16,6 @@ seqLogo plot.
 Transcription factor Seqlogo plot.
 }
 \examples{
-library(linkage)
+library(LinkageR)
 SeqLogoPlot("MA0618.1")
 }

@@ -36,10 +36,8 @@ A KEGG object.
 KEGG enrichment analysis
 }
 \examples{
-library(linkage)
-library(LinkageData)
-Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
-load(Geneset)
+library(LinkageR)
+data("SASPGeneSet")
 KEGG <-
   KEGGEnrichment(
     gene_list = SASPGeneSet,

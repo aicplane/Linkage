@@ -22,14 +22,13 @@ Network Object.
 Create Network Object.
 }
 \examples{
-library(linkage)
-library(LinkageData)
-ATAC.seq <- BreastCancerATAC()
-RNA.seq <- BreastCancerRNA()
+library(LinkageR)
+data("Small_ATAC.rda")
+data("Small_RNA.rda")
 LinkageObject <-
   CreateLinkageObject(
-    ATAC_count = ATAC.seq,
-    RNA_count = RNA.seq,
+    ATAC_count = Small_ATAC,
+    RNA_count = Small_RNA,
     Species = "Homo",
     id_type = "ensembl_gene_id"
   )
@@ -45,7 +44,7 @@ LinkageObject <-
                         Species = "Homo",
                         TF_cor_method = "pearson")
 LinkageObject <-
-  BuildGRNs(
+  FilterGRNs(
     LinkageObject = LinkageObject,
     genelist_idtype = "entrezgene_id",
     filter_col = "FDR",

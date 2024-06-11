@@ -20,14 +20,11 @@ An Linkage Object after BuildGRNs
 MotifAnalysis.
 }
 \examples{
-library(linkage)
-library(LinkageData)
-ATAC.seq <- BreastCancerATAC()
-RNA.seq <- BreastCancerRNA()
+library(LinkageR)
 LinkageObject <-
   CreateLinkageObject(
-    ATAC_count = ATAC.seq,
-    RNA_count = RNA.seq,
+    ATAC_count = Small_ATAC,
+    RNA_count = Small_RNA,
     Species = "Homo",
     id_type = "ensembl_gene_id"
   )
@@ -39,7 +36,7 @@ LinkageObject <-
     genelist_idtype = "external_gene_name"
   )
 LinkageObject <-
-  BuildGRNs (LinkageObject = LinkageObject,
+  BuildGRNs(LinkageObject = LinkageObject,
                         Species = "Homo",
                         TF_cor_method = "pearson")
 }
