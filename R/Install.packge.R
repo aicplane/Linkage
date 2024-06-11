@@ -1,10 +1,11 @@
-#' Used when the linkage is installed for the first time and is used to install dependencies
+#' Used when the Linkage is installed for the first time and is used to install dependencies
 #'
 #' @return Install the dependencies under bioconductor
 #' @export
 #'
 #' @examples
-#' linkage::Install.biocViews()
+#' library(LinkageR)
+#' Install.biocViews()
 Install.biocViews <- function() {
   if (!requireNamespace("BiocManager", quietly = TRUE)) {
     utils::install.packages("BiocManager")

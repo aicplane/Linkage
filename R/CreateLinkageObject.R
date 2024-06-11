@@ -50,10 +50,10 @@ setMethod(
   "show", "LinkageObject",
   function(object) {
     cat("An LinkageObject", "\n")
-    cat(nrow(LinkageObject@RNA.mtrix), "gene", nrow(LinkageObject@ATAC.matrix), "peak", "\n")
-    cat("Active gene:", length(LinkageObject@cor.peak), "\n")
-    cat("Active peak: positive peak", LinkageObject@Summary$positive_peak, "negetive peak", LinkageObject@Summary$negetive_peak, "\n")
-    cat("Active TF:", LinkageObject@Summary$TF_num, "\n")
+    cat(nrow(object@RNA.mtrix), "gene", nrow(object@ATAC.matrix), "peak", "\n")
+    cat("Active gene:", length(object@cor.peak), "\n")
+    cat("Active peak: positive peak", object@Summary$positive_peak, "negetive peak", object@Summary$negetive_peak, "\n")
+    cat("Active TF:", object@Summary$TF_num, "\n")
   }
 )
 
@@ -70,23 +70,18 @@ setMethod(
 #' @importFrom dplyr select
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' ATAC.seq <- BreastCancerATAC()
-#' RNA.seq <- BreastCancerRNA()
+#' library(LinkageR)
 #' LinkageObject <-
 #'   CreateLinkageObject(
-#'     ATAC_count = ATAC.seq,
-#'     RNA_count = RNA.seq,
+#'     ATAC_count = Small_ATAC,
+#'     RNA_count = Small_RNA,
 #'     Species = "Homo",
 #'     id_type = "ensembl_gene_id"
 #'   )
 CreateLinkageObject <- function(ATAC_count, RNA_count, Species, id_type) {
   if(Species == "Homo"){
-    data("Homo.position")
     position <- Homo.position
   }else{
-    data("Mus.position")
     position <- Mus.position
   }
   RNA_count <- merge(position, RNA_count, by.x = id_type, by.y = colnames(RNA_count)[1])
@@ -106,5 +101,3 @@ CreateLinkageObject <- function(ATAC_count, RNA_count, Species, id_type) {
   LinkageObject <- new("LinkageObject", RNA.mtrix = RNA_count, ATAC.matrix = ATAC_count)
   return(LinkageObject)
 }
-
-

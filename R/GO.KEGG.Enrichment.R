@@ -14,10 +14,8 @@
 #' @importFrom clusterProfiler enrichGO
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
-#' load(Geneset)
+#' library(LinkageR)
+#' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
 #'                Species = "Homo",
@@ -32,7 +30,6 @@ GOEnrichment <-
            maxGSSize = 500
            ) {
     if (Species == "Homo") {
-      data("Homo.position")
       gene.position <- Homo.position
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
@@ -43,7 +40,6 @@ GOEnrichment <-
       OrgDb <- "org.Hs.eg.db"
     }
     if (Species == "Mus") {
-      data("Mus.position")
       gene.position <- Mus.position
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
@@ -85,10 +81,8 @@ GOEnrichment <-
 #' @importFrom clusterProfiler enrichKEGG
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
-#' load(Geneset)
+#' library(LinkageR)
+#' data("SASPGeneSet")
 #' KEGG <-
 #'   KEGGEnrichment(
 #'     gene_list = SASPGeneSet,
@@ -105,7 +99,6 @@ KEGGEnrichment <-
            maxGSSize = 500
            ) {
     if (Species == "Homo") {
-      data("Homo.position")
       gene.position <- Homo.position
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
@@ -116,7 +109,6 @@ KEGGEnrichment <-
       organism <- "hsa"
     }
     if (Species == "Mus") {
-      data("Mus.position")
       gene.position <- Mus.position
       gene.position$entrezgene_id <-
         as.character(gene.position$entrezgene_id)
@@ -152,10 +144,8 @@ KEGGEnrichment <-
 #' @import ggplot2
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
-#' load(Geneset)
+#' library(LinkageR)
+#' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
 #'                Species = "Homo",
@@ -185,10 +175,8 @@ EnrichDotPlot <- function(object,size = 8) {
 #' @import ggplot2
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
-#' load(Geneset)
+#' library(LinkageR)
+#' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
 #'                Species = "Homo",
@@ -218,10 +206,8 @@ EnrichUpsetPlot <- function(object, size = 8) {
 #' @import ggplot2
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
-#' load(Geneset)
+#' library(LinkageR)
+#' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
 #'                Species = "Homo",
@@ -250,10 +236,8 @@ EnrichCnetPlot <- function(object, size = 8) {
 #' @import ggplot2
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
-#' load(Geneset)
+#' library(LinkageR)
+#' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
 #'                Species = "Homo",
@@ -284,10 +268,8 @@ EnrichBarPlot <- function(object, size = 8) {
 #' @importFrom wordcloud wordcloud
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' Geneset <- system.file("extdata", "SASPGeneSet.rdata", package = "LinkageData")
-#' load(Geneset)
+#' library(LinkageR)
+#' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
 #'                Species = "Homo",

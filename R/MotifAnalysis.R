@@ -11,9 +11,8 @@
 #' @importFrom motifmatchr matchMotifs
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "LinkageData")
+#' library(LinkageR)
+#' peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "LinkageR")
 #' load(peakpath)
 #' motif <- MotifEnrichment(PeakFile, "Homo")
 #' head(motif)
@@ -26,13 +25,9 @@ MotifEnrichment <- function(peakfile, Species) {
   )
 
   if (Species == "Homo") {
-    data("PFMatrixList")
-    data("pwm_library_dt")
     genome <- "hg38"
   }
   if (Species == "Mus") {
-    data("Mus.PFMatrixList")
-    data("Mus.pwm_library_dt")
     PFMatrixList <- Mus.PFMatrixList
     pwm_library_dt <- Mus.pwm_library_dt
     genome <- "mm10"
@@ -59,10 +54,10 @@ MotifEnrichment <- function(peakfile, Species) {
 #' @importFrom TFBSTools getMatrixByID seqLogo toICM
 #'
 #' @examples
-#' library(linkage)
+#' library(LinkageR)
 #' SeqLogoPlot("MA0618.1")
 SeqLogoPlot <- function(motif_ID) {
-  sqlite.dir <- system.file("extdata","JASPAR2022.sqlite", package = "linkage")
+  sqlite.dir <- system.file("extdata","JASPAR2022.sqlite", package = "LinkageR")
   m <- getMatrixByID(sqlite.dir, motif_ID)
   return(seqLogo(toICM(m)))
 }
@@ -82,14 +77,11 @@ SeqLogoPlot <- function(motif_ID) {
 #' @importFrom motifmatchr matchMotifs
 #'
 #' @examples
-#' library(linkage)
-#' library(LinkageData)
-#' ATAC.seq <- BreastCancerATAC()
-#' RNA.seq <- BreastCancerRNA()
+#' library(LinkageR)
 #' LinkageObject <-
 #'   CreateLinkageObject(
-#'     ATAC_count = ATAC.seq,
-#'     RNA_count = RNA.seq,
+#'     ATAC_count = Small_ATAC,
+#'     RNA_count = Small_RNA,
 #'     Species = "Homo",
 #'     id_type = "ensembl_gene_id"
 #'   )
@@ -101,7 +93,7 @@ SeqLogoPlot <- function(motif_ID) {
 #'     genelist_idtype = "external_gene_name"
 #'   )
 #' LinkageObject <-
-#'   BuildGRNs (LinkageObject = LinkageObject,
+#'   BuildGRNs(LinkageObject = LinkageObject,
 #'                         Species = "Homo",
 #'                         TF_cor_method = "pearson")
 BuildGRNs <- function(LinkageObject,Species = "Homo",TF_cor_method){
@@ -109,13 +101,9 @@ BuildGRNs <- function(LinkageObject,Species = "Homo",TF_cor_method){
   motif <- list()
   result_peak <- LinkageObject@cor.peak
   if (Species == "Homo") {
-    data("PFMatrixList")
-    data("pwm_library_dt")
     genome <- "hg38"
   }
   if (Species == "Mus") {
-    data("Mus.PFMatrixList")
-    data("Mus.pwm_library_dt")
     PFMatrixList <- Mus.PFMatrixList
     pwm_library_dt <- Mus.pwm_library_dt
     genome <- "mm10"

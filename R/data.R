@@ -96,3 +96,27 @@
 #'
 #' @format ## `SmallLinkageObject`
 "SmallLinkageObject"
+
+#' Small ATAC-seq count
+#'
+#'
+#' @format ## `Small_ATAC`
+#' A data frame with 32 rows and 75 columns:
+"Small_ATAC"
+
+#' Small RNA-seq count
+#'
+#' Report ...
+#'
+#' @format ## `Small_RNA`
+#' A data frame with 48 rows and 73 columns:
+"Small_RNA"
+
+
+#' Senescence-associated secretory phenotype Gene Set
+#'
+#' Report ...
+#'
+#' @format ## `SASPGeneSet`
+#' A character with 83 genes:
+"SASPGeneSet"

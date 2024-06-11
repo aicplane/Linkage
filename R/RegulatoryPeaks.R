@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' library(linkage)
+#' library(LinkageR)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-
@@ -139,7 +139,7 @@ RegulatoryPeak <- function(LinkageObject, gene_list, genelist_idtype, range = 50
 #' @import ggplot2
 #'
 #' @examples
-#' library(linkage)
+#' library(LinkageR)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-
@@ -172,7 +172,7 @@ CorrPlot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
       geom_smooth(method = "lm", color = color, fill = fill) +
       labs(
         x = "RNA-seq", y = "ATAC-seq",
-        title = paste0(gene,
+        title = (paste0(gene,
                        "\n",
                        ATAC4$chrom,
                        ":",
@@ -180,13 +180,7 @@ CorrPlot <- function(LinkageObject, gene,color = "black",fill = "lightgray") {
                        "-",
                        ATAC4$chromEnd,
                        "\nFDR = ",FDR," ","p_value = ",p_value," ","rho = ",rho
-        )) +
-      theme(
-        plot.title = element_text(size=10),legend.position = "top")+theme_classic()
-  }
-
-  for(i in 1:length(plot_list)){
-    plot_list[[i]] <- plot_list[[i]]
+        ))) + theme_bw() + theme(title = element_text(size = 5))
   }
 
   p <- CombinePlots(plot_list)
