@@ -1,12 +1,8 @@
 library(shiny)
-library(shinyjs)
 library(shinydashboard)
 library(shinydashboardPlus)
 library(shinycssloaders)
 library(shinyWidgets)
-library(shinyBS)
-library(RColorBrewer)
-library(rvest)
 library(data.table)
 library(ggplot2)
 library(ggpubr)
@@ -14,17 +10,6 @@ library(ggpmisc)
 library(DT)
 library(dplyr)
 library(Gviz)
-library(ChIPseeker)
-library(TxDb.Hsapiens.UCSC.hg38.knownGene)
-library(TxDb.Mmusculus.UCSC.mm10.knownGene)
-library(org.Hs.eg.db)
-library(org.Mm.eg.db)
-library(BSgenome.Hsapiens.UCSC.hg38) # 加载人类基因组HG38版的索引信息
-library(BSgenome.Mmusculus.UCSC.mm10)
-library(TFBSTools)
-#library(JASPAR2022)
-library(motifmatchr)
-library(Biostrings)
 library(igraph)
 library(tidyverse)
 library(visNetwork)
@@ -33,7 +18,6 @@ library(clusterProfiler)
 library(enrichplot)
 library(plotly)
 library(wordcloud2)
-library(fresh)
 library(LinkageData)
 
 color_from_middle <- function (data, color1,color2)
@@ -49,18 +33,18 @@ Blues <- c("#F7FBFF", "#F1F7FD", "#ECF4FB", "#E7F1FA", "#E2EDF8", "#DDEAF6", "#D
       "#3787C0", "#3080BC", "#2979B9", "#2272B5", "#1D6CB1", "#1865AC", "#125EA6", "#0D58A1", "#08519C", "#084B93" ,"#084489", "#083D7F", "#083675",
       "#08306B")
 
-mytheme <- create_theme(
-  adminlte_color(
+mytheme <- fresh::create_theme(
+  fresh::adminlte_color(
     light_blue = "#434C5E"
   ),
-  adminlte_sidebar(
-    width = "230px",
+  fresh::adminlte_sidebar(
+    width = "300px",
     dark_bg = "#2E3440",
     # dark_hover_bg = "#434C5E",
     dark_hover_color = "#FFF",
     dark_color = "#E6E7E8"
   ),
-  adminlte_global(
+  fresh::adminlte_global(
     #content_bg = "#FFF",
     # box_bg = "#D8DEE9",
     info_box_bg = "#D8DEE9"
@@ -72,27 +56,18 @@ options(shiny.maxRequestSize = 100000 * 1024 ^ 2) #### 上传文件的大小
 theme_set(ggpubr::theme_pubr() +
             theme(legend.position = "top")) #### 设置散点图主题样式
 
-homo.gene.positions <- fread("../extdata/homo.gene_positions.plus.txt",header = T,sep = "\t")
-mus.gene.positions <- fread("../extdata/mus.gene_positions.plus.txt",header = T,sep = "\t")
+
+
+homo.gene.positions <- Homo.position
+mus.gene.positions <- Mus.position
 #gene_name <- fread("gene_name.csv", header = TRUE)
+mouse.ATAC_matrix <- LinkageData::MuSCsATAC()
 
-mouse.list.files <- list.files("../extdata/Mus.ATAC/")
-mouse.list.files <- paste0("../extdata/Mus.ATAC/",mouse.list.files)
-mouse.df_list <- lapply(mouse.list.files,function(file) fread(file,header = T))
-mouse.ATAC_matrix <- do.call(rbind, mouse.df_list)
+ATAC_matrix <- LinkageData::BreastCancerATAC()
 
-Homo.list.files <- list.files("../extdata/Homo.ATAC/")
-Homo.list.files <- paste0("../extdata/Homo.ATAC/",Homo.list.files)
-Homo.df_list <- lapply(Homo.list.files,function(file) fread(file,header = T))
-ATAC_matrix <- do.call(rbind, Homo.df_list)
-
-RNA_matrix <- fread("../extdata/TCGA-BRCA-RNA.txt", header = TRUE)
-# ATAC_matrix <- fread("../extdata/TCGA-BRCA-ATAC.txt", header = TRUE)
-mouse.RNA_matrix <- fread("../extdata/mouse.normalize.rna.txt",header = TRUE)
-# mouse.ATAC_matrix <- fread("../extdata/mouse.normalize.peak.txt",header = TRUE)
-# mouse.TF <- fread("homo-mmu.TF.txt",header = T,sep = '\t')
-# RNA_data <- NULL
-# ATAC_data <- NULL
+RNA_matrix <- LinkageData::BreastCancerRNA()
+# ATAC_matrix <- fread("extdata/TCGA-BRCA-ATAC.txt", header = TRUE)
+mouse.RNA_matrix <- LinkageData::MuSCsRNA()
 
 cor_test <- function(ATAC2, gene, method, Filter_col, Filter_value) {
   p <- c()
@@ -103,7 +78,6 @@ cor_test <- function(ATAC2, gene, method, Filter_col, Filter_value) {
         gene[1, c(-1:-6)],
         ATAC2[i, c(-1:-3)]
       ) # 构造新的数据框,gene列为用户查询的基因样本信息;peak列为初步查找到的调控序列
-      #print(df)
       tdf <- t(df)
       ftdf <- data.frame(tdf) # 转置数据框
       p[i] <<- tryCatch({
@@ -140,7 +114,7 @@ cor_test <- function(ATAC2, gene, method, Filter_col, Filter_value) {
     ATAC3 <<- ATAC2[ATAC2$FDR <= Filter_value, ]
   }
   if (Filter_col == "rho") {
-    ATAC3 <<- ATAC2[abs(ATAC2$rho) >= Filter_value, ]
+    ATAC3 <<- ATAC2[ATAC2$rho >= Filter_value, ]
   }
   if (Filter_col == "p_value") {
     ATAC3 <<- ATAC2[ATAC2$p_value <= Filter_value, ]
@@ -149,32 +123,7 @@ cor_test <- function(ATAC2, gene, method, Filter_col, Filter_value) {
 }
 
 lzh_plot <- function(gene, click_ATAT, method, Filter_col, Filter_value) {
-  # p <- c()
-  # for (i in 1:nrow(ATAC2)) {
-  #   local({
-  #     df <- rbind(
-  #       gene = transform_gene[1, c(-1:-4)],
-  #       peak = ATAC2[i, c(-1:-3)]
-  #     ) # 构造新的数据框,gene列为用户查询的基因样本信息;peak列为初步查找到的调控序列
-  #     tdf <- t(df)
-  #     ftdf <- data.frame(tdf) # 转置数据框
-  #     cortt <- cor.test(ftdf[, 1], ftdf[, 2], method = method)
-  #     p[i] <<- cortt$p.value # 计算p值
-  #   })
-  # }
 
-  # FDR <- p.adjust(p, method = "BH")
-  # ATAC2$p_value <- p
-  # ATAC2$FDR <- FDR
-  # if (Filter_col == "FDR") {
-  #   ATAC3 <- ATAC2[ATAC2$FDR <= Filter_value, ]
-  # }
-  # if (Filter_col == "rho") {
-  #   ATAC3 <- ATAC2[ATAC2$rho >= Filter_value, ]
-  # }
-  # if (Filter_col == "p_value") {
-  #   ATAC3 <- ATAC2[ATAC2$p_value <= Filter_value, ]
-  # }
   ATAC4 <- dplyr::select(ATAC3, -p_value, -FDR,-rho)
   ATAC5 <- ATAC4[, c(-1:-3)]
   ATAC6 <- ATAC5[click_ATAT, ]
@@ -246,10 +195,8 @@ trackplot <- function(peakfile, select_peak,Species) {
   m4 <- colMeans(v4)
   m5 <- colMeans(v5)
   data <- data.frame(group1 = m1, group2 = m2, group3 = m3, group4 = m4, group5 = m5)
-  #print(data)
-  gr <- makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
-  values(gr) <- data
-  #print(gr)
+  gr <- GenomicRanges::makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
+  GenomicRanges::values(gr) <- data
   ax <- GenomeAxisTrack()
 
   tracks_list <- list()
@@ -259,21 +206,21 @@ trackplot <- function(peakfile, select_peak,Species) {
     gen <- "mm10"
   }
 
-  for (i in 1:length(names(elementMetadata(gr)))) {
+  for (i in 1:length(names(GenomicRanges::elementMetadata(gr)))) {
     track_name <- paste("track", i, sep = "")
     tracks_list[[i]] <- DataTrack(
-      gr[, names(elementMetadata(gr))[i]],
+      gr[, names(GenomicRanges::elementMetadata(gr))[i]],
       genome = gen,
-      name = names(elementMetadata(gr))[i],
+      name = names(GenomicRanges::elementMetadata(gr))[i],
       type = "histogram",
       ylim = c(-1, 10)
     )
   }
 
   # genome
-  gen <- genome(tracks_list[[i]])
+  gen <- GenomeInfoDb::genome(tracks_list[[i]])
   # Chromosme name
-  chr <- as.character(unique(seqnames(tracks_list[[i]])))
+  chr <- as.character(unique(GenomeInfoDb::seqnames(tracks_list[[i]])))
   # Ideogram track (take a long time)
   peak <- peakfile[select_peak, ]
 
@@ -315,60 +262,58 @@ box_plot <- function(peakfile, gene, select_peak) {
 
   group1 <- subset(gene, select = colnames(gene) %in% rownames(v1)) %>%
     t() %>%
-    data.frame(group = "group1")
+    data.frame(Groups = "group1")
   group2 <- subset(gene, select = colnames(gene) %in% rownames(v2)) %>%
     t() %>%
-    data.frame(group = "group2")
+    data.frame(Groups = "group2")
   group3 <- subset(gene, select = colnames(gene) %in% rownames(v3)) %>%
     t() %>%
-    data.frame(group = "group3")
+    data.frame(Groups = "group3")
   group4 <- subset(gene, select = colnames(gene) %in% rownames(v4)) %>%
     t() %>%
-    data.frame(group = "group4")
+    data.frame(Groups = "group4")
   group5 <- subset(gene, select = colnames(gene) %in% rownames(v5)) %>%
     t() %>%
-    data.frame(group = "group5")
+    data.frame(Groups = "group5")
   gene_cluster_data <- rbind(group1, group2, group3, group4, group5)
   names(gene_cluster_data)[1] <- "gene"
   # b <- boxplot(boxwex=0.125,axes=FALSE,group5$., group4$., group3$., group2$., group1$., names = c("group5", "group4", "group3", "group2", "group1"),horizontal=TRUE)
-  print(gene_cluster_data)
   sample <- rownames(gene_cluster_data)
-  b <<- ggplot(gene_cluster_data, aes(x = group, y = gene, fill = group,color = group)) +
+  b <- ggplot(gene_cluster_data, aes(x = Groups, y = gene, fill = Groups,color = Groups)) +
     geom_boxplot(position=position_dodge(width =0.2),width=0.4,alpha = 0.4) +
     geom_jitter() +
     labs(
-      x = "Group name",
-      y = "RNA-seq",
+      x = "Groups",
+      y = "Expression Level",
       title = paste0(gene[, 1],"\n",peakfile[select_peak, ]$chrom, ":", peakfile[select_peak, ]$chromStart, "-", peakfile[select_peak, ]$chromEnd)
       # subtitle = paste0()
-    )
-  b <- style(b , text = paste0("sample:",rownames(gene_cluster_data),"\n","gene:",gene_cluster_data$gene))
+    ) + theme_bw()
+  # b <<- style(b , text = paste0("sample:",rownames(gene_cluster_data),"\n","gene:",gene_cluster_data$gene))
 
   return(b)
 }
 
 motif_analysis <- function(peakfile, select_peak,Species) {
 
-
   # Make a set of peaks
   peaks <- peakfile[select_peak, ]
-  peaks <- GRanges(
+  peaks <- GenomicRanges::GRanges(
     seqnames = c(peaks$chrom),
-    ranges = IRanges(start = peaks$chromStart, end = peaks$chromEnd)
+    ranges = IRanges::IRanges(start = peaks$chromStart, end = peaks$chromEnd)
   )
 
   if(Species == "1"){
-    PFMatrixList <- readRDS("../extdata/PFMatrixList.rds")
-    pwm_library_dt <- readRDS("../extdata/pwm_library_dt.rds")
+    # PFMatrixList <- readRDS("extdata/PFMatrixList.rds")
+    # pwm_library_dt <- readRDS("extdata/pwm_library_dt.rds")
     genome <- "hg38"
   }else{
-    PFMatrixList <- readRDS("../extdata/Mus.PFMatrixList.rds")
-    pwm_library_dt <- readRDS("../extdata/Mus.pwm_library_dt.rds")
+    PFMatrixList <- Mus.PFMatrixList
+    pwm_library_dt <- Mus.pwm_library_dt
     genome <- "mm10"
   }
 
   # Get motif positions within peaks for example motifs in peaks
-  motif_ix <- matchMotifs(PFMatrixList, peaks,
+  motif_ix <- motifmatchr::matchMotifs(PFMatrixList, peaks,
                           genome = genome,
                           out = "positions"
   ) %>% data.frame()
@@ -382,8 +327,9 @@ motif_analysis <- function(peakfile, select_peak,Species) {
 seqLogo_plot <- function(motif, select_row) {
   select_motif <- motif[select_row, ]
   #m <- getMatrixByID(JASPAR2022, select_motif$ID)
-  m <- TFBSTools::getMatrixByID('../extdata/JASPAR2022.sqlite', select_motif$ID)
-  return(seqLogo(toICM(m)))
+  sqlite.dir <- system.file("extdata","JASPAR2022.sqlite", package = "LinkageR")
+  m <- TFBSTools::getMatrixByID(sqlite.dir, select_motif$ID)
+  return(TFBSTools::seqLogo(TFBSTools::toICM(m)))
 }
 
 actionBttnParams <- list(

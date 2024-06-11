@@ -12,12 +12,12 @@ server <- function(input, output, session) {
       return()
     }
     if (input$data == "1") {
-      updateRadioGroupButtons(session, "Species", selected = "1")
-      toggleState(id = "Species", condition = input$data == "3")
+      shinyWidgets::updateRadioGroupButtons(session, "Species", selected = "1")
+      shinyjs::toggleState(id = "Species", condition = input$data == "3")
     }
     if (input$data == "2") {
-      updateRadioGroupButtons(session, "Species", selected = "2")
-      toggleState(id = "Species", condition = input$data == "3")
+      shinyWidgets::updateRadioGroupButtons(session, "Species", selected = "2")
+      shinyjs::toggleState(id = "Species", condition = input$data == "3")
     }
 
   })
@@ -64,9 +64,7 @@ server <- function(input, output, session) {
         });
       '
     shinyjs::runjs(js.5)
-  })
 
-  observeEvent(input$submit8, {
     shinyjs::enable(selector = ".sidebar li a[data-value='six']")
     js.6 <- '
         $(document).ready(function(){
@@ -78,36 +76,41 @@ server <- function(input, output, session) {
   })
 
   observe({
-    if (input$data == "1" | input$data == "2") {
+    if (input$data %in% c("1","2")) {
       output$datahelptext <- renderUI({
         tagList(
+          br(),
+          br(),
           div(
-            p(
-              "1. This shiny application can only be used to analyze bulk RNA-seq and bulk ATAC-seq;"
-            ),
-            #br(),
-            "2. The data format must be consistent with the data format displayed below. The",
-            code("first"),
-            "column of RNA-seq must be the",
-            strong("gene name"),
-            "and the ",
-            code("second to fourth"),
-            " columns must be the ",
-            strong("chromosome position;"),
-            " The",
-            code("first to third "),
-            "columns of ATAC-seq must be the" ,
-            strong("chromosome position."),
+            "The",strong("TCGA Breast Cancer cohort"),
+            "dataset contains chromatin accessibility and gene expression data from ",
+            code("72 patients with breast cancer"),".",
+            "The chromatin accessibility data is a normalized bulk ATAC-seq count matrix, which a prior count of 5 is added to the raw counts, then put into a \"counts per million\", then log2 transformed, then quantile normalized. The gene expression data is a normalized bulk RNA-seq count matrix, which is log2(fpkm+1) transformed.",
+            align = "justify"
+          ),
+          br(),
+          br(),
+          div(
+            "The",strong("GSE121589"),
+            "dataset contains chromatin accessibility and gene expression data from ",
+            code("33 mice Muscle Stem Cells (MuSCs)"),".",
+            "The chromatin accessibility data is a normalized bulk ATAC-seq count matrix, which a prior count of 5 is added to the raw counts, then put into a \"counts per million\", then log2 transformed, then quantile normalized. The gene expression data is a normalized bulk RNA-seq count matrix, which is log2(fpkm+1) transformed.",
             align = "justify"
           )
-
         )
       })
     }
 
     if (input$data == "3") {
       output$datahelptext <- renderUI({
-        NULL
+        tagList(
+          div(
+            code("Two tab-delimited text/csv input files (chromatin accessibility matrix and gene expression matrix) are required before running Linkage."),
+            "The gene expression matrix file is a tab-delimited multi-column data matrix, which the first column represents gene symbols and the following columns represent normalized or raw expression levels of genes for each sample. The chromatin accessibility matrix file is a tab-delimited multi-column data matrix as well, which the first three columns represent chromosome name, start coordinate on the chromosome and end coordinate on the chromosome of the peaks respectively; the remaining columns of the chromatin accessibility matrix file represent normalized or raw chromatin accessibility levels of peaks for each sample.",
+            strong("Each element of ready-to-analysis files will appear in Chromatin Accessibility Matrix panel and Gene Expression Matrix panel."),
+            align = "justify"
+          )
+        )
       })
     }
   })
@@ -142,7 +145,7 @@ server <- function(input, output, session) {
       do.call(actionBttn, c(
         list(
           inputId = "submit2",
-          label = "Go Next",
+          label = "Continue",
           icon = icon("play")
         ),
         actionBttnParams
@@ -157,7 +160,7 @@ server <- function(input, output, session) {
              do.call(actionBttn, c(
                list(
                  inputId = "submit3",
-                 label = "Go Next",
+                 label = "Continue",
                  icon = icon("play")
                ),
                actionBttnParams
@@ -171,7 +174,7 @@ server <- function(input, output, session) {
       do.call(actionBttn, c(
         list(
           inputId = "submit4",
-          label = "Go Next",
+          label = "Continue",
           icon = icon("play")
         ),
         actionBttnParams
@@ -186,7 +189,7 @@ server <- function(input, output, session) {
              do.call(actionBttn, c(
                list(
                  inputId = "submit5",
-                 label = "Go Next",
+                 label = "Continue",
                  icon = icon("play")
                ),
                actionBttnParams
@@ -209,7 +212,7 @@ server <- function(input, output, session) {
       "3" = updateSelectInput(session, "From",
                               choices = list("ENSEMBL",
                                              "SYMBOL",
-                                             "ENTREZID"))
+                                             "ENTREZ"))
     )
   })
 
@@ -225,8 +228,8 @@ server <- function(input, output, session) {
                                    value = "DPM1"),
         "ENSEMBL" = updateTextInput(session, "geneid",
                                     value = "ENSG00000000419"),
-        "ENTREZID" = updateTextInput(session, "geneid",
-                                     value = "8813")
+        "ENTREZ" = updateTextInput(session, "geneid",
+                                   value = "8813")
       )
     }
     if (input$Species == "2") {
@@ -239,8 +242,8 @@ server <- function(input, output, session) {
                                    value = "Acat3"),
         "ENSEMBL" = updateTextInput(session, "geneid",
                                     value = "ENSMUSG00000062480"),
-        "ENTREZID" = updateTextInput(session, "geneid",
-                                     value = "224530")
+        "ENTREZ" = updateTextInput(session, "geneid",
+                                   value = "224530")
       )
     }
   })
@@ -273,379 +276,6 @@ server <- function(input, output, session) {
       "rho" = updateTextInput(session, "network_peak_filter",
                               value = "0.5")
     )
-  })
-
-  observe({
-    if (input$Species == "1") {
-      if (is.null(input$genelist_idtype)) {
-        return()
-      }
-      switch(
-        input$genelist_idtype,
-        "1" = updateTextAreaInput(
-          session,
-          "gene_list",
-          value = "ENSG00000000003
-ENSG00000000005
-ENSG00000000419
-ENSG00000000457
-ENSG00000000460
-ENSG00000000938
-ENSG00000000971
-ENSG00000001036
-ENSG00000001084
-ENSG00000001461"
-        ),
-        "2" = updateTextAreaInput(
-          session,
-          "gene_list",
-          value = "TSPAN6
-TNMD
-DPM1
-SCYL3
-C1orf112
-FGR
-CFH
-FUCA2
-GCLC
-NFYA"
-        ),
-        "3" = updateTextAreaInput(
-          session,
-          "gene_list",
-          value = "7105
-64102
-8813
-57147
-55732
-2268
-3075
-2519
-2729
-4800"
-        )
-      )
-    }
-    if (input$Species == "2") {
-      if (is.null(input$genelist_idtype)) {
-        return()
-      }
-      switch(
-        input$genelist_idtype,
-        "1" = updateTextAreaInput(
-          session,
-          "gene_list",
-          value = "ENSMUSG00000014603
-ENSMUSG00000015665
-ENSMUSG00000023906
-ENSMUSG00000024224
-ENSMUSG00000035930
-ENSMUSG00000047518
-ENSMUSG00000050343
-ENSMUSG00000062480
-ENSMUSG00000071234
-ENSMUSG00000075286
-ENSMUSG00000077780
-ENSMUSG00000087097
-ENSMUSG00000087393
-ENSMUSG00000088478
-ENSMUSG00000089168
-ENSMUSG00000092981
-ENSMUSG00000094806
-ENSMUSG00000097529
-ENSMUSG00000102106
-"
-        ),
-        "2" = updateTextAreaInput(
-          session,
-          "gene_list",
-          value = "Alx3
-Awat1
-Cldn6
-Clpsl2
-Chst4
-Slfnl1
-Or1ad6
-Acat3
-Syndig1l
-Gm1968
-Gm24161
-4930586N03Rik
-1700023C21Rik
-Mir1946b
-Gm24128
-Mir5125
-Cyp2d10
-Rp31-ps19
-2310043O21Rik
-"
-        ),
-        "3" = updateTextAreaInput(
-          session,
-          "gene_list",
-          value = "11694
-245533
-54419
-328788
-26887
-194219
-258912
-224530
-627191
-328657
-115486256
-75887
-73257
-100316714
-115488610
-100628593
-13101
-100039275
-69679
-"
-        )
-      )
-    }
-  })
-  observe({
-    if (input$Species == "1") {
-      if (is.null(input$To)) {
-        return()
-      }
-      switch(
-        input$To,
-        "ENSEMBL" = updateTextAreaInput(
-          session,
-          "gene_list_six",
-          value = "ENSG00000000003
-ENSG00000000005
-ENSG00000000419
-ENSG00000000457
-ENSG00000000460
-ENSG00000000938
-ENSG00000000971
-ENSG00000001036
-ENSG00000001084
-ENSG00000001461"
-        ),
-        "SYMBOL" = updateTextAreaInput(
-          session,
-          "gene_list_six",
-          value = "PGF
-CTSB
-EDN1
-DKK1
-FGF1
-SPX
-SERPINE2
-IL15
-IL2
-PLAU
-IGF1
-IGFBP4
-SPP1
-SEMA3F
-ANG
-ANG
-ANG
-C3
-BMP6
-FGF2
-PAPPA
-IL18
-ANGPT1
-CCL20
-VEGFC
-TNF
-IGFBP7
-PLAT
-CCL1
-CCL1
-IL6
-CXCL12
-VEGFA
-CCL7
-IL10
-EREG
-IL7
-MIF
-CXCL10
-NRG1
-CD55
-CD55
-IL13
-ANG
-ANG
-CSF1
-ANGPTL4
-CSF2
-GDF15
-CCL8
-WNT16
-HGF
-TIMP2
-ESM1
-MMP2
-IGFBP6
-MMP3
-CCL4
-MMP1
-MMP1
-IL1A
-IGFBP2
-IL1B
-MMP12
-CCL24
-CXCL16
-MMP13
-IGFBP1
-SERPINE1
-IGFBP3
-FGF7
-CCL3L1
-IGFBP5
-INHA
-BMP2
-VGF
-CCL3
-MMP9
-"
-        ),
-        "ENTREZID" = updateTextAreaInput(
-          session,
-          "gene_list_six",
-          value = "7105
-64102
-8813
-57147
-55732
-2268
-3075
-2519
-2729
-4800"
-        )
-      )
-    }
-    if (input$Species == "2") {
-      if (is.null(input$To)) {
-        return()
-      }
-      switch(
-        input$To,
-        "ENSEMBL" = updateTextAreaInput(
-          session,
-          "gene_list_six",
-          value = "ENSMUSG00000051951
-ENSMUSG00000025900
-ENSMUSG00000025902
-ENSMUSG00000033845
-ENSMUSG00000025903
-ENSMUSG00000033813
-ENSMUSG00000002459
-ENSMUSG00000085623
-ENSMUSG00000033793
-ENSMUSG00000025905"
-        ),
-        "SYMBOL" = updateTextAreaInput(
-          session,
-          "gene_list_six",
-          value = "Pgf
-Ctsb
-Edn1
-Dkk1
-Fgf1
-Spx
-Serpine2
-Il15
-Il2
-Plau
-Igf1
-Igfbp4
-Spp1
-Sema3f
-Ang
-Ang2
-Ang4
-C3
-Bmp6
-Fgf2
-Pappa
-Il18
-Angpt1
-Ccl20
-Vegfc
-Tnf
-Igfbp7
-Plat
-Ccl2
-Ccl8
-Il6
-Cxcl12
-Vegfa
-Ccl7
-Il10
-Ereg
-Il7
-Mif
-Cxcl10
-Nrg1
-Cd55b
-Cd55
-Il13
-Ang5
-Ang6
-Csf1
-Angptl4
-Csf2
-Gdf15
-Ccl12
-Wnt16
-Hgf
-Timp2
-Esm1
-Mmp2
-Igfbp6
-Mmp3
-Ccl4
-Mmp1a
-Mmp1b
-Il1a
-Igfbp2
-Il1b
-Mmp12
-Ccl24
-Cxcl16
-Mmp13
-Igfbp1
-Serpine1
-Igfbp3
-Fgf7
-Ccl3
-Igfbp5
-Inha
-Bmp2
-Vgf
-Ccl3
-Mmp9
-"
-        ),
-        "ENTREZID" = updateTextAreaInput(
-          session,
-          "gene_list_six",
-          value = "497097
-19888
-20671
-27395
-18777
-21399
-58175
-102631647
-108664
-18387"
-        )
-      )
-    }
   })
 
 
@@ -733,13 +363,7 @@ Mmp9
                gene.positions$entrezgene_id)
 
       for (col_name in colnames(gene.positions)[c(1:3)]) {
-        # 使用当前列名作为by.x参数的值，第二个数据框的第一列的列名作为by.y参数的值
         tryCatch({
-          # print(RNA[1,1])
-          # a <- substr(RNA[1,1],1,4)
-          # if(a == "ENSG" | a == "ENSM"){
-          #   RNA[,1] <- str_split(RNA[,1], "\\.", simplify = T)[, 1]
-          # }
           merge_df <-
             merge(
               gene.positions,
@@ -749,26 +373,14 @@ Mmp9
               all.x = F,
               all.y = F
             )
-          # a <- summary(merged_df)
           if (nrow(merge_df) > 0) {
             break
           }
-          # print(nrow(merged_df))
         }, error = function(e) {
-          # print(e)
+          print(e)
         })
       }
       merge_df <- as.data.frame(merge_df)
-      #colnames(merge_df)[c(1:6)] <-
-      #c(
-      #"ensembl_gene_id",
-      #"external_gene_name",
-      #"entrezgene_id",
-      # "chromosome_name",
-      # "start_position",
-      #  "end_position"
-      #)
-      #merge_df <- merge_df[, -c(7:9)]
       RNA_count(merge_df)
     }, error = function(e) {
       sendSweetAlert(
@@ -1042,12 +654,11 @@ Mmp9
       if (input$geneid_method == "SYMBOL") {
         gene <- RNA[RNA$external_gene_name == req(input$geneid),]
       }
-      if (input$geneid_method == "ENTREZID") {
+      if (input$geneid_method == "ENTREZ") {
         gene <- RNA[RNA$entrezgene_id == req(input$geneid),]
       }
 
       output_gene <- gene
-      # print(output_gene)
       return(output_gene)
     }
   })
@@ -1091,7 +702,6 @@ Mmp9
         ATAC2 <-
           ATAC1[ATAC1$chromStart > transform_gene$start_position &
                   ATAC1$chromEnd < transform_gene$end_position,]
-        # print(ATAC2)
 
         if (req(input$method) == "1") {
           return(cor_test(ATAC2,
@@ -1130,7 +740,7 @@ Mmp9
       if (input$geneid_method == "SYMBOL") {
         index <- "external_gene_name"
       }
-      if (input$geneid_method == "ENTREZID") {
+      if (input$geneid_method == "ENTREZ") {
         index <- "entrezgene_id"
       }
       gene <- output_gene()
@@ -1180,17 +790,25 @@ Mmp9
   # 输出筛选基因
   output$RNA <- DT::renderDataTable(
     output_gene()[, c(1:6)],
+    colnames = c('Ensembl ID', 'Symbol ID', 'Entrez ID', 'chrom', 'chromStart', 'chromEnd'),
     selection = "none",
     rownames = FALSE,
+    extensions = c("Scroller", "RowReorder"),
     options = list(
-      dom = 't',
-      pageLength = 20,
-      autoWidth = F,
+      dom = "t",
+      rowReorder = TRUE,
+      deferRender = TRUE,
+      scrollY = 150,
+      scroller = TRUE,
+      scrollX = TRUE,
       searchHighlight = TRUE,
-      # columnDefs = list(list(targets = 2, width = "210px")),
-      scrollX = TRUE
+      orderClasses = TRUE,
+      autoWidth = F,
+      fixedColumns = TRUE
     )
   )
+
+
 
   observe({
     if (is.null(select_ATAC())) {
@@ -1202,14 +820,6 @@ Mmp9
           # Create 19 breaks and 20 rgb color values ranging from white to blue
           brks1 <-
             quantile(df[, 6],
-                     probs = seq(.05, .95, .05),
-                     na.rm = TRUE)
-          brks2 <-
-            quantile(df[, 5],
-                     probs = seq(.05, .95, .05),
-                     na.rm = TRUE)
-          brks3 <-
-            quantile(df[, 4],
                      probs = seq(.05, .95, .05),
                      na.rm = TRUE)
           # clrs <- round(seq(0, 100, length.out = length(brks) + 1), 0) %>%
@@ -1230,19 +840,8 @@ Mmp9
               fixedColumns = TRUE
             )
           ) %>%
-            formatStyle('rho',background=color_from_middle(brks1,'red','lightblue')) %>%
-            formatStyle(
-              "FDR",
-              background=color_from_middle(brks2,'red','lightblue'),
-              backgroundSize = '90% 100%',
-              backgroundRepeat = 'no-repeat',
-              backgroundPosition = 'center')%>%
-            formatStyle(
-              "p_value",
-              background=color_from_middle(brks3,'red','lightblue')
-            )
+            formatStyle('rho',background=color_from_middle(brks1,'lightpink','lightblue'))
         })
-
     }
   })
 
@@ -1261,25 +860,35 @@ Mmp9
     if (is.null(select_ATAC())) {
       output$ATAC2 <- DT::renderDataTable(NULL)
     } else{
+      # 输出筛选基因
+      output$RNA2 <- DT::renderDataTable(
+        output_gene()[, c(1:6)],
+        colnames = c('Ensembl ID', 'Symbol ID', 'Entrez ID', 'chrom', 'chromStart', 'chromEnd'),
+        selection = "none",
+        rownames = FALSE,
+        extensions = c("Scroller", "RowReorder"),
+        options = list(
+          dom = "t",
+          rowReorder = TRUE,
+          deferRender = TRUE,
+          scrollY = 150,
+          scroller = TRUE,
+          scrollX = TRUE,
+          searchHighlight = TRUE,
+          orderClasses = TRUE,
+          autoWidth = F,
+          fixedColumns = TRUE
+        )
+      )
+
+
       output$ATAC2 <-
         DT::renderDataTable({
           df <- select_ATAC()[, c(-4:-(ncol(select_ATAC()) - 3))]
           # Create 19 breaks and 20 rgb color values ranging from white to blue
           brks1 <-
             quantile(
-              df[, c(6)] %>% select_if(is.numeric),
-              probs = seq(.05, .95, .05),
-              na.rm = TRUE
-            )
-          brks2 <-
-            quantile(
-              df[, c(5)] %>% select_if(is.numeric),
-              probs = seq(.05, .95, .05),
-              na.rm = TRUE
-            )
-          brks3 <-
-            quantile(
-              df[, c(4)] %>% select_if(is.numeric),
+              df[, c(6)],
               probs = seq(.05, .95, .05),
               na.rm = TRUE
             )
@@ -1300,9 +909,7 @@ Mmp9
               scrollX = TRUE
             )
           ) %>%
-            formatStyle(names(df[, 6]), backgroundColor = styleInterval(brks1, head(Blues, n = length(brks1) + 1))) %>%
-            formatStyle(names(df[, 5]), backgroundColor = styleInterval(brks2, Blues[(length(brks3) + 1):1])) %>%
-            formatStyle(names(df[, 4]), backgroundColor = styleInterval(brks3, Blues[(length(brks3) + 1):1]))
+            formatStyle('rho',background=color_from_middle(brks1,'lightpink','lightblue'))
         })
     }
   })
@@ -1314,7 +921,6 @@ Mmp9
     tryCatch({
       peakfile <-
         select_ATAC()[, c(-(ncol(select_ATAC()) - 2):-ncol(select_ATAC()))] %>% data.frame()
-      # print(peakfile)
       select_peak <- req(input$ATAC2_rows_selected)
       Species <- input$Species
       return(trackplot(peakfile, select_peak, Species))
@@ -1330,7 +936,7 @@ Mmp9
     if (input$geneid_method == "SYMBOL") {
       index <- "external_gene_name"
     }
-    if (input$geneid_method == "ENTREZID") {
+    if (input$geneid_method == "ENTREZ") {
       index <- "entrezgene_id"
     }
     if (length(which(duplicated(gene[[index]]))) > 0) {
@@ -1349,12 +955,33 @@ Mmp9
   })
 
   # 输出箱线图
-  output$displot3 <- renderPlotly({
-    plotly::ggplotly(select_boxplot())
+  output$displot3 <- renderPlot({
+    select_boxplot()
   })
 
 
   # 模块三 ------------------------------------------------------------------
+  output$RNA3 <- DT::renderDataTable(
+    output_gene()[, c(1:6)],
+    colnames = c('Ensembl ID', 'Symbol ID', 'Entrez ID', 'chrom', 'chromStart', 'chromEnd'),
+    selection = "none",
+    rownames = FALSE,
+    extensions = c("Scroller", "RowReorder"),
+    options = list(
+      dom = "t",
+      rowReorder = TRUE,
+      deferRender = TRUE,
+      scrollY = 150,
+      scroller = TRUE,
+      scrollX = TRUE,
+      searchHighlight = TRUE,
+      orderClasses = TRUE,
+      autoWidth = F,
+      fixedColumns = TRUE
+    )
+  )
+
+
   observeEvent(input$Annote, {
     if (nrow(select_ATAC()) == 0) {
       sendSweetAlert(
@@ -1378,12 +1005,12 @@ Mmp9
         select_ATAC()[, c(-(ncol(select_ATAC()) - 2):-ncol(select_ATAC()))]
       # select_peak <- req(input$ATAC2_rows_selected)
       gr <-
-        makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
+        GenomicRanges::makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
       if (input$Species == "1") {
-        txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene
+        txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene::TxDb.Hsapiens.UCSC.hg38.knownGene
         annoDb <- "org.Hs.eg.db"
       } else{
-        txdb <- TxDb.Mmusculus.UCSC.mm10.knownGene
+        txdb <- TxDb.Mmusculus.UCSC.mm10.knownGene::TxDb.Mmusculus.UCSC.mm10.knownGene
         annoDb <- "org.Mm.eg.db"
       }
 
@@ -1402,17 +1029,7 @@ Mmp9
         value = 50
       )
 
-      # peakfile <-
-      #   select_ATAC()[, c(-(ncol(select_ATAC()) - 2):-ncol(select_ATAC()))]
-      # gr <-
-      #   makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
-      # txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene
-      # peakAnno <- ChIPseeker::annotatePeak(
-      #   gr,
-      #   tssRegion = c(-3000, 3000),
-      #   TxDb = txdb,
-      #   annoDb = "org.Hs.eg.db"
-      # )
+
       p <- ChIPseeker::upsetplot(peakAnno, vennpie = TRUE)
 
       output$Peak_Annotation <-
@@ -1456,6 +1073,26 @@ Mmp9
 
 
   # 模块四 --------------------------------------------------------------------
+  output$RNA4 <- DT::renderDataTable(
+    output_gene()[, c(1:6)],
+    colnames = c('Ensembl ID', 'Symbol ID', 'Entrez ID', 'chrom', 'chromStart', 'chromEnd'),
+    selection = "none",
+    rownames = FALSE,
+    extensions = c("Scroller", "RowReorder"),
+    options = list(
+      dom = "t",
+      rowReorder = TRUE,
+      deferRender = TRUE,
+      scrollY = 150,
+      scroller = TRUE,
+      scrollX = TRUE,
+      searchHighlight = TRUE,
+      orderClasses = TRUE,
+      autoWidth = F,
+      fixedColumns = TRUE
+    )
+  )
+
   observe({
     if (is.null(select_ATAC())) {
       output$ATAC3 <- DT::renderDataTable(NULL)
@@ -1466,19 +1103,7 @@ Mmp9
           # Create 19 breaks and 20 rgb color values ranging from white to blue
           brks1 <-
             quantile(
-              df[, c(6)] %>% select_if(is.numeric),
-              probs = seq(.05, .95, .05),
-              na.rm = TRUE
-            )
-          brks2 <-
-            quantile(
-              df[, c(5)] %>% select_if(is.numeric),
-              probs = seq(.05, .95, .05),
-              na.rm = TRUE
-            )
-          brks3 <-
-            quantile(
-              df[, c(4)] %>% select_if(is.numeric),
+              df[, c(6)],
               probs = seq(.05, .95, .05),
               na.rm = TRUE
             )
@@ -1498,9 +1123,7 @@ Mmp9
               scrollX = TRUE
             )
           ) %>%
-            formatStyle(names(df[, 6]), backgroundColor = styleInterval(brks1, head(Blues, n = length(brks1) + 1))) %>%
-            formatStyle(names(df[, 5]), backgroundColor = styleInterval(brks2, Blues[(length(brks3) + 1):1])) %>%
-            formatStyle(names(df[, 4]), backgroundColor = styleInterval(brks3, Blues[(length(brks3) + 1):1]))
+            formatStyle('rho',background=color_from_middle(brks1,'lightpink','lightblue'))
         })
     }
   })
@@ -1509,36 +1132,12 @@ Mmp9
 
   # motif分析
   select_motif <- reactive({
-    # isolate({
-    # pwm_library <- TFBSTools::getMatrixSet(
-    #   '~/project/03.linkage/JASPAR2022.sqlite',
-    #   opts = list(
-    #     collection = "CORE",
-    #     species    = "Homo sapiens",
-    #     matrixtype = "PWM"
-    #   )
-    # )
-    #
-    # # extract the motif names from the pwm library
-    # pwm_library_list <- lapply(pwm_library, function(x) {
-    #   data.frame(ID = ID(x), name = name(x))
-    # })
-    #
-    # # combine the list into one data frame
-    # pwm_library_dt <- dplyr::bind_rows(pwm_library_list)
-    #
-    # PFMatrixList <-
-    #   TFBSTools::getMatrixByID('~/project/03.linkage/JASPAR2022.sqlite', ID = pwm_library_dt$ID)
-    # })
-
     peakfile <-
       select_ATAC()[, c(-(ncol(select_ATAC()) - 2):-ncol(select_ATAC()))]
     select_peak <- req(input$ATAC3_rows_selected)
     Species <- input$Species
     return(motif_analysis(peakfile, select_peak, Species))
 
-    # tryCatch({
-    # })
   })
 
   # seqlogo图
@@ -1548,23 +1147,7 @@ Mmp9
     return(seqLogo_plot(motif, select_row))
   })
 
-  # # 输出motif分析结果数据框
-  # output$Motif <-
-  #   DT::renderDataTable(
-  #     select_motif(),
-  #     selection = "single",
-  #     extensions = c("Scroller", "RowReorder"),
-  #     option = list(
-  #       rowReorder = TRUE,
-  #       deferRender = TRUE,
-  #       scrollY = 290,
-  #       scroller = TRUE,
-  #       scrollX = F,
-  #       searchHighlight = TRUE,
-  #       orderClasses = TRUE,
-  #       autoWidth = F
-  #     )
-  #   )
+
   output$Motif <-
     DT::renderDataTable({
       df <- select_motif()
@@ -1590,13 +1173,8 @@ Mmp9
           orderClasses = TRUE,
           autoWidth = F
         )
-      ) %>% formatStyle(
-        names(df)[8],
-        background = styleColorBar(range(brks1), 'lightblue'),
-        backgroundSize = '90% 100%',
-        backgroundRepeat = 'no-repeat',
-        backgroundPosition = 'center'
-      )
+      ) %>%
+        formatStyle(names(df)[8],background=color_from_middle(brks1,'red','lightblue'))
     })
   # 输出seqlogo图
   output$displot5 <- renderPlot({
@@ -1625,11 +1203,9 @@ Mmp9
 
       if (length(intersect(gene.list, RNA_count()[, index])) != 0) {
         RNA.seq <- RNA_count()[RNA_count()[, index] %in% gene.list,]
-        print(length(intersect(gene.list, RNA_count()[, index])))
       }
 
       else if (length(intersect(gene.list, RNA_count()[, index])) == 0) {
-        print(length(intersect(gene.list, RNA_count()[, index])))
         sendSweetAlert(
           session = session,
           title = "ERROR",
@@ -1691,7 +1267,7 @@ Mmp9
             }
           },
           error = function(e) {
-            message("发生了错误: ", conditionMessage(e))
+            # message("发生了错误: ", conditionMessage(e))
             p[j] <- NULL
           })
           tryCatch({
@@ -1706,7 +1282,7 @@ Mmp9
             }
           },
           error = function(e) {
-            message("发生了错误: ", conditionMessage(e))
+            # message("发生了错误: ", conditionMessage(e))
             r[j] <- NULL
           })
         }
@@ -1732,13 +1308,11 @@ Mmp9
 
       n <- 0
       if (input$Species == "1") {
-        PFMatrixList <- readRDS("../extdata/PFMatrixList.rds")
-        pwm_library_dt <- readRDS("../extdata/pwm_library_dt.rds")
         genome <- "hg38"
       }
       if (input$Species == "2") {
-        PFMatrixList <- readRDS("../extdata/Mus.PFMatrixList.rds")
-        pwm_library_dt <- readRDS("../extdata/Mus.pwm_library_dt.rds")
+        PFMatrixList <- Mus.PFMatrixList
+        pwm_library_dt <- Mus.pwm_library_dt
         genome <- "mm10"
       }
       for (i in 1:length(result_peak)) {
@@ -1752,24 +1326,23 @@ Mmp9
         if (input$filter_method == "p_value") {
           peaks <- result_peak[[i]][result_peak[[i]]$p_value <= input$value,]
         }
-        peaks <- GRanges(
+        peaks <- GenomicRanges::GRanges(
           seqnames = c(peaks$chrom),
-          ranges = IRanges(
+          ranges = IRanges::IRanges(
             start = peaks$chromStart,
             end = peaks$chromEnd
           )
         )
 
         # Get motif positions within peaks for example motifs in peaks
-        motif_ix <- matchMotifs(PFMatrixList,
-                                peaks,
-                                genome = genome,
-                                out = "positions") %>% data.frame()
+        motif_ix <- motifmatchr::matchMotifs(PFMatrixList,
+                                             peaks,
+                                             genome = genome,
+                                             out = "positions") %>% data.frame()
 
         motif[[i]] <- pwm_library_dt[motif_ix$group, ]
         motif[[i]] <- cbind(motif[[i]], motif_ix)
         motif[[i]] <- unique(motif[[i]]$name)
-        print(motif[[i]])
 
         tf[[i]] <-
           RNA_count()[RNA_count()$external_gene_name %in% motif[[i]],]
@@ -1796,7 +1369,7 @@ Mmp9
             }
           },
           error = function(e) {
-            message("发生了错误: ", conditionMessage(e))
+            # message("发生了错误: ", conditionMessage(e))
             p[j] <- NULL
           })
           tryCatch({
@@ -1811,7 +1384,7 @@ Mmp9
             }
           },
           error = function(e) {
-            message("发生了错误: ", conditionMessage(e))
+            # message("发生了错误: ", conditionMessage(e))
             r[j] <- NULL
           })
         }
@@ -1853,8 +1426,6 @@ Mmp9
       }
       write.table(Gene.TF.frame, "Gene.TF.frame.txt")
       visNetworkTable(Gene.TF.frame)
-      print("1.................................")
-      print(head(Gene.TF.frame))
 
       updateProgressBar(
         session = session,
@@ -1900,35 +1471,35 @@ Mmp9
                           dataTableOutput("visTable"))),
           fluidRow(
             column(
-              4,
+              3,
               radioButtons(
                 inputId = "extTable4",
-                label = helpText("Table output format"),
+                label = helpText("Output Format"),
                 choices = c("CSV" = "csv", "TXT" = "txt"),
                 inline = T
               )
             ),
-            column(4,
+            column(3,
                    div(
                      downloadButton("Download_vis", "Download"),
                      shiny::tags$style(
-                       "#Download_vis {background-color: white; color: black; margin-left: 30%;margin-top: 10%;box-shadow: inset 0px 1px 2.5px #888888;}"
+                       "#Download_vis {background-color: white; color: black; margin-left: 0%;margin-top: 25px;box-shadow: inset 0px 1px 2.5px #888888;}"
                      ),
-                   )),
-            column(
-              4,
-              do.call(actionBttn, c(
-                list(
-                  inputId = "submit8",
-                  label = "Go Next",
-                  icon = icon("play")
-                ),
-                actionBttnParams
-              )),
-              shiny::tags$style(
-                "#submit8 {margin-top: 10%;box-shadow: 0px 2px 5px #888888;}"
-              ),
-            )
+                   ))
+            # column(
+            #   4,
+            #   do.call(actionBttn, c(
+            #     list(
+            #       inputId = "submit8",
+            #       label = "Go Next",
+            #       icon = icon("play")
+            #     ),
+            #     actionBttnParams
+            #   )),
+            #   shiny::tags$style(
+            #     "#submit8 {margin-top: 10%;box-shadow: 0px 2px 5px #888888;}"
+            #   ),
+            # )
           )
         )
       })
@@ -1993,8 +1564,6 @@ Mmp9
           ) |
             (rowSums(is.na(Gene.TF.frame)) == 4),]
       }
-      print("2.................................")
-      print(head(Gene.TF.frame.filter))
 
       return(Gene.TF.frame.filter)
 
@@ -2043,6 +1612,7 @@ Mmp9
           #   {paste0("rgb(", .,",", .,",220)")}
           DT::datatable(
             df,
+            colnames = c("Gene","TF","p_value","FDR","rho"),
             selection = "single",
             # extensions = c("Scroller", "RowReorder"),
             option = list(
@@ -2054,30 +1624,11 @@ Mmp9
               # )),
               scrollX = TRUE
             )
-          ) %>%
-            formatStyle(names(df)[5], backgroundColor = styleInterval(brks1, head(Blues, n = length(brks1) + 1))) %>%
-            formatStyle(names(df)[4], backgroundColor = styleInterval(brks2, Blues[(length(brks3) + 1):1])) %>%
-            formatStyle(names(df)[3], backgroundColor = styleInterval(brks3, Blues[(length(brks3) + 1):1]))
+          )  %>%
+            formatStyle('rho',background=color_from_middle(brks1,'lightpink','lightblue'))
         })
     }
   })
-
-  # output$visTable <-
-  #   DT::renderDataTable(
-  #     BuildNetwork(),
-  #     selection = "none",
-  #     extensions = c("Scroller", "RowReorder"),
-  #     option = list(
-  #       rowReorder = TRUE,
-  #       deferRender = TRUE,
-  #       scrollY = 350,
-  #       scroller = TRUE,
-  #       scrollX = F,
-  #       searchHighlight = TRUE,
-  #       orderClasses = TRUE,
-  #       autoWidth = F
-  #     )
-  #   )
 
   visNetWork <- reactive({
     tryCatch({
@@ -2099,8 +1650,6 @@ Mmp9
       Gene.TF.frame.filter <-
         dplyr::select(Gene.TF.frame.filter,
                       c("gene", "TF", "p_value", "FDR", "rho"))
-      print("6.................................")
-      print(head(Gene.TF.frame.filter))
 
       #if(nrow(Gene.TF.frame[rowSums(is.na(Gene.TF.frame)) == 4,]) > 0){
       Gene.TF.frame.filter <-
@@ -2109,8 +1658,6 @@ Mmp9
       #}
       Gene.TF.frame.filter <-
         Gene.TF.frame.filter[-which(Gene.TF.frame.filter$gene == FALSE),]
-      print("7.................................")
-      print(head(Gene.TF.frame.filter))
 
       # Gene.TF.frame.filter <- Gene.TF.frame.filter[,c("gene","TF",input$TF_filter_method)]
       negative.TF <-
@@ -2121,15 +1668,11 @@ Mmp9
       Gene <- Gene.TF.frame.filter %>%
         distinct(gene) %>%
         dplyr::rename(label = gene)
-      print("8.................................")
-      print(head(Gene))
 
       #目的地去重
       TFs <- Gene.TF.frame.filter %>%
         distinct(TF) %>%
         dplyr::rename(label = TF)
-      print("9.................................")
-      print(head(TFs))
 
       ## 合并数据并添加一列索引
       nodes <- rbind(Gene, TFs)
@@ -2139,22 +1682,11 @@ Mmp9
       nodes <- nodes[!duplicated(nodes$label),]
       #id has to be the same like from and to columns in edges
       nodes$id <- nodes$label
-      print(".....0")
-      print(nodes)
       edges <- Gene.TF.frame.filter
       colnames(edges)[c(1:2)] <- c("from", "to")
 
       TF_filter_method <- input$TF_filter_method
-      print(TF_filter_method)
-      # print(TF_filter_method)
-      # print(edges$`TF_filter_method`)
-      # if (TF_filter_method == "p_value" | TF_filter_method == "FDR") {
-      #   edges$value <- (1 / edges[[TF_filter_method]])
-      # }
-      # if (TF_filter_method == "rho") {
       edges$value <- abs(edges[["rho"]])
-      # }
-      print(head(edges))
       #Create graph for Louvain
       graph <- graph_from_data_frame(edges, directed = FALSE)
       #Louvain Comunity Detection
@@ -2166,15 +1698,8 @@ Mmp9
       }
       cluster_df$label <- rownames(cluster_df)
       #Create group column
-      print("......c")
-      print(cluster_df)
-      print(nodes)
 
       nodes <- left_join(nodes, cluster_df, by = "label")
-      print(".....1")
-      print(nodes)
-      print(".....2")
-      print(nodes)
       colnames(nodes)[3] <- "group"
       nodes$group <-
         ifelse(
@@ -2191,7 +1716,6 @@ Mmp9
           nodes <- nodes[-which(rowSums(is.na(nodes)) > 0),]
         }
         RNA_count <- RNA_count()
-        # print(RNA_count[-which(duplicated(RNA_count[[index]])),])
         RNA_count <-
           RNA_count[-which(duplicated(RNA_count[[index]])),]
         nodes$value <-
@@ -2201,15 +1725,14 @@ Mmp9
         nodes$value <- 1
       })
 
-      print(nodes)
       if (length(which(rowSums(is.na(edges)) > 0))) {
         edges <- edges[-which(rowSums(is.na(edges)) > 0),]
       }
-      print(edges)
       edges$color <-
         ifelse(edges$to %in% positive.TF, "#FF8C00", "lightgreen")
 
       network <- visNetwork(nodes, edges) %>%
+        visNodes(size = 10) %>%
         visGroups(groupname = "Gene", color = "red") %>%
         visGroups(groupname = "Negative TF", color = "lightblue") %>%
         visGroups(groupname = "Positive TF", color = "lightblue") %>%
@@ -2297,7 +1820,7 @@ Mmp9
               4,
               radioButtons(
                 inputId = "extTable4",
-                label = helpText("Table output format"),
+                label = helpText("Output Format"),
                 choices = c("CSV" = "csv", "TXT" = "txt"),
                 inline = T
               )
@@ -2314,7 +1837,7 @@ Mmp9
               do.call(actionBttn, c(
                 list(
                   inputId = "submit8",
-                  label = "Go Next",
+                  label = "Continue",
                   icon = icon("play")
                 ),
                 actionBttnParams
@@ -2400,83 +1923,40 @@ Mmp9
 
       Gene.TF.frame <- input_networkdata()
       Gene.TF.frame.filter <- upload_filter()
+
       Gene.TF.frame.filter <-
-        rbind(Gene.TF.frame.filter, Gene.TF.frame[rowSums(is.na(Gene.TF.frame)) == 6, c("gene", "TF", "p_value", "FDR", "rho")], use.names = FALSE)
+        dplyr::select(Gene.TF.frame.filter,
+                      c("gene", "TF", "p_value", "FDR", "rho"))
 
-      if (length(which(Gene.TF.frame.filter$gene == FALSE)) > 0) {
-        Gene.TF.frame.filter <-
-          Gene.TF.frame.filter[-which(Gene.TF.frame.filter$gene == FALSE),]
-      }
-
-      print("7.................................")
-      print(head(Gene.TF.frame.filter))
-
-      # Gene.TF.frame.filter <- Gene.TF.frame.filter[,c("gene","TF",input$TF_filter_method)]
+      Gene.TF.frame.filter <-
+        rbind(Gene.TF.frame.filter, Gene.TF.frame[rowSums(is.na(Gene.TF.frame)) == 6, c("gene", "TF", "p_value", "FDR", "rho")], use.names =
+                FALSE)
       negative.TF <-
         Gene.TF.frame.filter[Gene.TF.frame.filter$rho < 0,]$TF
       positive.TF <-
         Gene.TF.frame.filter[Gene.TF.frame.filter$rho > 0,]$TF
-
       Gene <- Gene.TF.frame.filter %>%
         distinct(gene) %>%
         dplyr::rename(label = gene)
-      print("8.................................")
-      print(head(Gene))
-
-      #目的地去重
       TFs <- Gene.TF.frame.filter %>%
         distinct(TF) %>%
         dplyr::rename(label = TF)
-      print("9.................................")
-      print(head(TFs))
-
-      ## 合并数据并添加一列索引
       nodes <- rbind(Gene, TFs)
-      # nodes <- nodes[!duplicated(nodes),]
       nodes <- nodes %>%
         mutate(id = 1:nrow(nodes)) %>%
         dplyr::select(id, everything())
-      # head(nodes, 2)
       nodes <- nodes[!duplicated(nodes$label),]
-      #id has to be the same like from and to columns in edges
       nodes$id <- nodes$label
-      # head(nodes)
-      print(".....0")
-      print(nodes)
       edges <- Gene.TF.frame.filter
       colnames(edges)[c(1:2)] <- c("from", "to")
-
-      TF_filter_method <- input$TF_filter_method2
-      # print(TF_filter_method)
-      # print(edges$`TF_filter_method`)
-      # if (TF_filter_method == "p_value" | TF_filter_method == "FDR") {
-      #   edges$value <- (1 / edges[[TF_filter_method]])
-      # }
-      # if (TF_filter_method == "rho") {
       edges$value <- abs(edges[["rho"]])
-      # }
-      # edges$value <- runif(nrow(edges), min = 1, max = 10)
-      print(head(edges))
-      #Create graph for Louvain
       graph <- graph_from_data_frame(edges, directed = FALSE)
-      #Louvain Comunity Detection
       cluster <- cluster_louvain(graph)
-      cluster_df <- data.frame(as.list(membership(cluster)))
+      cluster_df <- data.frame(as.list(membership(cluster)),check.names = FALSE)
       cluster_df <- as.data.frame(t(cluster_df))
-      if (input$genelist_idtype2 == "3") {
-        rownames(cluster_df) <- str_sub(rownames(cluster_df), 2)
-      }
-      cluster_df$label <- rownames(cluster_df)
-      #Create group column
-      print("......c")
-      print(cluster_df)
-      print(nodes)
-
+      cluster_df$label <- as.character(rownames(cluster_df))
+      nodes$label <- as.character(nodes$label)
       nodes <- left_join(nodes, cluster_df, by = "label")
-      print(".....1")
-      print(nodes)
-      print(".....2")
-      print(nodes)
       colnames(nodes)[3] <- "group"
       nodes$group <-
         ifelse(
@@ -2488,13 +1968,9 @@ Mmp9
         ifelse(nodes$id %in% Gene.TF.frame.filter$gene,
                "red",
                "lightblue")
-      print(nodes)
       tryCatch({
-        if (length(which(rowSums(is.na(nodes)) > 0)) > 0) {
-          nodes <- nodes[-which(rowSums(is.na(nodes)) > 0),]
-        }
+        nodes <- na.omit(nodes)
         RNA_count <- RNA_count()
-        # print(RNA_count[-which(duplicated(RNA_count[[index]])),])
         RNA_count <-
           RNA_count[-which(duplicated(RNA_count[[index]])),]
         nodes$value <-
@@ -2504,18 +1980,14 @@ Mmp9
         nodes$value <- 1
       })
 
-      # nodes$color.border <- ifelse(nodes$label %in% positive.TF,"#FF8C00","lightgreen")
-      print("edgrs......")
-      print(nodes)
-
-      # if(length(-which(rowSums(is.na(edges)) > 0))){
-      #   edges <- edges[-which(rowSums(is.na(edges)) > 0),]
-      # }
-      print(edges)
+      if (length(which(rowSums(is.na(edges)) > 0))) {
+        edges <- edges[-which(rowSums(is.na(edges)) > 0),]
+      }
       edges$color <-
         ifelse(edges$to %in% positive.TF, "#FF8C00", "lightgreen")
 
       network <- visNetwork(nodes, edges) %>%
+        visNodes(size = 10) %>%
         visGroups(groupname = "Gene", color = "red") %>%
         visGroups(groupname = "Negative TF", color = "lightblue") %>%
         visGroups(groupname = "Positive TF", color = "lightblue") %>%
@@ -2532,90 +2004,50 @@ Mmp9
           nodesIdSelection = TRUE,
           selectedBy = "group"
         )
-
-      return(network)
     }, error = function(e) {
       print(e)
 
       tryCatch({
         Gene.TF.frame.filter <- input_networkdata()
-        print(head(colnames(Gene.TF.frame.filter)[1:2]))
         colnames(Gene.TF.frame.filter)[1:2] <- c("Target", "Source")
-        # Gene.TF.frame.filter <-
-        # rbind(Gene.TF.frame.filter, Gene.TF.frame[rowSums(is.na(Gene.TF.frame)) == 6, c("gene", "TF", "p_value", "FDR", "rho")], use.names = FALSE)
 
         if (length(which(Gene.TF.frame.filter$Source == FALSE)) > 0) {
           Gene.TF.frame.filter <-
             Gene.TF.frame.filter[-which(Gene.TF.frame.filter$Source == FALSE),]
         }
 
-        print("7.................................")
-        print(head(Gene.TF.frame.filter))
-
-        # # Gene.TF.frame.filter <- Gene.TF.frame.filter[,c("gene","TF",input$TF_filter_method)]
-        # negative.TF <-
-        #   Gene.TF.frame.filter[Gene.TF.frame.filter$rho < 0, ]$TF
-        # positive.TF <-
-        #   Gene.TF.frame.filter[Gene.TF.frame.filter$rho > 0, ]$TF
 
         Gene <- Gene.TF.frame.filter %>%
           distinct(Target) %>%
           dplyr::rename(label = Target)
-        print("8.................................")
-        print(head(Gene))
 
-        #目的地去重
         TFs <- Gene.TF.frame.filter %>%
           distinct(Source) %>%
           dplyr::rename(label = Source)
-        print("9.................................")
-        print(head(TFs))
 
-        ## 合并数据并添加一列索引
         nodes <- rbind(Gene, TFs)
-        # nodes <- nodes[!duplicated(nodes),]
         nodes <- nodes %>%
           mutate(id = 1:nrow(nodes)) %>%
           dplyr::select(id, everything())
-        # head(nodes, 2)
         nodes <- nodes[!duplicated(nodes$label),]
-        #id has to be the same like from and to columns in edges
         nodes$id <- nodes$label
-        # head(nodes)
-        print(".....0")
-        print(nodes)
+
         edges <- Gene.TF.frame.filter
         colnames(edges)[c(1:2)] <- c("from", "to")
 
-        print(head(edges))
-        #Create graph for Louvain
         graph <- graph_from_data_frame(edges, directed = FALSE)
-        #Louvain Comunity Detection
         cluster <- cluster_louvain(graph)
         cluster_df <- data.frame(as.list(membership(cluster)))
         cluster_df <- as.data.frame(t(cluster_df))
-        cluster_df$label <- rownames(cluster_df)
-        #Create group column
-        print("......c")
-        print(cluster_df)
-        print(nodes)
-
+        cluster_df$label <- as.character(rownames(cluster_df))
+        nodes$label <- as.character(nodes$label)
         nodes <- left_join(nodes, cluster_df, by = "label")
-        print(".....1")
-        print(nodes)
-        print(".....2")
-        print(nodes)
         colnames(nodes)[3] <- "group"
 
         nodes$color <-
           ifelse(nodes$id %in% Gene.TF.frame.filter$Source,
                  "red",
                  "lightblue")
-        print(nodes)
-
-        # nodes$color.border <- ifelse(nodes$label %in% positive.TF,"#FF8C00","lightgreen")
-        print("edgrs......")
-        print(nodes)
 
         network <- visNetwork(nodes, edges) %>%
           visIgraphLayout() %>%
@@ -2734,8 +2166,6 @@ Mmp9
       organism <- 'mmu'
     }
 
-    print(gene)
-
     go <<- enrichGO(
       gene = gene,
       OrgDb = OrgDb,
@@ -2764,21 +2194,20 @@ Mmp9
       maxGSSize = input$maxGSSize
     )
 
-    #print(go@result)
     output$Enrichment.Table <- renderUI({
       shinydashboard::tabBox(
         # The id lets us use input$tabset1 on the server to find the current tab
         id = "tabset1",
         width = 9,
         tabPanel(
-          tagList(icon("table"),"GO table"),
+          tagList(icon("table"),"GO Enrichment Table"),
           dataTableOutput("GO.result"),
           fluidRow(
             column(
               3,
               radioButtons(
                 inputId = "extTable5",
-                label = helpText("Table output format"),
+                label = helpText("Output Format"),
                 choices = c("CSV" = "csv", "TXT" = "txt"),
                 inline = T
               )
@@ -2787,30 +2216,30 @@ Mmp9
               9,
               downloadButton("Download_GO", "Download"),
               shiny::tags$style(
-                "#Download_GO {background-color: white; color: black;margin-top:4%;box-shadow: inset 0px 1px 2.5px #888888;}"
+                "#Download_GO {background-color: white; color: black;margin-left:0%;margin-top:25px;box-shadow: inset 0px 1px 2.5px #888888;}"
               )
             )
           )
         ),
 
         tabPanel(
-          tagList(icon("table"),"KEGG table"),
+          tagList(icon("table"),"KEGG Enrichment Table"),
           dataTableOutput("KEGG.result"),
           fluidRow(
             column(
               3,
               radioButtons(
                 inputId = "extTable6",
-                label = helpText("Table output format"),
+                label = helpText("Output Format"),
                 choices = c("CSV" = "csv", "TXT" = "txt"),
                 inline = T
               )
             ),
             column(
-              9,
+              3,
               downloadButton("Download_KEGG", "Download"),
               shiny::tags$style(
-                "#Download_KEGG {background-color: white; color: black;margin-top:4%;box-shadow: inset 0px 1px 2.5px #888888;}"
+                "#Download_KEGG {background-color: white; color: black;margin-left:0%;margin-top:25px;box-shadow: inset 0px 1px 2.5px #888888;}"
               )
             )
           )
@@ -2833,7 +2262,7 @@ Mmp9
                    12,
                    radioButtons(
                      inputId = "extPlot6",
-                     label = helpText("Plot output format"),
+                     label = helpText("Output Format"),
                      choices = c(
                        "PNG" = "png",
                        "PDF" = "pdf",
@@ -2852,7 +2281,7 @@ Mmp9
                    )
                  )),
           column(9,
-                 plotlyOutput("GO.dotplot"))
+                 plotOutput("GO.dotplot"))
         )),
         tabPanel(tagList(icon("chart-line"), "GO barplot"),
                  fluidRow(
@@ -2861,7 +2290,7 @@ Mmp9
                             12,
                             radioButtons(
                               inputId = "extPlot7",
-                              label = helpText("Plot output format"),
+                              label = helpText("Output Format"),
                               choices = c(
                                 "PNG" = "png",
                                 "PDF" = "pdf",
@@ -2880,7 +2309,7 @@ Mmp9
                             )
                           )),
                    column(9,
-                          plotlyOutput("GO.barplot"))
+                          plotOutput("GO.barplot"))
                  )),
         tabPanel(
           tagList(icon("chart-area"), "GO upsetplot"),
@@ -2890,7 +2319,7 @@ Mmp9
               12,
               radioButtons(
                 inputId = "extPlot8",
-                label = helpText("Plot output format"),
+                label = helpText("Output Format"),
                 choices = c(
                   "PNG" = "png",
                   "PDF" = "pdf",
@@ -2920,7 +2349,7 @@ Mmp9
               12,
               radioButtons(
                 inputId = "extPlot13",
-                label = helpText("Plot output format"),
+                label = helpText("Output Format"),
                 choices = c(
                   "PNG" = "png",
                   "PDF" = "pdf",
@@ -2957,7 +2386,7 @@ Mmp9
                      12,
                      radioButtons(
                        inputId = "extPlot10",
-                       label = helpText("Plot output format"),
+                       label = helpText("Output Format"),
                        choices = c(
                          "PNG" = "png",
                          "PDF" = "pdf",
@@ -2976,7 +2405,7 @@ Mmp9
                      )
                    )),
             column(9,
-                   plotlyOutput("KEGG.dotplot"))
+                   plotOutput("KEGG.dotplot"))
           )
         ),
         tabPanel(
@@ -2987,7 +2416,7 @@ Mmp9
                      12,
                      radioButtons(
                        inputId = "extPlot11",
-                       label = helpText("Plot output format"),
+                       label = helpText("Output Format"),
                        choices = c(
                          "PNG" = "png",
                          "PDF" = "pdf",
@@ -3006,7 +2435,7 @@ Mmp9
                      )
                    )),
             column(9,
-                   plotlyOutput("KEGG.barplot"))
+                   plotOutput("KEGG.barplot"))
           )
         ),
         tabPanel(
@@ -3017,7 +2446,7 @@ Mmp9
               12,
               radioButtons(
                 inputId = "extPlot12",
-                label = helpText("Plot output format"),
+                label = helpText("Output Format"),
                 choices = c(
                   "PNG" = "png",
                   "PDF" = "pdf",
@@ -3047,7 +2476,7 @@ Mmp9
               12,
               radioButtons(
                 inputId = "extPlot14",
-                label = helpText("Plot output format"),
+                label = helpText("Output Format"),
                 choices = c(
                   "PNG" = "png",
                   "PDF" = "pdf",
@@ -3083,16 +2512,6 @@ Mmp9
     tryCatch({
       output$GO.result <- DT::renderDataTable(
         go@result,
-        # server = FALSE,
-        # selection = "none",
-        # options = list(
-        #   pageLength = 10,
-        #   autoWidth = F,
-        #   # columnDefs = list(list(
-        #   #   targets = 2, width = "210px"
-        #   # )),
-        #   scrollX = TRUE
-        # )
         extensions = c("Scroller", "RowReorder"),
         server = FALSE,
         selection = "none",
@@ -3111,25 +2530,25 @@ Mmp9
       wcdf.GO <- read.table(text = go$GeneRatio, sep = "/")[1]
       wcdf.GO$word <- go[, 3]
       names(wcdf.GO)[1] <- "freq"
-      wcdf.GO <- select(wcdf.GO, c(2, 1))
+      wcdf.GO <- dplyr::select(wcdf.GO, c(2, 1))
 
 
-      output$GO.dotplot <- renderPlotly({
-        plotly::ggplotly(
-          dotplot(go) + theme(axis.text.y = element_text(size = 8)) + scale_y_discrete(
+      output$GO.dotplot <- renderPlot({
+        # plotly::ggplotly(
+          dotplot(go) + theme(axis.text.y = element_text(size = 10)) + scale_y_discrete(
             labels = function(x)
               str_wrap(x, width = 100)
           )
-        )
+        # )
       })
 
-      output$GO.barplot <- renderPlotly({
-        plotly::ggplotly(
-          barplot(go) + theme(axis.text.y = element_text(size = 8)) + scale_y_discrete(
+      output$GO.barplot <- renderPlot({
+        # plotly::ggplotly(
+          barplot(go) + theme(axis.text.y = element_text(size = 10)) + scale_y_discrete(
             labels = function(x)
               str_wrap(x, width = 100)
           )
-        )
+        # )
       })
 
       output$GO.upsetplot <- renderPlot({
@@ -3148,11 +2567,11 @@ Mmp9
 
 
 
-      output$GO.dotplot <- renderPlotly({
+      output$GO.dotplot <- renderPlot({
         return()
       })
 
-      output$GO.barplot <- renderPlotly({
+      output$GO.barplot <- renderPlot({
         return()
       })
 
@@ -3180,7 +2599,7 @@ Mmp9
       wcdf.KEGG <- read.table(text = kegg$GeneRatio, sep = "/")[1]
       wcdf.KEGG$word <- kegg[, 2]
       names(wcdf.KEGG)[1] <- "freq"
-      wcdf.KEGG <- select(wcdf.KEGG, c(2, 1))
+      wcdf.KEGG <- dplyr::select(wcdf.KEGG, c(2, 1))
       output$KEGG.result <- DT::renderDataTable(
         kegg@result,
         extensions = c("Scroller", "RowReorder"),
@@ -3197,22 +2616,22 @@ Mmp9
           autoWidth = F
         )
       )
-      output$KEGG.dotplot <- renderPlotly({
-        plotly::ggplotly(
-          dotplot(kegg) + theme(axis.text.y = element_text(size = 8)) + scale_y_discrete(
+      output$KEGG.dotplot <- renderPlot({
+        # plotly::ggplotly(
+          dotplot(kegg) + theme(axis.text.y = element_text(size = 10)) + scale_y_discrete(
             labels = function(x)
               str_wrap(x, width = 100)
           )
-        )
+        # )
       })
 
-      output$KEGG.barplot <- renderPlotly({
-        plotly::ggplotly(
-          barplot(kegg) + theme(axis.text.y = element_text(size = 8)) + scale_y_discrete(
+      output$KEGG.barplot <- renderPlot({
+        # plotly::ggplotly(
+          barplot(kegg) + theme(axis.text.y = element_text(size = 10)) + scale_y_discrete(
             labels = function(x)
               str_wrap(x, width = 100)
           )
-        )
+        # )
       })
 
       output$KEGG.upsetplot <- renderPlot({
@@ -3269,13 +2688,6 @@ Mmp9
         type = "error"
       )
     })
-
-
-
-
-    # dotplot(go)
-    # barplot(go)
-    # upsetplot(go)
   })
   # 下载 --------------------------------------------------------------------
   output$tableDown <- downloadHandler(
@@ -3366,15 +2778,15 @@ Mmp9
           group5 = m5
         )
       gr <-
-        makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
-      values(gr) <- data
+        GenomicRanges::makeGRangesFromDataFrame(peakfile, ignore.strand = TRUE)
+      GenomicRanges::values(gr) <- data
 
-      ax <- GenomeAxisTrack()
+      ax <- Gviz::GenomeAxisTrack()
 
       tracks_list <- list()
       for (i in 1:length(names(elementMetadata(gr)))) {
         track_name <- paste("track", i, sep = "")
-        tracks_list[[i]] <- DataTrack(
+        tracks_list[[i]] <- Gviz::DataTrack(
           gr[, names(elementMetadata(gr))[i]],
           genome = "hg38",
           name = names(elementMetadata(gr))[i],
@@ -3385,30 +2797,26 @@ Mmp9
 
       # genome
       gen <- genome(tracks_list[[i]])
-      # Chromosme name
       chr <- as.character(unique(seqnames(tracks_list[[i]])))
-      # Ideogram track (take a long time)
       peak <- peakfile[select_peak,]
       tryCatch({
-        itrack <- IdeogramTrack(genome = gen, chromosome = chr)
-        # 突出显示某一区域
-        ht <- HighlightTrack(
+        itrack <- Gviz::IdeogramTrack(genome = gen, chromosome = chr)
+        ht <- Gviz::HighlightTrack(
           tracks_list,
           start = peak$chromStart,
           width = as.numeric(peak$chromEnd - peak$chromStart),
           chromosome = substring(peak[, 1], 4)
         )
-        plotTracks(list(ht, ax, itrack), type = "histogram", col = NULL)
+        Gviz::plotTracks(list(ht, ax, itrack), type = "histogram", col = NULL)
       },
       error = function(e) {
-        # 突出显示某一区域
-        ht <- HighlightTrack(
+        ht <- Gviz::HighlightTrack(
           tracks_list,
           start = peak$chromStart,
           width = as.numeric(peak$chromEnd - peak$chromStart),
           chromosome = substring(peak[, 1], 4)
         )
-        plotTracks(list(ht, ax), type = "histogram", col = NULL)
+        Gviz::plotTracks(list(ht, ax), type = "histogram", col = NULL)
       })
       dev.off()
     }
