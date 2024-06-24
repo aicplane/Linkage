@@ -36,7 +36,7 @@ A KEGG object.
 KEGG enrichment analysis
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 data("SASPGeneSet")
 KEGG <-
   KEGGEnrichment(

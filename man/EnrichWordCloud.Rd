@@ -20,7 +20,7 @@ Enrichment wordcloud.
 Enrichment analysis Wordcloud
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 data("SASPGeneSet")
 go <-
   GOEnrichment(gene_list = SASPGeneSet,

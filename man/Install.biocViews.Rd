@@ -13,6 +13,6 @@ Install the dependencies under bioconductor
 Used when the Linkage is installed for the first time and is used to install dependencies
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 Install.biocViews()
 }

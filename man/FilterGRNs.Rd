@@ -22,7 +22,7 @@ Network Object.
 Create Network Object.
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 data("Small_ATAC.rda")
 data("Small_RNA.rda")
 LinkageObject <-

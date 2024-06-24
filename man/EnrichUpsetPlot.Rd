@@ -18,7 +18,7 @@ Enrichment upset plot.
 Enrichment analysis Upsetplot
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 data("SASPGeneSet")
 go <-
   GOEnrichment(gene_list = SASPGeneSet,

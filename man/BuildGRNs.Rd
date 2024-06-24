@@ -20,7 +20,7 @@ An Linkage Object after BuildGRNs
 MotifAnalysis.
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 LinkageObject <-
   CreateLinkageObject(
     ATAC_count = Small_ATAC,

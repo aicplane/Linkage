@@ -18,7 +18,7 @@ Enrichment dot plot.
 Enrichment analysis Dotplot
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 data("SASPGeneSet")
 go <-
   GOEnrichment(gene_list = SASPGeneSet,

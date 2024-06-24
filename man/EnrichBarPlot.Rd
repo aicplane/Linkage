@@ -18,7 +18,7 @@ Enrichment bar plot.
 Enrichment analysis Barplot
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 data("SASPGeneSet")
 go <-
   GOEnrichment(gene_list = SASPGeneSet,

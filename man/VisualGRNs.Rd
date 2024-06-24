@@ -16,7 +16,7 @@ An visNetwork
 VisualGRNs.
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 data("Small_ATAC.rda")
 data("Small_RNA.rda")
 LinkageObject <-

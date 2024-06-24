@@ -18,7 +18,7 @@ An LinkageObject after the annottation.
 Annotation regulatory peak
 }
 \examples{
-library(LinkageR)
+library(Linkage)
 data("SmallLinkageObject")
 gene_list <- c("TSPAN6", "CD99", "KLHL13")
 LinkageObject <-
