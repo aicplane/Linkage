@@ -5,7 +5,7 @@ template:
     pkgdown-nav-height: 100px
     pkgdown-navbar-height: 20px
 navbar:
-  title: "linkage"
+  title: "Linkage"
   left:
     - text: "Install"
       href: articles/Install.html
