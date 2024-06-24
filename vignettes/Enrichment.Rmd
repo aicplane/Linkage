@@ -39,7 +39,7 @@ img {
 Linkage can help you visualize tabular and graphical pathway enrichment results of interested gene lists. The `GOEnrichment()` and `KEGGEnrichment()` functions allow you to input a list of interested genes and set four key parameters (i.e., adjusted pvalue cutoff, qvalue cutoff, minimal size of annotated genes for testing, and maximal size of annotated genes for testing) for GO or KEGG pathway enrichment analysis.
 ::: 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
-library(LinkageR)
+library(Linkage)
 data("SASPGeneSet")
 go <-
   GOEnrichment(gene_list = SASPGeneSet,

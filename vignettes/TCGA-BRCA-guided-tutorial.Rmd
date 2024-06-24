@@ -44,7 +44,7 @@ We start by loading in the data. The BreastCancerATAC() and BreastCancerRNA()
 We next use the chromatin accessibility and gene expression matrix to create a Linkage object. The object serves as a container that contains both data (like the count matrix) and analysis (like regulatory peaks, or active TFBS).
 
 ```{r message=FALSE, warning=FALSE}
-library(LinkageR)
+library(Linkage)
 # library(LinkageData)
 # ATAC_count <- BreastCancerATAC()
 # RNA_count <- BreastCancerRNA()

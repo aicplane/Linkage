@@ -8,7 +8,7 @@ vignette: >
 ---
 
 ``` r
-library(LinkageR)
+library(Linkage)
 Linkage.UIO()
 ```
 

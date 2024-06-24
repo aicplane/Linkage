@@ -50,10 +50,10 @@ devtools::install_github("aicplane/LinkageData")
 if (!requireNamespace("devtools", quietly = TRUE))
   install.packages("devtools")
 
-devtools::install_github("aicplane/LinkageR")
+devtools::install_github("aicplane/Linkage")
 ```
 
 ``` r
-library(LinkageR)
+library(Linkage)
 Install.biocViews()
 ```
