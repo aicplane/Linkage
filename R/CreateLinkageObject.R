@@ -70,7 +70,7 @@ setMethod(
 #' @importFrom dplyr select
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' LinkageObject <-
 #'   CreateLinkageObject(
 #'     ATAC_count = Small_ATAC,

@@ -11,8 +11,8 @@
 #' @importFrom motifmatchr matchMotifs
 #'
 #' @examples
-#' library(LinkageR)
-#' peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "LinkageR")
+#' library(Linkage)
+#' peakpath <- system.file("extdata","ENSG00000000419.rdata",package = "Linkage")
 #' load(peakpath)
 #' motif <- MotifEnrichment(PeakFile, "Homo")
 #' head(motif)
@@ -54,10 +54,10 @@ MotifEnrichment <- function(peakfile, Species) {
 #' @importFrom TFBSTools getMatrixByID seqLogo toICM
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' SeqLogoPlot("MA0618.1")
 SeqLogoPlot <- function(motif_ID) {
-  sqlite.dir <- system.file("extdata","JASPAR2022.sqlite", package = "LinkageR")
+  sqlite.dir <- system.file("extdata","JASPAR2022.sqlite", package = "Linkage")
   m <- getMatrixByID(sqlite.dir, motif_ID)
   return(seqLogo(toICM(m)))
 }
@@ -77,7 +77,7 @@ SeqLogoPlot <- function(motif_ID) {
 #' @importFrom motifmatchr matchMotifs
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' LinkageObject <-
 #'   CreateLinkageObject(
 #'     ATAC_count = Small_ATAC,

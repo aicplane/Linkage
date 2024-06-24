@@ -14,7 +14,7 @@
 #' @importFrom clusterProfiler enrichGO
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
@@ -81,7 +81,7 @@ GOEnrichment <-
 #' @importFrom clusterProfiler enrichKEGG
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SASPGeneSet")
 #' KEGG <-
 #'   KEGGEnrichment(
@@ -144,7 +144,7 @@ KEGGEnrichment <-
 #' @import ggplot2
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
@@ -175,7 +175,7 @@ EnrichDotPlot <- function(object,size = 8) {
 #' @import ggplot2
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
@@ -206,7 +206,7 @@ EnrichUpsetPlot <- function(object, size = 8) {
 #' @import ggplot2
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
@@ -236,7 +236,7 @@ EnrichCnetPlot <- function(object, size = 8) {
 #' @import ggplot2
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,
@@ -268,7 +268,7 @@ EnrichBarPlot <- function(object, size = 8) {
 #' @importFrom wordcloud wordcloud
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SASPGeneSet")
 #' go <-
 #'   GOEnrichment(gene_list = SASPGeneSet,

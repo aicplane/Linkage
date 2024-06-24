@@ -4,7 +4,7 @@
 #' @export
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' Install.biocViews()
 Install.biocViews <- function() {
   if (!requireNamespace("BiocManager", quietly = TRUE)) {

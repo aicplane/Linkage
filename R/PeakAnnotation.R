@@ -12,7 +12,7 @@
 #' @importFrom ChIPseeker annotatePeak
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-
@@ -82,7 +82,7 @@ PeakAnnotation <- function(LinkageObject, Species = "Homo") {
 #' @importFrom UpSetR upset
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-

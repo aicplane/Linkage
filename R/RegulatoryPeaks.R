@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-
@@ -139,7 +139,7 @@ RegulatoryPeak <- function(LinkageObject, gene_list, genelist_idtype, range = 50
 #' @import ggplot2
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("SmallLinkageObject")
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #' LinkageObject <-

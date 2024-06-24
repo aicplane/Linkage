@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("Small_ATAC.rda")
 #' data("Small_RNA.rda")
 #' LinkageObject <-
@@ -126,7 +126,7 @@ FilterGRNs <- function(LinkageObject, genelist_idtype, filter_col, filter_value)
 #' @import visNetwork
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' data("Small_ATAC.rda")
 #' data("Small_RNA.rda")
 #' LinkageObject <-

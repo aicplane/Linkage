@@ -16,7 +16,7 @@
 #' @importFrom cowplot plot_grid
 #'
 #' @examples
-#' library(LinkageR)
+#' library(Linkage)
 #' gene_list <- c("TSPAN6", "CD99", "KLHL13")
 #'   LinkageObject <-
 #' RegulatoryPeak(
