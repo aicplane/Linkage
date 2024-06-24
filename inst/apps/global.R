@@ -19,6 +19,7 @@ library(enrichplot)
 library(plotly)
 library(wordcloud2)
 library(LinkageData)
+library(LinkageR)
 
 color_from_middle <- function (data, color1,color2)
 {
@@ -111,13 +112,13 @@ cor_test <- function(ATAC2, gene, method, Filter_col, Filter_value) {
   ATAC2$FDR <- FDR
   ATAC2$rho <- r
   if (Filter_col == "FDR") {
-    ATAC3 <<- ATAC2[ATAC2$FDR <= Filter_value, ]
+    ATAC3 <<- ATAC2[as.numeric(ATAC2$FDR) <= Filter_value, ]
   }
   if (Filter_col == "rho") {
-    ATAC3 <<- ATAC2[ATAC2$rho >= Filter_value, ]
+    ATAC3 <<- ATAC2[as.numeric(ATAC2$rho) >= Filter_value, ]
   }
   if (Filter_col == "p_value") {
-    ATAC3 <<- ATAC2[ATAC2$p_value <= Filter_value, ]
+    ATAC3 <<- ATAC2[as.numeric(ATAC2$p_value) <= Filter_value, ]
   }
   return(ATAC3)
 }
