@@ -1,4 +1,4 @@
-Package: LinkageR
+Package: Linkage
 Type: Package
 Title: An R Package for Linking of ATAC-Seq to Gene Expression Data
 Version: 1.2.0
@@ -69,7 +69,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 Depends: R (>= 4.3)
-URL: https://aicplane.github.io/Linkage-tutorial/
+URL: https://aicplane.github.io/Linkage
 LazyData: true
 VignetteBuilder: knitr
 ByteCompile: true
